@@ -23,7 +23,7 @@
     </field>
     <filled namelist="lang" mode="all">
         <prompt>
-            You select <value expr="lang">
+            You select <value expr="lang"/>
         </prompt>
     </filled>
 </form>
