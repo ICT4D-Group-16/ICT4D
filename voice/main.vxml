@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1">
 <form id="main">
-    <block>
+    <field name="lang">
         <prompt>
         For English, press 1.<break/>
         Pour le français, appuyez sur 2.
-        
         </prompt>
-    </block>
+        <grammar root="supported-languages" mode="dtmf">
+            <rule id="supported-languages">
+                <one-of>
+                    <item>1</item>
+                    <item>2</item>
+                </one-of>
+            </rule>
+        </grammar>
+        <noinput>
+        <reprompt/>
+        </noinput>
+        <nomatch>
+        <reprompt/>
+        </nomatch>
+        </prompt>
+    </field>
+    <filled namelist="lang" mode="all">
+        <prompt>
+            You select <value expr="lang">
+        </prompt>
+    </filled>
 </form>
 </vxml>
