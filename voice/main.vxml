@@ -15,12 +15,11 @@
             </rule>
         </grammar>
         <noinput>
-        <reprompt/>
+            <reprompt/>
         </noinput>
         <nomatch>
-        <reprompt/>
+            <reprompt/>
         </nomatch>
-        </prompt>
     </field>
     <filled namelist="lang" mode="all">
         <prompt>
