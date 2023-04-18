@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1">
+<form id="main">
+    <block>
+        <prompt>
+        For English, press 1.<break/>
+        Pour le français, appuyez sur 2.
+        
+        </prompt>
+    </block>
+</form>
+</vxml>
