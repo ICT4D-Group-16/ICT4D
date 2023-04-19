@@ -33,32 +33,7 @@
             <prompt>
                 English
             </prompt>
-            <field name="role">
-                <prompt>
-                    Select your role.<break/>
-                    Press 1 for buyer,<break/>
-                    Press 2 for seller.
-                </prompt>
-                <grammar root="r" mode="dtmf">
-                    <rule id="r">
-                        <one-of>
-                            <item>1</item>
-                            <item>2</item>
-                        </one-of>
-                    </rule>
-                </grammar>
-                <noinput>
-                    <reprompt/>
-                </noinput>
-                <nomatch>
-                    <reprompt/>
-                </nomatch>
-            </field>
-            <!-- <filled namelist="role">
-                <prompt>
-                    You select <value expr="role"/>.
-                </prompt>
-            </filled> -->
+            <goto next="#role_en"/>
         </if>
         <if cond="lang == &quot;2&quot;">
             <prompt>
@@ -75,6 +50,34 @@
                 Waiting for a radio operator.
             </prompt>
         </if>
+    </filled>
+</form>
+<form id="role_en">
+    <field name="role">
+        <prompt>
+            Select your role.<break/>
+            Press 1 for buyer,<break/>
+            Press 2 for seller.
+        </prompt>
+        <grammar root="r" mode="dtmf">
+            <rule id="r">
+                <one-of>
+                    <item>1</item>
+                    <item>2</item>
+                </one-of>
+            </rule>
+        </grammar>
+        <noinput>
+            <reprompt/>
+        </noinput>
+        <nomatch>
+            <reprompt/>
+        </nomatch>
+    </field>
+    <filled namelist="role">
+        <prompt>
+            You select <value expr="role"/>.
+        </prompt>
     </filled>
 </form>
 </vxml>
