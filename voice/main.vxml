@@ -7,8 +7,8 @@
             Pour le Français, appuyez sur 2.<break/>
             Otherwise, press 0.
         </prompt>
-        <grammar root="supported-languages" mode="dtmf">
-            <rule id="supported-languages">
+        <grammar root="r" mode="dtmf">
+            <rule id="r">
                 <one-of>
                     <item>1</item>
                     <item>2</item>
@@ -33,27 +33,44 @@
             <prompt>
                 English
             </prompt>
-            <!-- <form>
-                <field name="mode-en">
-                    <prompt>
-                        Select your role.<break/>
-                        Press 1 for buyer,<break/>
-                        Press 2 for seller.
-                    </prompt>
-                </field>
-            </form> -->
+            <field name="role">
+                <prompt>
+                    Select your role.<break/>
+                    Press 1 for buyer,<break/>
+                    Press 2 for seller.
+                </prompt>
+                <grammar root="r" mode="dtmf">
+                    <rule id="r">
+                        <one-of>
+                            <item>1</item>
+                            <item>2</item>
+                        </one-of>
+                    </rule>
+                </grammar>
+                <noinput>
+                    <reprompt/>
+                </noinput>
+                <nomatch>
+                    <reprompt/>
+                </nomatch>
+            </field>
+            <filled namelist="role">
+                <prompt>
+                    You select <value expr="role"/>.
+                </prompt>
+            </filled>
         </if>
         <if cond="lang == &quot;2&quot;">
             <prompt>
                 Français
             </prompt>
-            <!-- <form>
-                <field name="mode-fr">
+            <form>
+                <field name="mode_fr">
                     <prompt>
-                        field. name: mode-fr language: français
+                        field. name: mode_fr language: français
                     </prompt>
                 </field>
-            </form> -->
+            </form>
         </if>
         <if cond="lang == &quot;0&quot;">
             <prompt>
