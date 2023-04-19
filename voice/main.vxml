@@ -42,14 +42,14 @@
                     Press 2 for seller.
                 </prompt>
             </field>
-        </else>
+        </elseif>
         <elseif cond="lang == &quot;2&quot;">
             <field name="mode-fr">
                 <prompt>
                     field name:"mode-fr" language: français
                 </prompt>
             </field>
-        </else>
+        </elseif>
     </filled>
 </form>
 </vxml>
