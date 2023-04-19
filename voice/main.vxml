@@ -27,29 +27,33 @@
     </field>
     <filled namelist="lang">
         <prompt>
-            You select <value expr="lang"/>
+            You select <value expr="lang"/>.
         </prompt>
+        <if cond="lang == &quot;1&quot;">
+            <form>
+                <field name="mode-en">
+                    <prompt>
+                        Select your role.<break/>
+                        Press 1 for buyer,<break/>
+                        Press 2 for seller.
+                    </prompt>
+                </field>
+            </form>
+        </if>
+        <if cond="lang == &quot;2&quot;">
+            <form>
+                <field name="mode-fr">
+                    <prompt>
+                        field. name: mode-fr language: français
+                    </prompt>
+                </field>
+            </form>
+        </if>
         <if cond="lang == &quot;0&quot;">
             <prompt>
                 Waiting for a radio operator.
             </prompt>
         </if>
-        <elseif cond="lang == &quot;1&quot;">
-            <field name="mode-en">
-                <prompt>
-                    Select your role.<break/>
-                    Press 1 for buyer,<break/>
-                    Press 2 for seller.
-                </prompt>
-            </field>
-        </elseif>
-        <elseif cond="lang == &quot;2&quot;">
-            <field name="mode-fr">
-                <prompt>
-                    field name:"mode-fr" language: français
-                </prompt>
-            </field>
-        </elseif>
     </filled>
 </form>
 </vxml>
