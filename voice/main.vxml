@@ -26,24 +26,13 @@
         </nomatch>
     </field>
     <filled namelist="lang">
-        <prompt>
-            You select <value expr="lang"/>.
-        </prompt>
         <if cond="lang == &quot;1&quot;">
-            <prompt>
-                English
-            </prompt>
             <goto next="#role_en"/>
         </if>
         <if cond="lang == &quot;2&quot;">
             <prompt>
-                Français
+                You select Français.
             </prompt>
-            <field name="role-fr">
-                <prompt>
-                    field. name: role-fr language: français
-                </prompt>
-            </field>
         </if>
         <if cond="lang == &quot;0&quot;">
             <prompt>
