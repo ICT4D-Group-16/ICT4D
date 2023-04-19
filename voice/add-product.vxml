@@ -5,6 +5,8 @@
         <prompt>
             Enter product name. Press any key to finish.
         </prompt>
+        <filled>
+        </filled>
     </record>
     <field name="count">
         <prompt>
@@ -20,6 +22,8 @@
         <prompt>
             Enter the unit of price. Press any key to finish.
         </prompt>
+        <filled>
+        </filled>
     </record>
     <prompt>
         Check the product information.
