@@ -54,23 +54,21 @@
                     <reprompt/>
                 </nomatch>
             </field>
-            <filled namelist="role">
+            <!-- <filled namelist="role">
                 <prompt>
                     You select <value expr="role"/>.
                 </prompt>
-            </filled>
+            </filled> -->
         </if>
         <if cond="lang == &quot;2&quot;">
             <prompt>
                 Français
             </prompt>
-            <form>
-                <field name="mode_fr">
-                    <prompt>
-                        field. name: mode_fr language: français
-                    </prompt>
-                </field>
-            </form>
+            <field name="role-fr">
+                <prompt>
+                    field. name: role-fr language: français
+                </prompt>
+            </field>
         </if>
         <if cond="lang == &quot;0&quot;">
             <prompt>
