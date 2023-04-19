@@ -64,9 +64,9 @@
         </nomatch>
     </field>
     <filled namelist="role">
-        <prompt>
-            You select <value expr="role"/>.
-        </prompt>
+        <if cond="role == '2'">
+            <goto next="add-product.vxml"/>
+        </if>
     </filled>
 </form>
 </vxml>
