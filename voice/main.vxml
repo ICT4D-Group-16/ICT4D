@@ -3,14 +3,18 @@
 <form id="main">
     <field name="lang">
         <prompt>
-        For English, press 1.<break/>
-        Pour le français, appuyez sur 2.
+            For English, press 1.<break/>
+            Pour le français, appuyez sur 2.<break/>
+            Otherwise, press 0.
         </prompt>
         <grammar root="supported-languages" mode="dtmf">
             <rule id="supported-languages">
                 <one-of>
                     <item>1</item>
                     <item>2</item>
+                    <item>3</item>
+                    <item>4</item>
+                    <item>0</item>
                 </one-of>
             </rule>
         </grammar>
@@ -21,10 +25,15 @@
             <reprompt/>
         </nomatch>
     </field>
-    <filled namelist="lang" mode="all">
+    <filled namelist="lang">
         <prompt>
             You select <value expr="lang"/>
         </prompt>
+        <if cond="lang == &quot;0&quot;">
+            <prompt>
+                Waiting for a radio operator.
+            </prompt>
+        </if>
     </filled>
 </form>
 </vxml>
