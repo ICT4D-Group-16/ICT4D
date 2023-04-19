@@ -4,7 +4,7 @@
     <field name="lang">
         <prompt>
             For English, press 1.<break/>
-            Pour le français, appuyez sur 2.<break/>
+            Pour le Français, appuyez sur 2.<break/>
             Otherwise, press 0.
         </prompt>
         <grammar root="supported-languages" mode="dtmf">
@@ -34,6 +34,22 @@
                 Waiting for a radio operator.
             </prompt>
         </if>
+        <elseif cond="lang == &quot;1&quot;">
+            <field name="mode-en">
+                <prompt>
+                    Select your role.<break/>
+                    Press 1 for buyer,<break/>
+                    Press 2 for seller.
+                </prompt>
+            </field>
+        </else>
+        <elseif cond="lang == &quot;2&quot;">
+            <field name="mode-fr">
+                <prompt>
+                    field name:"mode-fr" language: français
+                </prompt>
+            </field>
+        </else>
     </filled>
 </form>
 </vxml>
