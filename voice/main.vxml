@@ -30,7 +30,10 @@
             You select <value expr="lang"/>.
         </prompt>
         <if cond="lang == &quot;1&quot;">
-            <form>
+            <prompt>
+                English
+            </prompt>
+            <!-- <form>
                 <field name="mode-en">
                     <prompt>
                         Select your role.<break/>
@@ -38,16 +41,19 @@
                         Press 2 for seller.
                     </prompt>
                 </field>
-            </form>
+            </form> -->
         </if>
         <if cond="lang == &quot;2&quot;">
-            <form>
+            <prompt>
+                Français
+            </prompt>
+            <!-- <form>
                 <field name="mode-fr">
                     <prompt>
                         field. name: mode-fr language: français
                     </prompt>
                 </field>
-            </form>
+            </form> -->
         </if>
         <if cond="lang == &quot;0&quot;">
             <prompt>
