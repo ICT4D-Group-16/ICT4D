@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1">
 <form id="product">
-    <field name="name">
-        <record name="name" beep="true" dtmfterm="true">
-            <prompt>
-                Enter product name. Press any key to finish.
-            </prompt>
-        </record>
-    </field>
+    <record name="name" beep="true" dtmfterm="true">
+        <prompt>
+            Enter product name. Press any key to finish.
+        </prompt>
+    </record>
     <field name="count">
         <prompt>
             Enter product count.
@@ -18,13 +16,11 @@
             Enter the price of each.
         </prompt>
     </field>
-    <field name="unit">
-        <record name="unit" beep="true" dtmfterm="true">
-            <prompt>
-                Enter the unit of price. Press any key to finish.
-            </prompt>
-        </record>
-    </field>
+    <record name="unit" beep="true" dtmfterm="true">
+        <prompt>
+            Enter the unit of price. Press any key to finish.
+        </prompt>
+    </record>
     <prompt>
         Check the product information.
     </prompt>
