@@ -13,4 +13,4 @@ logging:
     path: /var/logs
   level:
     root: info
-    com.macro.mall: info
+    com.ict4d_16.dos: info

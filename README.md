@@ -13,26 +13,27 @@ mall-tiny是一款基于SpringBoot+MyBatis-Plus的快速开发脚手架，拥有
 
 ## 项目演示
 
-mall-tiny项目可无缝对接`mall-admin-web`前端项目，秒变权限管理系统。前端项目地址：https://github.com/macrozheng/mall-admin-web
+mall-tiny项目可无缝对接`mall-admin-web`
+前端项目，秒变权限管理系统。前端项目地址：https://github.com/macrozheng/mall-admin-web
 
 ![](http://img.macrozheng.com/mall/project/mall_tiny_start_09.png)
 
 ## 技术选型
 
-| 技术                   | 版本    | 说明             |
-| ---------------------- | ------- | ---------------- |
-| SpringBoot             | 2.7.0   | 容器+MVC框架     |
-| SpringSecurity         | 5.7.1   | 认证和授权框架   |
-| MyBatis                | 3.5.9   | ORM框架          |
-| MyBatis-Plus           | 3.5.1   | MyBatis增强工具  |
-| MyBatis-Plus Generator | 3.5.1   | 数据层代码生成器 |
-| Swagger-UI             | 3.0.0   | 文档生产工具     |
+| 技术                     | 版本      | 说明          |
+|------------------------|---------|-------------|
+| SpringBoot             | 2.7.0   | 容器+MVC框架    |
+| SpringSecurity         | 5.7.1   | 认证和授权框架     |
+| MyBatis                | 3.5.9   | ORM框架       |
+| MyBatis-Plus           | 3.5.1   | MyBatis增强工具 |
+| MyBatis-Plus Generator | 3.5.1   | 数据层代码生成器    |
+| Swagger-UI             | 3.0.0   | 文档生产工具      |
 | Redis                  | 5.0     | 分布式缓存       |
-| Docker                 | 18.09.0 | 应用容器引擎     |
-| Druid                  | 1.2.9   | 数据库连接池     |
-| Hutool                 | 5.8.0   | Java工具类库     |
-| JWT                    | 0.9.1   | JWT登录支持      |
-| Lombok                 | 1.18.24 | 简化对象封装工具 |
+| Docker                 | 18.09.0 | 应用容器引擎      |
+| Druid                  | 1.2.9   | 数据库连接池      |
+| Hutool                 | 5.8.0   | Java工具类库    |
+| JWT                    | 0.9.1   | JWT登录支持     |
+| Lombok                 | 1.18.24 | 简化对象封装工具    |
 
 ## 数据库表结构
 
@@ -46,7 +47,8 @@ mall-tiny项目可无缝对接`mall-admin-web`前端项目，秒变权限管理�
 
 ### 环境搭建
 
-简化依赖服务，只需安装最常用的MySql和Redis服务即可，服务安装具体参考[mall在Windows环境下的部署](https://www.macrozheng.com/mall/deploy/mall_deploy_windows.html) ，数据库中需要导入`mall_tiny.sql`脚本。
+简化依赖服务，只需安装最常用的MySql和Redis服务即可，服务安装具体参考[mall在Windows环境下的部署](https://www.macrozheng.com/mall/deploy/mall_deploy_windows.html)
+，数据库中需要导入`mall_tiny.sql`脚本。
 
 ### 开发规约
 
@@ -147,7 +149,7 @@ resources
  * Created by macro on 2020/2/2.
  */
 @Service
-public class UmsMenuServiceImpl extends ServiceImpl<UmsMenuMapper,UmsMenu>implements UmsMenuService {
+public class UmsMenuServiceImpl extends ServiceImpl<UmsMenuMapper, UmsMenu> implements UmsMenuService {
 
     @Override
     public boolean create(UmsMenu umsMenu) {
@@ -165,11 +167,11 @@ public class UmsMenuServiceImpl extends ServiceImpl<UmsMenuMapper,UmsMenu>implem
 
     @Override
     public Page<UmsMenu> list(Long parentId, Integer pageSize, Integer pageNum) {
-        Page<UmsMenu> page = new Page<>(pageNum,pageSize);
+        Page<UmsMenu> page = new Page<>(pageNum, pageSize);
         QueryWrapper<UmsMenu> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(UmsMenu::getParentId,parentId)
+        wrapper.lambda().eq(UmsMenu::getParentId, parentId)
                 .orderByDesc(UmsMenu::getSort);
-        return page(page,wrapper);
+        return page(page, wrapper);
     }
 
     @Override
@@ -201,14 +203,14 @@ public class UmsMenuServiceImpl extends ServiceImpl<UmsMenuMapper,UmsMenu>implem
  * Created by macro on 2020/2/2.
  */
 @Service
-public class UmsMenuServiceImpl extends ServiceImpl<UmsMenuMapper,UmsMenu>implements UmsMenuService {
+public class UmsMenuServiceImpl extends ServiceImpl<UmsMenuMapper, UmsMenu> implements UmsMenuService {
     @Override
     public Page<UmsMenu> list(Long parentId, Integer pageSize, Integer pageNum) {
-        Page<UmsMenu> page = new Page<>(pageNum,pageSize);
+        Page<UmsMenu> page = new Page<>(pageNum, pageSize);
         QueryWrapper<UmsMenu> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(UmsMenu::getParentId,parentId)
+        wrapper.lambda().eq(UmsMenu::getParentId, parentId)
                 .orderByDesc(UmsMenu::getSort);
-        return page(page,wrapper);
+        return page(page, wrapper);
     }
 }
 ```
@@ -243,31 +245,31 @@ public interface UmsMenuMapper extends BaseMapper<UmsMenu> {
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.macro.mall.tiny.modules.ums.mapper.UmsMenuMapper">
+<mapper namespace="com.ict4d_16.dos.modules.ums.mapper.UmsMenuMapper">
 
-    <select id="getMenuList" resultType="com.macro.mall.tiny.modules.ums.model.UmsMenu">
+    <select id="getMenuList" resultType="com.ict4d_16.dos.modules.ums.model.UmsMenu">
         SELECT
-            m.id id,
-            m.parent_id parentId,
-            m.create_time createTime,
-            m.title title,
-            m.level level,
-            m.sort sort,
-            m.name name,
-            m.icon icon,
-            m.hidden hidden
+        m.id id,
+        m.parent_id parentId,
+        m.create_time createTime,
+        m.title title,
+        m.level level,
+        m.sort sort,
+        m.name name,
+        m.icon icon,
+        m.hidden hidden
         FROM
-            ums_admin_role_relation arr
-                LEFT JOIN ums_role r ON arr.role_id = r.id
-                LEFT JOIN ums_role_menu_relation rmr ON r.id = rmr.role_id
-                LEFT JOIN ums_menu m ON rmr.menu_id = m.id
+        ums_admin_role_relation arr
+        LEFT JOIN ums_role r ON arr.role_id = r.id
+        LEFT JOIN ums_role_menu_relation rmr ON r.id = rmr.role_id
+        LEFT JOIN ums_menu m ON rmr.menu_id = m.id
         WHERE
-            arr.admin_id = #{adminId}
-          AND m.id IS NOT NULL
+        arr.admin_id = #{adminId}
+        AND m.id IS NOT NULL
         GROUP BY
-            m.id
+        m.id
     </select>
-    
+
 </mapper>
 ```
 
@@ -305,7 +307,8 @@ docker run -p 8080:8080 --name mall-tiny \
 
 #### 请求参数校验
 
-> 默认集成了`Jakarta Bean Validation`参数校验框架，只需在参数对象属性中添加`javax.validation.constraints`包中的注解注解即可实现校验功能，这里以登录参数校验为例。
+> 默认集成了`Jakarta Bean Validation`参数校验框架，只需在参数对象属性中添加`javax.validation.constraints`
+> 包中的注解注解即可实现校验功能，这里以登录参数校验为例。
 
 - 首先在登录请求参数中添加`@NotEmpty`注解；
 
@@ -318,10 +321,10 @@ docker run -p 8080:8080 --name mall-tiny \
 @EqualsAndHashCode(callSuper = false)
 public class UmsAdminLoginParam {
     @NotEmpty
-    @ApiModelProperty(value = "用户名",required = true)
+    @ApiModelProperty(value = "用户名", required = true)
     private String username;
     @NotEmpty
-    @ApiModelProperty(value = "密码",required = true)
+    @ApiModelProperty(value = "密码", required = true)
     private String password;
 }
 ```
