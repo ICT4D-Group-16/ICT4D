@@ -10,7 +10,7 @@
 
     <form id="getUserList">
         <filled>
-            <if cond="IDFound" == 'true'>
+            <if cond="IDFound == 'true'">
                 <goto next="#autoOrHuman"/>
                 <elseif cond="IDFound == 'false'"/>
                 <goto next="#register"/>
@@ -101,7 +101,7 @@
         <field name="humanService">
         </field>
         <filled>
-            <if cond="humanService" == 'true'>
+            <if cond="humanService == 'true'">
                 <goto next="#humanService"/>
                 <elseif cond="humanService == 'false'"/>
                 <goto next="#role_en"/>
