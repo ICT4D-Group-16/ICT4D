@@ -15,8 +15,8 @@
             <prompt>
                 Enter product count.
             </prompt>
-            <grammar root="r" mode="dtmf">
-                <rule id="r">
+            <grammar root="rule_count" mode="dtmf">
+                <rule id="rule_count">
                 </rule>
             </grammar>
         </field>
@@ -24,8 +24,8 @@
             <prompt>
                 Enter the price of each.
             </prompt>
-            <grammar root="r" mode="dtmf">
-                <rule id="r">
+            <grammar root="rule_price" mode="dtmf">
+                <rule id="rule_price">
                 </rule>
             </grammar>
         </field>
@@ -39,8 +39,8 @@
                 </prompt>
             </filled>
         </record>
-        <prompt>
-            Check the product information.
-        </prompt>
+<!--        <prompt>-->
+<!--            Check the product information.-->
+<!--        </prompt>-->
     </form>
 </vxml>
