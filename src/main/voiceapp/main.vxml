@@ -1,126 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
-
-    <form id="getCallerID">
-        <block>
-            <value expr="session.callerid"/>
-            <goto next="#getUserList"/>
-        </block>
-    </form>
-
-    <form id="getUserList">
-        <filled>
-            <if cond="IDFound == 'true'">
-                <goto next="#autoOrHuman"/>
-                <elseif cond="IDFound == 'false'"/>
-                <goto next="#register"/>
-            </if>
-        </filled>
-    </form>
-
-    <form id="register">
-        <block>
-            <prompt bargein="false">
-                Please select service language.
-            </prompt>
-        </block>
-        <field name="languageSelected">
-            <grammar xml:lang="en-US" root="LANGUAGESELECTED">
-                <rule id="LANGUAGESELECTED" scope="public">
-                    <one-of>
-                        <item>
-                            <one-of>
-                                <item>English</item>
-                            </one-of>
-                            <tag>out.languageSelected ="English";</tag>
-                        </item>
-                        <!-- If the user says any of the following choices, then the grammar assigns "plant" to
-                        the MeatOrPlant variable. -->
-                        <item>
-                            <one-of>
-                                <item>French</item>
-                            </one-of>
-                            <tag>out.languageSelected ="French";</tag>
-                        </item>
-                    </one-of>
-                </rule>
-            </grammar>
-            <noinput>
-                <prompt>
-                    I did not hear anything. Please try again.
-                </prompt>
-                <reprompt/>
-            </noinput>
-            <nomatch>
-                <prompt>
-                    I did not recognize that language. Please try again.
-                </prompt>
-                <reprompt/>
-            </nomatch>
-        </field>
-        <filled>
-            <!-- Save selected language. -->
-            <goto next="#selectCommunity"/>
-        </filled>
-    </form>
-
-    <form id="selectCommunity">
-        <block>
-            <prompt bargein="false">
-                Please select your community.
-            </prompt>
-        </block>
-        <field name="communitySelected">
-            <grammar xml:lang="en-US" root="COMMUNITYSELECTED">
-                <rule id="COMMUNITYSELECTED" scope="public">
-                </rule>
-            </grammar>
-            <noinput>
-                <prompt>
-                    I did not hear anything. Please try again.
-                </prompt>
-                <reprompt/>
-            </noinput>
-            <nomatch>
-                <prompt>
-                    I did not recognize that community. Please try again.
-                </prompt>
-                <reprompt/>
-            </nomatch>
-        </field>
-        <filled>
-            <!-- Save selected community. -->
-            <goto next="#createUser"/>
-        </filled>
-    </form>
-
-    <form id="createUser">
-    </form>
-
-    <form id="autoOrHuman">
-        <field name="humanService">
-        </field>
-        <filled>
-            <if cond="humanService == 'true'">
-                <goto next="#humanService"/>
-                <elseif cond="humanService == 'false'"/>
-                <goto next="#role_en"/>
-            </if>
-        </filled>
-    </form>
-
-    <form id="humanService">
-    </form>
-
-    <!-- <form id="main">
+    <form id="main">
         <field name="lang">
             <prompt>
-                For English, press 1.<break/>
-                Pour le Français, appuyez sur 2.<break/>
+                For English, press 1.
+                <break/>
+                Pour le Français, appuyez sur 2.
+                <break/>
                 Otherwise, press 0.
             </prompt>
-            <grammar root="r" mode="dtmf">
-                <rule id="r">
+            <grammar root="l" mode="dtmf">
+                <rule id="l">
                     <one-of>
                         <item>1</item>
                         <item>2</item>
@@ -152,7 +42,7 @@
                 </prompt>
             </if>
         </filled>
-    </form> -->
+    </form>
     <form id="role_en">
         <field name="role">
             <prompt>
