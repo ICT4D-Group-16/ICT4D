@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${JAWSDB_URL:jdbc:mysql://jlm5jccg4ynuyp4x:gu0ib3sydpeg8ixm@c8u4r7fp8i8qaniw.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/wmsfvs941zw6czk7}
+    url: jdbc:mysql://jlm5jccg4ynuyp4x:gu0ib3sydpeg8ixm@c8u4r7fp8i8qaniw.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/wmsfvs941zw6czk7?&serverTimezone=UTC
   redis:
     host: eu1-noted-filly-38617.upstash.io
     port: 38617

@@ -137,7 +137,6 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
-                    <executable>D:\Developer\jdk-8\bin\javac</executable> <!--PATH TO JAVAC -->
                 </configuration>
             </plugin>
         </plugins>
