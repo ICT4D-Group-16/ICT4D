@@ -3,7 +3,7 @@
 
     <form id="getCallerID">
         <block>
-            <value expr="session.callerid" />
+            <value expr="session.callerid"/>
             <goto next="#getUserList"/>
         </block>
     </form>
@@ -21,11 +21,11 @@
     <form id="register">
         <block>
             <prompt bargein="false">
-            Please select service language.
+                Please select service language.
             </prompt>
         </block>
         <field name="languageSelected">
-            <grammar xml:lang="en-US" root = "LANGUAGESELECTED">
+            <grammar xml:lang="en-US" root="LANGUAGESELECTED">
                 <rule id="LANGUAGESELECTED" scope="public">
                     <one-of>
                         <item>
@@ -47,13 +47,13 @@
             </grammar>
             <noinput>
                 <prompt>
-                I did not hear anything. Please try again.
+                    I did not hear anything. Please try again.
                 </prompt>
                 <reprompt/>
             </noinput>
             <nomatch>
                 <prompt>
-                I did not recognize that language. Please try again.
+                    I did not recognize that language. Please try again.
                 </prompt>
                 <reprompt/>
             </nomatch>
@@ -67,23 +67,23 @@
     <form id="selectCommunity">
         <block>
             <prompt bargein="false">
-            Please select your community.
+                Please select your community.
             </prompt>
         </block>
         <field name="communitySelected">
-            <grammar xml:lang="en-US" root = "COMMUNITYSELECTED">
+            <grammar xml:lang="en-US" root="COMMUNITYSELECTED">
                 <rule id="COMMUNITYSELECTED" scope="public">
                 </rule>
             </grammar>
             <noinput>
                 <prompt>
-                I did not hear anything. Please try again.
+                    I did not hear anything. Please try again.
                 </prompt>
                 <reprompt/>
             </noinput>
             <nomatch>
                 <prompt>
-                I did not recognize that community. Please try again.
+                    I did not recognize that community. Please try again.
                 </prompt>
                 <reprompt/>
             </nomatch>
@@ -112,73 +112,75 @@
     <form id="humanService">
     </form>
 
-<!-- <form id="main">
-    <field name="lang">
-        <prompt>
-            For English, press 1.<break/>
-            Pour le Français, appuyez sur 2.<break/>
-            Otherwise, press 0.
-        </prompt>
-        <grammar root="r" mode="dtmf">
-            <rule id="r">
-                <one-of>
-                    <item>1</item>
-                    <item>2</item>
-                    <item>3</item>
-                    <item>4</item>
-                    <item>0</item>
-                </one-of>
-            </rule>
-        </grammar>
-        <noinput>
-            <reprompt/>
-        </noinput>
-        <nomatch>
-            <reprompt/>
-        </nomatch>
-    </field>
-    <filled namelist="lang">
-        <if cond="lang == &quot;1&quot;">
-            <goto next="#role_en"/>
-        </if>
-        <if cond="lang == &quot;2&quot;">
+    <!-- <form id="main">
+        <field name="lang">
             <prompt>
-                You select Français.
+                For English, press 1.<break/>
+                Pour le Français, appuyez sur 2.<break/>
+                Otherwise, press 0.
             </prompt>
-        </if>
-        <if cond="lang == &quot;0&quot;">
+            <grammar root="r" mode="dtmf">
+                <rule id="r">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>3</item>
+                        <item>4</item>
+                        <item>0</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <noinput>
+                <reprompt/>
+            </noinput>
+            <nomatch>
+                <reprompt/>
+            </nomatch>
+        </field>
+        <filled namelist="lang">
+            <if cond="lang == &quot;1&quot;">
+                <goto next="#role_en"/>
+            </if>
+            <if cond="lang == &quot;2&quot;">
+                <prompt>
+                    You select Français.
+                </prompt>
+            </if>
+            <if cond="lang == &quot;0&quot;">
+                <prompt>
+                    Waiting for a radio operator.
+                </prompt>
+            </if>
+        </filled>
+    </form> -->
+    <form id="role_en">
+        <field name="role">
             <prompt>
-                Waiting for a radio operator.
+                Select your role.
+                <break/>
+                Press 1 for buyer,
+                <break/>
+                Press 2 for seller.
             </prompt>
-        </if>
-    </filled>
-</form> -->
-<form id="role_en">
-    <field name="role">
-        <prompt>
-            Select your role.<break/>
-            Press 1 for buyer,<break/>
-            Press 2 for seller.
-        </prompt>
-        <grammar root="r" mode="dtmf">
-            <rule id="r">
-                <one-of>
-                    <item>1</item>
-                    <item>2</item>
-                </one-of>
-            </rule>
-        </grammar>
-        <noinput>
-            <reprompt/>
-        </noinput>
-        <nomatch>
-            <reprompt/>
-        </nomatch>
-    </field>
-    <filled namelist="role">
-        <if cond="role == '2'">
-            <goto next="add-product.vxml"/>
-        </if>
-    </filled>
-</form>
+            <grammar root="r" mode="dtmf">
+                <rule id="r">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <noinput>
+                <reprompt/>
+            </noinput>
+            <nomatch>
+                <reprompt/>
+            </nomatch>
+        </field>
+        <filled namelist="role">
+            <if cond="role == '2'">
+                <goto next="add-product.vxml"/>
+            </if>
+        </filled>
+    </form>
 </vxml>

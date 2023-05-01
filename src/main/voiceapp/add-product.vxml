@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vxml version="2.1">
-<form id="product">
-    <record name="name" beep="true" dtmfterm="true">
-        <prompt>
-            Enter product name. Press any key to finish.
-        </prompt>
-        <filled>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <form id="product">
+        <record name="name" beep="true" dtmfterm="true">
             <prompt>
-                Record ended.
+                Enter product name. Press any key to finish.
             </prompt>
-        </filled>
-    </record>
-    <field name="count">
-        <prompt>
-            Enter product count.
-        </prompt>
-        <grammar root="r" mode="dtmf">
-            <rule id="r">
-            </rule>
-        </grammar>
-    </field>
-    <field name="price">
-        <prompt>
-            Enter the price of each.
-        </prompt>
-        <grammar root="r" mode="dtmf">
-            <rule id="r">
-            </rule>
-        </grammar>
-    </field>
-    <record name="unit" beep="true" dtmfterm="true">
-        <prompt>
-            Enter the unit of price. Press any key to finish.
-        </prompt>
-        <filled>
+            <filled>
+                <prompt>
+                    Record ended.
+                </prompt>
+            </filled>
+        </record>
+        <field name="count">
             <prompt>
-                Record ended.
+                Enter product count.
             </prompt>
-        </filled>
-    </record>
-    <prompt>
-        Check the product information.
-    </prompt>
-</form>
+            <grammar root="r" mode="dtmf">
+                <rule id="r">
+                </rule>
+            </grammar>
+        </field>
+        <field name="price">
+            <prompt>
+                Enter the price of each.
+            </prompt>
+            <grammar root="r" mode="dtmf">
+                <rule id="r">
+                </rule>
+            </grammar>
+        </field>
+        <record name="unit" beep="true" dtmfterm="true">
+            <prompt>
+                Enter the unit of price. Press any key to finish.
+            </prompt>
+            <filled>
+                <prompt>
+                    Record ended.
+                </prompt>
+            </filled>
+        </record>
+        <prompt>
+            Check the product information.
+        </prompt>
+    </form>
 </vxml>
