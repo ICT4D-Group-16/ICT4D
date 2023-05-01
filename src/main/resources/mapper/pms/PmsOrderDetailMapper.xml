@@ -9,7 +9,7 @@
         <result column="product_id" property="productId" />
         <result column="product_price" property="productPrice" />
         <result column="product_quantity" property="productQuantity" />
-        <result column="pruduct_total_price" property="pruductTotalPrice" />
+        <result column="product_total_price" property="productTotalPrice" />
         <result column="modified_time" property="modifiedTime" />
     </resultMap>
 
