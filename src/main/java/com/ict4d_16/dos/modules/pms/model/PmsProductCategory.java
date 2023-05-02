@@ -15,13 +15,13 @@ import lombok.Setter;
  * Product Catagory Table
  * </p>
  *
- * @author macro
  * @since 2023-05-01
+ * @version 1.0
  */
 @Getter
 @Setter
 @TableName("pms_product_category")
-@ApiModel(value = "PmsProductCategory对象", description = "Product Catagory Table")
+@ApiModel(value = "PmsProductCategory Object", description = "Product Catagory Table")
 public class PmsProductCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;

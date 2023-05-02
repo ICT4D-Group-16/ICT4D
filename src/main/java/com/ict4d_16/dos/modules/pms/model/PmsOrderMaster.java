@@ -16,13 +16,13 @@ import lombok.Setter;
  * Order Info Table
  * </p>
  *
- * @author macro
  * @since 2023-05-01
+ * @version 1.0
  */
 @Getter
 @Setter
 @TableName("pms_order_master")
-@ApiModel(value = "PmsOrderMaster对象", description = "Order Info Table")
+@ApiModel(value = "PmsOrderMaster Object", description = "Order Info Table")
 public class PmsOrderMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;

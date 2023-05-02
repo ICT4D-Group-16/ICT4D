@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- * Order Info Table 前端控制器
+ * Order Info Table
  * </p>
  *
  * @since 2023-05-01

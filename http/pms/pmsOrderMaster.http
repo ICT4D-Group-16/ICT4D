@@ -41,5 +41,5 @@ Content-Type: application/json
 }
 
 ### Request: DELETE Request
-DELETE http://localhost:8077/pms/pmsOrderMaster/delete/1231
+DELETE http://localhost:8077/pms/pmsOrderMaster/delete/2
 

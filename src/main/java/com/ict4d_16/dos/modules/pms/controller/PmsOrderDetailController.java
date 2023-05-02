@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- * Order detail table. Each order has N order detail table. 前端控制器
+ * Order detail table. Each order has N order detail table.
  * </p>
  *
  * @since 2023-05-01
