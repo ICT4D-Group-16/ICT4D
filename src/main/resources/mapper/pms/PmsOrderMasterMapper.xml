@@ -6,7 +6,6 @@
     <resultMap id="BaseResultMap" type="com.ict4d_16.dos.modules.pms.model.PmsOrderMaster">
         <id column="order_id" property="orderId" />
         <result column="user_id" property="userId" />
-        <result column="address_id" property="addressId" />
         <result column="order_money" property="orderMoney" />
         <result column="shipping_money" property="shippingMoney" />
         <result column="tracking_number" property="trackingNumber" />

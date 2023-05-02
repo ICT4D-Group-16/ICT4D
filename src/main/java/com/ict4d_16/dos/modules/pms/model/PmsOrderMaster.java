@@ -34,9 +34,6 @@ public class PmsOrderMaster implements Serializable {
     @ApiModelProperty("Customer User ID")
     private Long userId;
 
-    @ApiModelProperty("Customer Address ID")
-    private Long addressId;
-
     @ApiModelProperty("Order Money, US dollar. Order Money = All Producats Money + Shipping Money")
     private BigDecimal orderMoney;
 

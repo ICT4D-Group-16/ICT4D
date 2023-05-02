@@ -11,7 +11,6 @@ Content-Type: application/json
 {
   "orderId": 2,
   "userId": 2,
-  "addressId": 2,
   "orderMoney": 2.00,
   "shippingMoney": 2.00,
   "trackingNumber": "2",
@@ -30,7 +29,6 @@ Content-Type: application/json
 {
   "orderId": 1,
   "userId": 1,
-  "addressId": 1,
   "orderMoney": 1.00,
   "shippingMoney": 250.00,
   "trackingNumber": "1",
