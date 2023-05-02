@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<vxml version="2.1">
+  <form>
+    <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" accept="application/json"/>
+      <block>
+        The grass is <value expr="thedata.colors[0]"/>
+        The sky is <value expr="thedata.colors[1]"/>
+        The sun is <value expr="thedata.colors[2]"/>
+      </block>
+  </form>
+</vxml>

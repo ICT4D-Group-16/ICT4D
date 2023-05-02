@@ -56,3 +56,4 @@ secure:
       - /user/info
       - /user/logout
       - /pms/**
+      - /hello
