@@ -49,7 +49,7 @@ public class PmsOrderDetailController {
         return success ? "success" : "failure";
     }
 
-    @ApiOperation(value = "delete a user by id")
+    @ApiOperation(value = "delete a user by its id")
     @DeleteMapping("/delete/{id}")
     public String deleteById(@PathVariable Long id) {
         boolean success = pmsOrderDetailService.removeById(id);
