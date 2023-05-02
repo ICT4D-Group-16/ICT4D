@@ -85,7 +85,7 @@
                 Enter product name. Press any key to finish.
             </prompt>
             <filled>
-                <var name="recording" expr="name"/>
+                <var name="product_name" expr="name"/>
                 <prompt>
                     Record ended.
                 </prompt>
