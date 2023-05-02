@@ -1,0 +1,11 @@
+### Request 1: GET Request
+GET http://localhost:8077/pms/pmsOrderDetail
+
+### Request 2: POST Request
+POST http://localhost:8077/pms/pmsOrderDetail
+
+### Request 3: PUT Request
+PUT http://localhost:8077/pms/pmsOrderDetail
+
+### Request 4: DELETE Request
+DELETE http://localhost:8077/pms/pmsOrderDetail
