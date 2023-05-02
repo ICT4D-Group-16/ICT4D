@@ -1,11 +1,37 @@
-### Request 1: GET Request
-GET http://localhost:8077/pms/pmsOrderDetail
+### Request: GET All
+GET http://localhost:8077/pms/pmsOrderDetail/list
 
-### Request 2: POST Request
-POST http://localhost:8077/pms/pmsOrderDetail
+### Request: GET EACH
+GET http://localhost:8077/pms/pmsOrderDetail/get/123
 
-### Request 3: PUT Request
-PUT http://localhost:8077/pms/pmsOrderDetail
+### Request: POST Request
+POST http://localhost:8077/pms/pmsOrderDetail/add
+Content-Type: application/json
 
-### Request 4: DELETE Request
-DELETE http://localhost:8077/pms/pmsOrderDetail
+{
+  "orderDetailId": 1231,
+  "orderId": 1231,
+  "productId": 1231,
+  "productPrice": 1231.00,
+  "productQuantity": 1231,
+  "productTotalPrice": 1231.00,
+  "modifiedTime": "2023-04-02 17:40:29"
+}
+
+### Request: PUT Request
+PUT http://localhost:8077/pms/pmsOrderDetail/update
+Content-Type: application/json
+
+{
+  "orderDetailId": 1231,
+  "orderId": 1231,
+  "productId": 1231222,
+  "productPrice": 1231.00,
+  "productQuantity": 1231,
+  "productTotalPrice": 1231.00,
+  "modifiedTime": "2023-04-02 17:40:29"
+}
+
+### Request: DELETE Request
+DELETE http://localhost:8077/pms/pmsOrderDetail/delete/1231
+
