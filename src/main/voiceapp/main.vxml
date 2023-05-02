@@ -88,7 +88,7 @@
             <filled>
 <!--                <var name="product_name" expr="name"/>-->
 <!--                <value expr="submit_recording(&quot;product_name&quot;,name)"/>-->
-                <submit next="tst0.herokuapp.com/upload" method="post" enctype="multipart/form-data"/>
+                <submit next="tst0.herokuapp.com/upload" method="post" namelist="name" enctype="multipart/form-data"/>
                 <prompt>
                     Record ended.
                 </prompt>
