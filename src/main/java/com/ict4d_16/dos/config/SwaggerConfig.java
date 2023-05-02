@@ -61,8 +61,8 @@ public class SwaggerConfig extends BaseSwaggerConfig {
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
                 .apiBasePackage("com.ict4d_16.dos.modules")
-                .title("ICT4D项目骨架")
-                .description("ICT4D项目骨架相关接口文档")
+                .title("ICT4D Skeleton")
+                .description("ICT4D Project Skeleton related Interface Documentation")
                 .contactName("ICT4D-16")
                 .version("1.1")
                 .enableSecurity(true)
