@@ -16,13 +16,13 @@ import lombok.Setter;
  * Order detail table. Each order has N order detail table.
  * </p>
  *
- * @author macro
  * @since 2023-05-01
+ * @version 1.0
  */
 @Getter
 @Setter
 @TableName("pms_order_detail")
-@ApiModel(value = "PmsOrderDetail对象", description = "Order detail table. Each order has N order detail table.")
+@ApiModel(value = "PmsOrderDetail Object", description = "Order detail table. Each order has N order detail table.")
 public class PmsOrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class PmsOrderDetail implements Serializable {
     private Integer productQuantity;
 
     @ApiModelProperty("Product Total Price")
-    private BigDecimal pruductTotalPrice;
+    private BigDecimal productTotalPrice;
 
     @ApiModelProperty("Order Detail Last Modified Time")
     private Date modifiedTime;

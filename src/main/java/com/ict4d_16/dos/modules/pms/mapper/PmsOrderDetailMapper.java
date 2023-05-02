@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * Order detail table. Each order has N order detail table. Mapper 接口
  * </p>
  *
- * @author macro
  * @since 2023-05-01
+ * @version 1.0
  */
 public interface PmsOrderDetailMapper extends BaseMapper<PmsOrderDetail> {
 

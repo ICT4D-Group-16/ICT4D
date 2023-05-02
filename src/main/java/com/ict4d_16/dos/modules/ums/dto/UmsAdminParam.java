@@ -3,6 +3,7 @@ package com.ict4d_16.dos.modules.ums.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -22,9 +23,14 @@ public class UmsAdminParam {
     private String password;
     @ApiModelProperty(value = "用户头像")
     private String icon;
+    @NotEmpty
+    @ApiModelProperty(value = "Phone Number", required = true)
+    private String phone;
     @Email
     @ApiModelProperty(value = "邮箱")
     private String email;
+    @ApiModelProperty(value = "Address")
+    private String address;
     @ApiModelProperty(value = "用户昵称")
     private String nickName;
     @ApiModelProperty(value = "备注")

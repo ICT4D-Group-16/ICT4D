@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * Product Catagory Table 服务类
  * </p>
  *
- * @author macro
  * @since 2023-05-01
+ * @version 1.0
  */
 public interface PmsProductCategoryService extends IService<PmsProductCategory> {
 

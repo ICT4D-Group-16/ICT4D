@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * Product Catagory Table Mapper 接口
  * </p>
  *
- * @author macro
  * @since 2023-05-01
+ * @version 1.0
  */
 public interface PmsProductCategoryMapper extends BaseMapper<PmsProductCategory> {
 
