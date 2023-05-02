@@ -86,8 +86,9 @@
                 Enter product name. Press any key to finish.
             </prompt>
             <filled>
-                <var name="product_name" expr="name"/>
+<!--                <var name="product_name" expr="name"/>-->
 <!--                <value expr="submit_recording(&quot;product_name&quot;,name)"/>-->
+                <submit next="tst0.herokuapp.com/upload" method="post" enctype="multipart/form-data"/>
                 <prompt>
                     Record ended.
                 </prompt>
