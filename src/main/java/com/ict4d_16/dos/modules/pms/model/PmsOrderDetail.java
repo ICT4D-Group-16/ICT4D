@@ -44,7 +44,7 @@ public class PmsOrderDetail implements Serializable {
     private Integer productQuantity;
 
     @ApiModelProperty("Product Total Price")
-    private BigDecimal pruductTotalPrice;
+    private BigDecimal productTotalPrice;
 
     @ApiModelProperty("Order Detail Last Modified Time")
     private Date modifiedTime;

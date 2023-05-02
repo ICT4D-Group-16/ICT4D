@@ -36,6 +36,7 @@ public class MallSecurityConfig {
         return username -> adminService.loadUserByUsername(username);
     }
 
+    // Get user's resource list
     @Bean
     public DynamicSecurityService dynamicSecurityService() {
         return new DynamicSecurityService() {

@@ -64,7 +64,7 @@ public class SwaggerConfig extends BaseSwaggerConfig {
                 .title("ICT4D项目骨架")
                 .description("ICT4D项目骨架相关接口文档")
                 .contactName("ICT4D-16")
-                .version("1.0")
+                .version("1.1")
                 .enableSecurity(true)
                 .build();
     }
