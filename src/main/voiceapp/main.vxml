@@ -80,12 +80,14 @@
 <!--                Enter product name. Press any key to finish.-->
 <!--            </prompt>-->
 <!--        </field>-->
+        <script src="submit-recording.js"/>
         <record name="name" beep="true" dtmfterm="true">
             <prompt>
                 Enter product name. Press any key to finish.
             </prompt>
             <filled>
                 <var name="product_name" expr="name"/>
+<!--                <value expr="submit_recording(&quot;product_name&quot;,name)"/>-->
                 <prompt>
                     Record ended.
                 </prompt>
