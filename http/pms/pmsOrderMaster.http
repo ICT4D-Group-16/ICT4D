@@ -1,0 +1,47 @@
+### Request: GET All
+GET http://localhost:8077/pms/pmsOrderMaster/list
+
+### Request: GET EACH
+GET http://localhost:8077/pms/pmsOrderMaster/get/1
+
+### Request: POST Request
+POST http://localhost:8077/pms/pmsOrderMaster/add
+Content-Type: application/json
+
+{
+  "orderId": 2,
+  "userId": 2,
+  "addressId": 2,
+  "orderMoney": 2.00,
+  "shippingMoney": 2.00,
+  "trackingNumber": "2",
+  "createTime": "2023-05-02 19:55:50",
+  "shippingTime": "2023-05-02 19:55:58",
+  "payTime": "2023-05-02 19:56:01",
+  "receiveTime": "2023-05-02 19:56:02",
+  "orderStatus": 1,
+  "modifiedTime": "2023-05-02 19:56:25"
+}
+
+### Request: PUT Request
+PUT http://localhost:8077/pms/pmsOrderMaster/update
+Content-Type: application/json
+
+{
+  "orderId": 1,
+  "userId": 1,
+  "addressId": 1,
+  "orderMoney": 1.00,
+  "shippingMoney": 250.00,
+  "trackingNumber": "1",
+  "createTime": "2023-05-02 19:55:50",
+  "shippingTime": "2023-05-02 19:55:58",
+  "payTime": "2023-05-02 19:56:01",
+  "receiveTime": "2023-05-02 19:56:02",
+  "orderStatus": 1,
+  "modifiedTime": "2023-05-02 19:56:25"
+}
+
+### Request: DELETE Request
+DELETE http://localhost:8077/pms/pmsOrderMaster/delete/1231
+

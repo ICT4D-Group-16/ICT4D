@@ -1,0 +1,29 @@
+### Request: GET All
+GET http://localhost:8077/pms/pmsProductCategory/list
+
+### Request: GET EACH
+GET http://localhost:8077/pms/pmsProductCategory/get/1
+
+### Request: POST Request
+POST http://localhost:8077/pms/pmsProductCategory/add
+Content-Type: application/json
+
+{
+  "categoryId": 2,
+  "categoryName": "necessities",
+  "modifiedTime": "2023-05-02 20:07:04"
+}
+
+### Request: PUT Request
+PUT http://localhost:8077/pms/pmsProductCategory/update
+Content-Type: application/json
+
+{
+  "categoryId": 2,
+  "categoryName": "jewel",
+  "modifiedTime": "2023-05-02 20:07:04"
+}
+
+### Request: DELETE Request
+DELETE http://localhost:8077/pms/pmsProductCategory/delete/2
+
