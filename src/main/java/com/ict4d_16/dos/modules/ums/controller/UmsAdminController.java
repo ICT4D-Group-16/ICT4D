@@ -36,8 +36,27 @@ import java.util.stream.Collectors;
 @Tag(name = "UmsAdminController", description = "后台用户管理")
 @RequestMapping("/admin")
 public class UmsAdminController {
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
     @Autowired
     private UmsAdminService adminService;
+
+    @ApiOperation(value = "刷新token")
+    @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult refreshToken(HttpServletRequest request) {
+        String token = request.getHeader(tokenHeader);
+        String refreshToken = adminService.refreshToken(token);
+        if (refreshToken == null) {
+            return CommonResult.failed("token已经过期！");
+        }
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", refreshToken);
+        tokenMap.put("tokenHead", tokenHead);
+        return CommonResult.success(tokenMap);
+    }
 
     @ApiOperation("根据用户名或姓名分页获取用户列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
