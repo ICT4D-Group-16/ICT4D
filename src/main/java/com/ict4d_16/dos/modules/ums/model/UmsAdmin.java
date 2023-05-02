@@ -46,6 +46,9 @@ public class UmsAdmin implements Serializable {
     @ApiModelProperty(value = "邮箱")
     private String email;
 
+    @ApiModelProperty(value = "Address")
+    private String address;
+
     @ApiModelProperty(value = "昵称")
     private String nickName;
 
