@@ -20,9 +20,8 @@ import java.util.List;
 //produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_ATOM_XML_VALUE})
 public class HelloController {
 
-    @RequestMapping(value = "/hello", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-    produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_ATOM_XML_VALUE})
-    public @ResponseBody Hello hello(Hello hello) {
+    @RequestMapping(value = "/hello", method = RequestMethod.POST)
+    public @ResponseBody Hello hello(@RequestBody Hello hello) {
         return hello;
     }
 }
