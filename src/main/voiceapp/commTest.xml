@@ -1,14 +1,23 @@
 <?xml version="1.0"?>
 <vxml version="2.1">
   <form>
-    <var name="var1" expr="Green">
-    <var name="var2" expr="Red">
-    <var name="var3" expr="Blue">
-    <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post" enctype="application/json" accept="application/json" namelist="var1 var2 var3"/>
-      <block>
-        The grass is <value expr="thedata.colors[0]"/>
-        The sky is <value expr="thedata.colors[1]"/>
-        The sun is <value expr="thedata.colors[2]"/>
-      </block>
+    <var name="var1"/>
+    <block>
+      <assign name="var1" expr="Green"/>
+    </block>
+    <var name="var2"/>
+    <block>
+      <assign name="var2" expr="Red"/>
+    </block>
+    <var name="var3"/>
+    <block>
+      <assign name="var3" expr="Blue"/>
+    </block>
+    <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post" accept="application/json" namelist="var1 var2 var3"/>
+    <block>
+    The grass is <value expr="thedata.var1"/>
+    The sky is <value expr="thedata.var2"/>
+    The sun is <value expr="thedata.var3"/>
+    </block>
   </form>
 </vxml>
