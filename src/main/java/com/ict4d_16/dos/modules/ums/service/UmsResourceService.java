@@ -8,27 +8,27 @@ import com.ict4d_16.dos.modules.ums.model.UmsResource;
 import java.util.List;
 
 /**
- * 后台资源管理Service
+ * Resource Management Service
  * Created by macro on 2020/2/2.
  */
 public interface UmsResourceService extends IService<UmsResource> {
     /**
-     * 添加资源
+     * add resource
      */
     boolean create(UmsResource umsResource);
 
     /**
-     * 修改资源
+     * update resource
      */
     boolean update(Long id, UmsResource umsResource);
 
     /**
-     * 删除资源
+     * delete resource
      */
     boolean delete(Long id);
 
     /**
-     * 分页查询资源
+     * Paging Search Resources
      */
     Page<UmsResource> list(Long categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum);
 }
