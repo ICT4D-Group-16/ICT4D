@@ -10,10 +10,14 @@
         <block>
             <prompt>
                 Product information.
-                ID:<value expr="product_ID"/>
-                Name:<value expr=""/>
-                Price of each:<value expr=""/>
-                Unit of price:<value expr=""/>
+                ID:
+                <value expr="product_ID"/>
+                Name:
+                <value expr=""/>
+                Price of each:
+                <value expr=""/>
+                Unit of price:
+                <value expr=""/>
             </prompt>
         </block>
         <field name="count" type="digits">
@@ -25,9 +29,12 @@
         <block>
             <prompt>
                 Check the purchase information.
-                Product ID:<value expr="product_ID"/>
-                Count:<value expr="count"/>
-                Total price:<value expr=""/>
+                Product ID:
+                <value expr="product_ID"/>
+                Count:
+                <value expr="count"/>
+                Total price:
+                <value expr=""/>
             </prompt>
         </block>
     </form>

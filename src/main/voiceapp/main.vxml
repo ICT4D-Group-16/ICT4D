@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <var name="lang"/>
     <form id="main">
-        <field name="lang">
+        <field name="language">
             <prompt>
                 For English, press 1.
                 Pour le Français, appuyez sur 2.
@@ -27,17 +28,20 @@
         </field>
         <!--        TODO: Create User if the caller ID (phone number) does not exist.-->
 
-        <filled namelist="lang">
-            <if cond="lang == &quot;1&quot;">
+        <filled namelist="language">
+            <if cond="language == &quot;1&quot;">
+                <assign name="lang" expr="&quot;en&quot;"/>
                 <goto next="#role_en"/>
             </if>
-            <if cond="lang == &quot;2&quot;">
+            <if cond="language == &quot;2&quot;">
+                <assign name="lang" expr="&quot;fr&quot;"/>
                 <!--                TODO-->
                 <prompt>
                     You select Français.
                 </prompt>
             </if>
-            <if cond="lang == &quot;0&quot;">
+            <if cond="language == &quot;0&quot;">
+                <assign name="lang" expr="&quot;other&quot;"/>
                 <!--                TODO-->
                 <prompt>
                     Waiting for a radio operator.

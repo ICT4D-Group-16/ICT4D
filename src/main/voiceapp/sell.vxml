@@ -40,10 +40,14 @@
         <block>
             <prompt>
                 Check the product information.
-                Name:<value expr="name"/>
-                Count:<value expr="count"/>
-                Price of each:<value expr="price"/>
-                Unit of price:<value expr="unit"/>
+                Name:
+                <value expr="name"/>
+                Count:
+                <value expr="count"/>
+                Price of each:
+                <value expr="price"/>
+                Unit of price:
+                <value expr="unit"/>
             </prompt>
         </block>
     </form>
