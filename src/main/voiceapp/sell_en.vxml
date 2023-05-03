@@ -66,35 +66,22 @@
                 <!--                TODO: submit to server-->
                 <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post"
                       enctype="application/json" accept="application/json"/>
-                <prompt>You confirmed this order.</prompt>
+                <prompt>You confirmed to sell.</prompt>
             </if>
             <if cond="confirm == '0'">
-                <prompt>Order canceled.</prompt>
+                <prompt>Cancelled.</prompt>
             </if>
             <goto next="#continue"/>
         </filled>
     </form>
     <form id="continue">
-        <field name="cont">
-            <prompt>
-                To add another product to sell, press 1.
-                To finish, press 0.
-            </prompt>
-            <grammar src="ok_cancel.xml"/>
-            <noinput>
-                <reprompt/>
-            </noinput>
-            <nomatch>
-                <reprompt/>
-            </nomatch>
-        </field>
-        <filled namelist="cont">
-            <if cond="cont == '1'">
-                <goto next="#sell_en"/>
-            </if>
-            <if cond="cont == '0'">
-                <goto next="mode_en.vxml"/>
-            </if>
-        </filled>
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To add another product to sell, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#sell_en"/>
+            <param name="target_if_cancel" value="mode_en.vxml"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
     </form>
 </vxml>

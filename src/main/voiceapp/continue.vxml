@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <form id="continue">
+        <var name="prompt"/>
+        <var name="target_if_ok"/>
+        <var name="target_if_cancel"/>
+        <field name="cont">
+            <prompt>
+                <value expr="prompt"/>
+            </prompt>
+            <grammar src="ok_cancel.xml"/>
+            <noinput>
+                <reprompt/>
+            </noinput>
+            <nomatch>
+                <reprompt/>
+            </nomatch>
+        </field>
+        <filled namelist="cont">
+            <var name="target"/>
+            <if cond="cont == '1'">
+                <assign name="target" expr="target_if_ok"/>
+            </if>
+            <if cond="cont == '0'">
+                <assign name="target" expr="target_if_cancel"/>
+            </if>
+            <return namelist="target"/>
+        </filled>
+    </form>
+</vxml>

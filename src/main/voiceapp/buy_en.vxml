@@ -12,11 +12,14 @@
                 Product information.
                 ID:
                 <value expr="product_ID"/>
+                <break/>
                 Name:
                 <value expr=""/>
+                <break/>
                 Price of each:
                 <value expr=""/>
                 <value expr=""/>
+                <break/>
             </prompt>
         </block>
         <field name="count" type="digits">
@@ -25,7 +28,7 @@
             </prompt>
             <grammar src="builtin:dtmf/number"/>
         </field>
-        <block>
+        <field name="confirm">
             <prompt>
                 Check the purchase information.
                 Product ID:
@@ -34,10 +37,35 @@
                 Count:
                 <value expr="count"/>
                 <break/>
-                Total price:
+                Price of each:
+                <value expr=""/>
                 <value expr=""/>
                 <break/>
+                Total price:
+                <value expr=""/>
+                <value expr=""/>
+                <break/>
+                Press 1 to confirm this order.
+                Press 0 to cancel.
             </prompt>
-        </block>
+            <grammar src="ok_cancel.xml"/>
+            <noinput>
+                <reprompt/>
+            </noinput>
+            <nomatch>
+                <reprompt/>
+            </nomatch>
+        </field>
+        <filled namelist="confirm">
+            <if cond="confirm == '1'">
+                <!--                TODO: submit to server-->
+                <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post"
+                      enctype="application/json" accept="application/json"/>
+                <prompt>You have confirmed this order.</prompt>
+            </if>
+            <if cond="confirm == '0'">
+                <prompt>Order cancelled.</prompt>
+            </if>
+        </filled>
     </form>
 </vxml>
