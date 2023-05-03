@@ -1,81 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
-    <form id="sell_en">
-        <script src="submit-recording.js"/>
-        <record name="name" beep="true" dtmfterm="true">
-            <prompt>
-                Enter product name. Press any key to finish.
-            </prompt>
-            <filled>
-                <!--                <var name="product_name" expr="name"/>-->
-                <!--                <value expr="submit_recording(&quot;product_name&quot;,name)"/>-->
-                <!--                <submit next="tst0.herokuapp.com/upload" method="post" namelist="name" enctype="multipart/form-data"/>-->
-                <prompt>
-                    Record ended.
-                </prompt>
-            </filled>
-        </record>
-        <field name="count" type="digits">
-            <prompt>
-                Enter product count. Press star for decimal point. Press # to finish.
-            </prompt>
-            <grammar src="builtin:dtmf/number"/>
-        </field>
-        <field name="price" type="digits">
-            <prompt>
-                Enter the price of each. Press star for decimal point. Press # to finish.
-            </prompt>
-            <grammar src="builtin:dtmf/number"/>
-        </field>
-        <record name="unit" beep="true" dtmfterm="true">
-            <prompt>
-                Enter the unit of price. Press any key to finish.
-            </prompt>
-            <filled>
-                <prompt>
-                    Record ended.
-                </prompt>
-            </filled>
-        </record>
-        <field name="confirmed">
-            <prompt>
-                Check the product information.
-                Name:
-                <value expr="name"/>
-                <break/>
-                Count:
-                <value expr="count"/>
-                <break/>
-                Price of each:
-                <value expr="price"/>
-                <value expr="unit"/>
-                <break/>
-                Press 1 to confirm. Press 0 to cancel.
-            </prompt>
-            <grammar root="r" mode="dtmf">
-                <rule id="r">
-                    <one-of>
-                        <item>1</item>
-                        <item>0</item>
-                    </one-of>
-                </rule>
-            </grammar>
-            <noinput>
-                <reprompt/>
-            </noinput>
-            <nomatch>
-                <reprompt/>
-            </nomatch>
-        </field>
-        <filled namelist="confirmed">
-            <if cond="confirmed == '1'">
-                <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post"
-                      enctype="application/json" accept="application/json"/>
-                <prompt>You confirmed this order.</prompt>
-            </if>
-            <if cond="confirmed == '0'">
-                <prompt>Order canceled.</prompt>
-            </if>
-        </filled>
-    </form>
+	<form id="sell_en">
+		<script src="submit-recording.js"/>
+		<record name="name" beep="true" dtmfterm="true">
+			<prompt>
+				Enter product name. Press any key to finish.
+			</prompt>
+			<filled>
+				<!--                <var name="product_name" expr="name"/>-->
+				<!--                <value expr="submit_recording(&quot;product_name&quot;,name)"/>-->
+				<!--                <submit next="tst0.herokuapp.com/upload" method="post" namelist="name" enctype="multipart/form-data"/>-->
+				<prompt>
+					Record ended.
+				</prompt>
+			</filled>
+		</record>
+		<field name="count" type="digits">
+			<prompt>
+				Enter product count. Press star for decimal point. Press # to finish.
+			</prompt>
+			<grammar src="builtin:dtmf/number"/>
+		</field>
+		<field name="price" type="digits">
+			<prompt>
+				Enter the price of each. Press star for decimal point. Press # to finish.
+			</prompt>
+			<grammar src="builtin:dtmf/number"/>
+		</field>
+		<record name="unit" beep="true" dtmfterm="true">
+			<prompt>
+				Enter the unit of price. Press any key to finish.
+			</prompt>
+			<filled>
+				<prompt>
+					Record ended.
+				</prompt>
+			</filled>
+		</record>
+		<field name="confirm">
+			<prompt>
+				Check the product information.
+				Name:
+				<value expr="name"/>
+				<break/>
+				Count:
+				<value expr="count"/>
+				<break/>
+				Price of each:
+				<value expr="price"/>
+				<value expr="unit"/>
+				<break/>
+				Press 1 to confirm this order.
+				Press 0 to cancel.
+			</prompt>
+			<grammar src="ok_cancel.xml"/>
+			<noinput>
+				<reprompt/>
+			</noinput>
+			<nomatch>
+				<reprompt/>
+			</nomatch>
+		</field>
+		<filled namelist="confirm">
+			<if cond="confirm == '1'">
+				<data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post"
+					  enctype="application/json" accept="application/json"/>
+				<prompt>You confirmed this order.</prompt>
+			</if>
+			<if cond="confirm == '0'">
+				<prompt>Order canceled.</prompt>
+			</if>
+		</filled>
+<!--		<field name="continue">-->
+<!--			<prompt>-->
+<!--				To add another product to sell, press 1.-->
+<!--				To finish, press 0.-->
+<!--			</prompt>-->
+<!--			<grammar src="ok_cancel.xml"/>-->
+<!--			<noinput>-->
+<!--				<reprompt/>-->
+<!--			</noinput>-->
+<!--			<nomatch>-->
+<!--				<reprompt/>-->
+<!--			</nomatch>-->
+<!--		</field>-->
+<!--		<filled namelist="continue">-->
+<!--			<if cond="continue == '1'">-->
+<!--				<goto next="#sell_en"/>-->
+<!--			</if>-->
+<!--			<if cond="continue == '0'">-->
+<!--				<goto next="mode_en.vxml"/>-->
+<!--			</if>-->
+<!--		</filled>-->
+	</form>
 </vxml>
