@@ -15,23 +15,17 @@
                 </prompt>
             </filled>
         </record>
-        <field name="count">
+        <field name="count" type="digits">
             <prompt>
                 Enter product count.
             </prompt>
-            <grammar root="rule_count" mode="dtmf">
-                <rule id="rule_count">
-                </rule>
-            </grammar>
+            <grammar src="builtin:dtmf/number"/>
         </field>
-        <field name="price">
+        <field name="price" type="digits">
             <prompt>
                 Enter the price of each.
             </prompt>
-            <grammar root="rule_price" mode="dtmf">
-                <rule id="rule_price">
-                </rule>
-            </grammar>
+            <grammar src="builtin:dtmf/number"/>
         </field>
         <record name="unit" beep="true" dtmfterm="true">
             <prompt>
