@@ -10,9 +10,16 @@
         <filled>
             <prompt>
                 Order Information.
-                ID:
+                Order ID:
                 <value expr="order_ID"/>
-                Name:
+                <break/>
+                Product ID:
+                <value expr=""/>
+                <break/>
+                Seller:
+                <value expr=""/>
+                <break/>
+                Product name:
                 <value expr=""/>
                 <break/>
                 Count:
@@ -21,8 +28,12 @@
                 Price of each:
                 <value expr=""/>
                 <value expr=""/>
+                <break/>
                 Total price:
                 <value expr=""/>
+                <value expr=""/>
+                <break/>
+                Time:
                 <value expr=""/>
                 <break/>
             </prompt>
