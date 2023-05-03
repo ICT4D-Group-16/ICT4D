@@ -31,7 +31,7 @@
         <filled namelist="language">
             <if cond="language == &quot;1&quot;">
                 <assign name="lang" expr="&quot;en&quot;"/>
-                <goto next="#role_en"/>
+                <goto next="mode_en.vxml"/>
             </if>
             <if cond="language == &quot;2&quot;">
                 <assign name="lang" expr="&quot;fr&quot;"/>
@@ -46,37 +46,6 @@
                 <prompt>
                     Waiting for a radio operator.
                 </prompt>
-            </if>
-        </filled>
-    </form>
-    <form id="role_en">
-        <field name="role">
-            <prompt>
-                Select your role.
-                Press 1 for buyer,
-                Press 2 for seller.
-            </prompt>
-            <grammar root="r" mode="dtmf">
-                <rule id="r">
-                    <one-of>
-                        <item>1</item>
-                        <item>2</item>
-                    </one-of>
-                </rule>
-            </grammar>
-            <noinput>
-                <reprompt/>
-            </noinput>
-            <nomatch>
-                <reprompt/>
-            </nomatch>
-        </field>
-        <filled namelist="role">
-            <if cond="role == '1'">
-                <goto next="buy.vxml"/>
-            </if>
-            <if cond="role == '2'">
-                <goto next="sell.vxml"/>
             </if>
         </filled>
     </form>

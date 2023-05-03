@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <form id="mode_en">
+        <field name="mode">
+            <prompt>
+                Select mode.
+                Press 1 to buy.
+                Press 2 to sell.
+                Press 3 to query orders.
+            </prompt>
+            <grammar root="r" mode="dtmf">
+                <rule id="r">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <noinput>
+                <reprompt/>
+            </noinput>
+            <nomatch>
+                <reprompt/>
+            </nomatch>
+        </field>
+        <filled namelist="mode">
+            <if cond="mode == '1'">
+                <goto next="buy_en.vxml"/>
+            </if>
+            <if cond="mode == '2'">
+                <goto next="sell_en.vxml"/>
+            </if>
+        </filled>
+    </form>
+</vxml>
