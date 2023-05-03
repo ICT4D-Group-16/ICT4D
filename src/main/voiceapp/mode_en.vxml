@@ -7,12 +7,15 @@
                 Press 1 to buy.
                 Press 2 to sell.
                 Press 3 to query orders.
+                Press star to go back to the previous menu.
             </prompt>
             <grammar root="r" mode="dtmf">
                 <rule id="r">
                     <one-of>
                         <item>1</item>
                         <item>2</item>
+                        <item>3</item>
+                        <item>*</item>
                     </one-of>
                 </rule>
             </grammar>
@@ -29,6 +32,12 @@
             </if>
             <if cond="mode == '2'">
                 <goto next="sell_en.vxml"/>
+            </if>
+            <if cond="mode == '3'">
+                <goto next="query_en.vxml"/>
+            </if>
+            <if cond="mode == '*'">
+                <goto next="main.vxml"/>
             </if>
         </filled>
     </form>
