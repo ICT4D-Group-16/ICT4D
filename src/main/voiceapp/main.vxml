@@ -68,9 +68,11 @@
             </nomatch>
         </field>
         <filled namelist="role">
+            <if cond="role == '1'">
+                <goto next="buy.vxml"/>
+            </if>
             <if cond="role == '2'">
                 <goto next="sell.vxml"/>
-                <!--                <goto next="#product"/>-->
             </if>
         </filled>
     </form>
