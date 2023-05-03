@@ -63,6 +63,7 @@
         </field>
         <filled namelist="confirm">
             <if cond="confirm == '1'">
+                <!--                TODO: submit to server-->
                 <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post"
                       enctype="application/json" accept="application/json"/>
                 <prompt>You confirmed this order.</prompt>
