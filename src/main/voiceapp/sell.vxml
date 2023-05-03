@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
-    <form id="product">
+    <form id="product_for_sale">
         <script src="submit-recording.js"/>
         <record name="name" beep="true" dtmfterm="true">
             <prompt>
