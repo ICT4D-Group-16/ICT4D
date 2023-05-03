@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
     <form id="product_for_buy">
-        <field name="product_id" type="digits">
+        <field name="product_ID" type="digits">
             <prompt>
                 Enter the ID of the product you want to purchase.
             </prompt>
@@ -10,7 +10,7 @@
         <block>
             <prompt>
                 Product information.
-                ID:<value expr="product_id"/>
+                ID:<value expr="product_ID"/>
                 Name:<value expr=""/>
                 Price of each:<value expr=""/>
                 Unit of price:<value expr=""/>
@@ -25,7 +25,7 @@
         <block>
             <prompt>
                 Check the purchase information.
-                Product ID:<value expr="product_id"/>
+                Product ID:<value expr="product_ID"/>
                 Count:<value expr="count"/>
                 Total price:<value expr=""/>
             </prompt>

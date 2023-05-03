@@ -4,9 +4,7 @@
         <field name="lang">
             <prompt>
                 For English, press 1.
-                <break/>
                 Pour le Français, appuyez sur 2.
-                <break/>
                 Otherwise, press 0.
             </prompt>
             <grammar root="l" mode="dtmf">
@@ -27,16 +25,20 @@
                 <reprompt/>
             </nomatch>
         </field>
+        <!--        TODO: Create User if the caller ID (phone number) does not exist.-->
+
         <filled namelist="lang">
             <if cond="lang == &quot;1&quot;">
                 <goto next="#role_en"/>
             </if>
             <if cond="lang == &quot;2&quot;">
+                <!--                TODO-->
                 <prompt>
                     You select Français.
                 </prompt>
             </if>
             <if cond="lang == &quot;0&quot;">
+                <!--                TODO-->
                 <prompt>
                     Waiting for a radio operator.
                 </prompt>
@@ -47,9 +49,7 @@
         <field name="role">
             <prompt>
                 Select your role.
-                <break/>
                 Press 1 for buyer,
-                <break/>
                 Press 2 for seller.
             </prompt>
             <grammar root="r" mode="dtmf">
