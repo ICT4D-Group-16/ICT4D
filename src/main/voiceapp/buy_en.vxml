@@ -71,7 +71,7 @@
     </form>
     <form id="continue">
         <subdialog src="continue.vxml" name="ret">
-            <param name="prompt" expr="To add another product to buy, press 1. To finish, press 0."/>
+            <param name="prompt" value="To add another product to buy, press 1. To finish, press 0."/>
             <param name="target_if_ok" value="#buy_en"/>
             <param name="target_if_cancel" value="mode_en.vxml"/>
             <filled>
