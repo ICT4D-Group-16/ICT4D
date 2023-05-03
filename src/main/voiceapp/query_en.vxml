@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
     <form id="query_en">
-
+        <field name="order_ID" type="digits">
+            <prompt>
+                Enter the ID of the order you want to query.
+            </prompt>
+            <grammar src="builtin:dtmf/digits"/>
+        </field>
+        <filled>
+            <prompt>
+                Order Information.
+                ID:
+                <value expr="order_ID"/>
+                Name:
+                <value expr=""/>
+                <break/>
+                Count:
+                <value expr="count"/>
+                <break/>
+                Price of each:
+                <value expr=""/>
+                <value expr=""/>
+                Total price:
+                <value expr=""/>
+                <value expr=""/>
+                <break/>
+            </prompt>
+            <goto next="#continue"/>
+        </filled>
+    </form>
+    <form id="continue">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To query another order, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#query_en"/>
+            <param name="target_if_cancel" value="mode_en.vxml"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
     </form>
 </vxml>
