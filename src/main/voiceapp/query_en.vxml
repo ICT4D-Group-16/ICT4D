@@ -8,6 +8,7 @@
             <grammar src="builtin:dtmf/digits"/>
         </field>
         <filled>
+            <!--            TODO: Get product information from the back end-->
             <prompt>
                 Order Information.
                 Order ID:
