@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
     <form id="buy_en">
+        <var name="product_inf"/>
         <field name="product_ID" type="digits">
             <prompt>
                 Enter the ID of the product you want to purchase.
             </prompt>
             <grammar src="builtin:dtmf/digits"/>
         </field>
-        <block>
-            <!--            TODO: Get product information from the back end-->
+        <filled namelist="product_ID">
+            <data name="product_inf" srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/pmsProduct/get/&quot; + product_ID" method="get"/>
             <prompt>
                 Product information.
                 ID:
-                <value expr="product_ID"/>
+                <value expr="product_inf.productId"/>
                 <break/>
                 Name:
-                <value expr=""/>
+                <value expr="product_inf.productName"/>
                 <break/>
                 Price of each:
-                <value expr=""/>
+                <value expr="product_inf.price"/>
                 <value expr=""/>
                 <break/>
             </prompt>
-        </block>
+        </filled>
         <field name="count" type="digits">
             <prompt>
                 Enter the count of this purchase.
@@ -35,15 +36,21 @@
                 Product ID:
                 <value expr="product_ID"/>
                 <break/>
+                Product name:
+                <value expr="product_inf.productName"/>
+                <break/>
+                Product description:
+                <value expr="product_inf.description"/>
+                <break/>
                 Count:
                 <value expr="count"/>
                 <break/>
                 Price of each:
-                <value expr=""/>
+                <value expr="product_inf.price"/>
                 <value expr=""/>
                 <break/>
                 Total price:
-                <value expr=""/>
+                <value expr="product_inf.price * count"/>
                 <value expr=""/>
                 <break/>
                 Press 1 to confirm this order.

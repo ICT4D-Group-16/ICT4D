@@ -5,23 +5,8 @@
     <var name="lang"/>
 
     <form id="main">
-<!--        <var name="JSONSTR" expr="{keyA:'valueA',keyB:'valueB',keyC:'valueC'}"/>-->
-
         <field name="language">
             <prompt>
-<!--                Running tests.-->
-<!--                The value of JSON_string =-->
-<!--                <value expr="JSON.stringify(JSONSTR)"/>-->
-<!--                <break/>-->
-<!--                The value of JSONSTR.keyA =-->
-<!--                <value expr="JSONSTR.keyA"/>-->
-<!--                <break/>-->
-<!--                The value of JSONSTR.keyB =-->
-<!--                <value expr="JSONSTR.keyB"/>-->
-<!--                <break/>-->
-<!--                The value of JSONSTR.keyC =-->
-<!--                <value expr="JSONSTR.keyC"/>-->
-<!--                <break/>-->
                 For English, press 1.
                 Pour le Français, appuyez sur 2.
                 Otherwise, press 0.
