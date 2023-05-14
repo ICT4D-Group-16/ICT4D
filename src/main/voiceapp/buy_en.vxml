@@ -42,7 +42,10 @@
                 Product description:
                 <value expr="product_inf.description"/>
                 <break/>
-                Count:
+                Production date:
+                <value expr="product_inf.productionDate"/>
+                <break/>
+                Purchase count:
                 <value expr="count"/>
                 <break/>
                 Price of each:
@@ -67,7 +70,7 @@
         <filled namelist="confirm">
             <if cond="confirm == '1'">
                 <!--                TODO: submit to server-->
-                <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post"
+                <data name="response" src="https://ict4d-group16.herokuapp.com/hello" method="post"
                       enctype="application/json" accept="application/json"/>
                 <prompt>You have confirmed this order.</prompt>
             </if>
