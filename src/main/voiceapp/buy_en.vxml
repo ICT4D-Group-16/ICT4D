@@ -74,7 +74,7 @@
         <filled namelist="confirm">
             <if cond="confirm == '1'">
                 <!--                TODO: submit to server-->
-                <data name="response" src="https://ict4d-group16.herokuapp.com/pms/pmsOrderDetail/add"
+                <data name="response" src="https://ict4d-group16.herokuapp.com/pms/pmsOrderMaster/add"
                       method="post" enctype="application/json" accept="application/json"
                       namelist=""/>
                 <prompt>You have confirmed this order.</prompt>

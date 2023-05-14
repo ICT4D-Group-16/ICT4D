@@ -63,12 +63,12 @@
         </field>
         <filled namelist="confirm">
             <if cond="confirm == '1'">
-                <data name="response" src="https://ict4d-group16.herokuapp.com/hello"
-                      method="post" enctype="application/json" accept="application/json"
-                      namelist="quantity price"/>
-<!--                <data name="response" src="https://ict4d-group16.herokuapp.com/pms/pmsProduct/add"-->
+<!--                <data name="response" src="https://ict4d-group16.herokuapp.com/hello"-->
 <!--                      method="post" enctype="application/json" accept="application/json"-->
 <!--                      namelist="quantity price"/>-->
+                <data name="response" src="https://ict4d-group16.herokuapp.com/pms/pmsProduct/add"
+                      method="post" enctype="application/json" accept="application/json"
+                      namelist="quantity price"/>
                 <prompt>You confirmed to sell.</prompt>
             </if>
             <if cond="confirm == '0'">
