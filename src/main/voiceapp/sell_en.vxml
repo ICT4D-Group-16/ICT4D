@@ -2,7 +2,7 @@
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
     <form id="sell_en">
         <script src="submit-recording.js"/>
-        <record name="name" beep="true" dtmfterm="true">
+        <record name="productName" beep="true" dtmfterm="true">
             <prompt>
                 Enter product name. Press any key to finish.
             </prompt>
@@ -15,7 +15,7 @@
                 </prompt>
             </filled>
         </record>
-        <field name="count" type="digits">
+        <field name="quantity" type="digits">
             <prompt>
                 Enter product count. Press star for decimal point. Press # to finish.
             </prompt>
@@ -41,10 +41,10 @@
             <prompt>
                 Check the product information.
                 Name:
-                <value expr="name"/>
+                <value expr="productName"/>
                 <break/>
                 Count:
-                <value expr="count"/>
+                <value expr="quantity"/>
                 <break/>
                 Price of each:
                 <value expr="price"/>
@@ -63,9 +63,8 @@
         </field>
         <filled namelist="confirm">
             <if cond="confirm == '1'">
-                <!--                TODO: submit to server-->
-                <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post"
-                      enctype="application/json" accept="application/json"/>
+                <data name="response" src="https://ict4d-group16.herokuapp.com/pms/pmsProduct/add" method="post"
+                      enctype="application/json" accept="application/json" namelist="quantity price"/>
                 <prompt>You confirmed to sell.</prompt>
             </if>
             <if cond="confirm == '0'">

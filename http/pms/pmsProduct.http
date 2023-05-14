@@ -23,6 +23,15 @@ Content-Type: application/json
   "modifiedTime": "2023-05-02 20:10:03"
 }
 
+### Request: POST Request
+POST http://localhost:8077/pms/pmsProduct/add
+Content-Type: application/json
+
+{
+  "price": 1.00,
+  "quantity": 1
+}
+
 ### Request: PUT Request
 PUT http://localhost:8077/pms/pmsProduct/update
 Content-Type: application/json
