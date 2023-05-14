@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <var name="orderMasterSubmitted" expr="false"/>
+    <var name="orderId"/>
     <form id="buy_en">
         <var name="product_inf"/>
         <field name="product_ID" type="digits">
@@ -72,9 +74,9 @@
         <filled namelist="confirm">
             <if cond="confirm == '1'">
                 <!--                TODO: submit to server-->
-                <!--                <data name="response" src="https://ict4d-group16.herokuapp.com/pms/pmsOrderDetail" method="post"-->
-                <!--                      enctype="application/json" accept="application/json" namelist=""/>-->
-                <value expr="submit_order_detail()"/>
+                <data name="response" src="https://ict4d-group16.herokuapp.com/pms/pmsOrderDetail"
+                      method="post" enctype="application/json" accept="application/json"
+                      namelist=""/>
                 <prompt>You have confirmed this order.</prompt>
             </if>
             <if cond="confirm == '0'">
