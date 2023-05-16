@@ -1,0 +1,9 @@
+### Request: POST Request
+POST http://localhost:8077/user/login
+#POST http://ict4d-group16.herokuapp.com/user/login
+Content-Type: application/json
+
+{
+  "password": "114514",
+  "username": "114514"
+}
