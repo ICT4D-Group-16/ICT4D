@@ -14,8 +14,21 @@ Content-Type: application/json
   "recordingId": 13
 }
 
-### Get One Product By Id
-GET https://ict4d-group16.herokuapp.com/pms/product/get/1
+### Get One Product By Product Id
+POST https://ict4d-group16.herokuapp.com/pms/product/get
+content-type: application/json
+
+{
+  "productId": 8
+}
+
+### Get Products By Recording Id
+POST https://ict4d-group16.herokuapp.com/pms/product/get
+Content-Type: application/json
+
+{
+  "recordingId": 13
+}
 
 ### Delete One Product By Id
 DELETE https://ict4d-group16.herokuapp.com/pms/product/delete/1

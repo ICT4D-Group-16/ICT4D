@@ -17,9 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -56,15 +54,28 @@ public class PmsProductController {
         return CommonResult.success(productList, "Get product list successfully");
     }
 
-    @ApiOperation("Get a product by id")
-    @GetMapping("/get/{id}")
-    public CommonResult<PmsProduct> getById(@PathVariable Long id) {
-        PmsProduct product = pmsProductService.getById(id);
-        if (product == null) {
-            return CommonResult.failed("No product found");
-        } else {
-            return CommonResult.success(product, "Get product successfully");
+    @ApiOperation("Get a product. Support query by product id or recording id")
+    @PostMapping("/get")
+    public CommonResult<List<PmsProduct>> getByProductId(@RequestBody Map<String, Long> requestMap) {
+        List<PmsProduct> pmsProducts = new ArrayList<>();
+        if (requestMap.containsKey("productId")) {
+            PmsProduct product = pmsProductService.getById(requestMap.get("productId"));
+            if (product != null) {
+                pmsProducts.add(product);
+                return CommonResult.success(pmsProducts, "Get product successfully");
+            } else {
+                return CommonResult.failed("No product found");
+            }
         }
+        if (requestMap.containsKey("recordingId")) {
+            List<PmsProduct> products = pmsProductService.getByRecordingId(requestMap.get("recordingId"));
+            if (products != null) {
+                return CommonResult.success(products, "Get product successfully");
+            } else {
+                return CommonResult.failed("No product found");
+            }
+        }
+        return CommonResult.failed("No product found");
     }
 
     @ApiOperation("Delete a product by id")
