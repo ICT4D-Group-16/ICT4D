@@ -55,6 +55,7 @@ public class PmsRecordingController {
             recording.setPhone(phone);
             recording.setUrl(filePath);
             recording.setCreateTime(new Date());
+            recording.setStatus(0);
             boolean success = recordingService.save(recording);
             if (success) {
                 return CommonResult.success(recording, "Recording upload successfully!");
