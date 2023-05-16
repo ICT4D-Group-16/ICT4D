@@ -69,7 +69,7 @@
                 <data name="response" src="https://ict4d-group16.herokuapp.com/pms/product/create"
                       method="post" enctype="application/json" accept="application/json"
                       namelist="productName quantity price"/>
-                <prompt>You confirmed to sell.</prompt>
+
             </if>
             <if cond="confirm == '0'">
                 <prompt>Cancelled.</prompt>
