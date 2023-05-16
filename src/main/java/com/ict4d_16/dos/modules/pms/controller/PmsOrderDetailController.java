@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/pms/pmsOrderDetail")
+@RequestMapping("/pms/orderDetail")
 public class PmsOrderDetailController {
     @Autowired
     private PmsOrderDetailService pmsOrderDetailService;

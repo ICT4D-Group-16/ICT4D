@@ -1,47 +1,22 @@
-### Request: GET All
-GET http://localhost:8077/product/list
-e
-### Request: GET EACH
-GET http://localhost:8077/product/get/1
+### Get All Products
+GET https://ict4d-group16.herokuapp.com/pms/product/list
 
-### Request: POST Request
-POST http://localhost:8077/pms/pmsProduct/add
+### Create one New Product
+POST https://ict4d-group16.herokuapp.com/pms/product/create
 Content-Type: application/json
 
 {
-  "productId": 2,
-  "productName": "toy_2",
-  "categoryId": 1,
-  "supplierUserId": 1,
+  "productName": "toy_23",
+  "phone": "114514",
   "price": 1.00,
   "quantity": 1,
-  "publishStatus": 1,
-  "auditStatus": 1,
-  "productionDate": "2023-05-02 20:09:50",
   "description": "For fun",
-  "indate": "2023-05-02 20:10:01",
-  "modifiedTime": "2023-05-02 20:10:03"
+  "recordingId": 13
 }
 
-### Request: PUT Request
-PUT http://localhost:8077/pms/pmsProduct/update
-Content-Type: application/json
+### Get One Product By Id
+GET https://ict4d-group16.herokuapp.com/pms/product/get/1
 
-{
-  "productId": 2,
-  "productName": "toy_3",
-  "categoryId": 1,
-  "supplierUserId": 1,
-  "price": 1.00,
-  "quantity": 1,
-  "publishStatus": 1,
-  "auditStatus": 1,
-  "productionDate": "2023-05-02 20:09:50",
-  "description": "For fun",
-  "indate": "2023-05-02 20:10:01",
-  "modifiedTime": "2023-05-02 20:10:03"
-}
-
-### Request: DELETE Request
-DELETE http://localhost:8077/pms/pmsProduct/delete/2
+### Delete One Product By Id
+DELETE https://ict4d-group16.herokuapp.com/pms/product/delete/1
 

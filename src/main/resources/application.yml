@@ -74,6 +74,7 @@ secure:
       - /favicon.ico
       - /actuator/**
       - /druid/**
+      - /user/check_user/**
       - /user/login
       - /user/register
       - /user/register_vxml

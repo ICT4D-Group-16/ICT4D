@@ -1,45 +1,19 @@
-### Request: GET All
-GET http://localhost:8077/pms/pmsOrderMaster/list
+### Get All Products
+GET https://ict4d-group16.herokuapp.com/pms/orderMaster/list
 
-### Request: GET EACH
-GET http://localhost:8077/pms/pmsOrderMaster/get/1
-
-### Request: POST Request
-POST http://localhost:8077/pms/pmsOrderMaster/add
+### Create one New Product
+POST https://ict4d-group16.herokuapp.com/pms/orderMaster/create
 Content-Type: application/json
 
 {
-  "orderId": 2,
   "userId": 2,
-  "orderMoney": 2.00,
-  "shippingMoney": 2.00,
-  "trackingNumber": "2",
-  "createTime": "2023-05-02 19:55:50",
-  "shippingTime": "2023-05-02 19:55:58",
-  "payTime": "2023-05-02 19:56:01",
-  "receiveTime": "2023-05-02 19:56:02",
-  "orderStatus": 1,
-  "modifiedTime": "2023-05-02 19:56:25"
+  "orderStatus": 0
 }
 
-### Request: PUT Request
-PUT http://localhost:8077/pms/pmsOrderMaster/update
-Content-Type: application/json
+### Get One Product By Id
+GET https://ict4d-group16.herokuapp.com/pms/orderMaster/get/1
 
-{
-  "orderId": 1,
-  "userId": 1,
-  "orderMoney": 1.00,
-  "shippingMoney": 250.00,
-  "trackingNumber": "1",
-  "createTime": "2023-05-02 19:55:50",
-  "shippingTime": "2023-05-02 19:55:58",
-  "payTime": "2023-05-02 19:56:01",
-  "receiveTime": "2023-05-02 19:56:02",
-  "orderStatus": 1,
-  "modifiedTime": "2023-05-02 19:56:25"
-}
+### Delete One Product By Id
+DELETE https://ict4d-group16.herokuapp.com/pms/orderMaster/delete/1
 
-### Request: DELETE Request
-DELETE http://localhost:8077/pms/pmsOrderMaster/delete/2
 
