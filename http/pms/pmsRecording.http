@@ -1,0 +1,2 @@
+### Request: GET All
+GET http://localhost:8077/pms/recording/list
