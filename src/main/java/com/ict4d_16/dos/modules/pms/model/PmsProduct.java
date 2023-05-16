@@ -1,11 +1,14 @@
 package com.ict4d_16.dos.modules.pms.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -34,11 +37,11 @@ public class PmsProduct implements Serializable {
     @ApiModelProperty("Product Name")
     private String productName;
 
-    @ApiModelProperty("Category ID")
-    private Integer categoryId;
-
     @ApiModelProperty("Supplier User ID")
-    private Integer supplierUserId;
+    private Long supplierUserId;
+
+    @ApiModelProperty("Original Seller Recording ID")
+    private Long recordingId;
 
     @ApiModelProperty("Product Price, US Dollar")
     private BigDecimal price;
@@ -64,5 +67,11 @@ public class PmsProduct implements Serializable {
     @ApiModelProperty("Product Info Last Modified Time")
     private Date modifiedTime;
 
+    @ApiModelProperty("Translation text for product")
+    @TableField(exist = false)
+    private List<PmsTranslate> translates;
 
+    @ApiModelProperty("Translation audio for product")
+    @TableField(exist = false)
+    private List<PmsAudio> audios;
 }

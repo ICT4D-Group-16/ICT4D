@@ -22,6 +22,8 @@ public interface UmsAdminService extends IService<UmsAdmin> {
      */
     UmsAdmin getAdminByUsername(String username);
 
+    UmsAdmin getAdminByPhone(String phone);
+
     /**
      * 注册功能
      */

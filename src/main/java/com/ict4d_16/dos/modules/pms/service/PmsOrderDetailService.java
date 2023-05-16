@@ -12,5 +12,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @version 1.0
  */
 public interface PmsOrderDetailService extends IService<PmsOrderDetail> {
-
+    /**
+     * create one order detail
+     */
+    PmsOrderDetail create(PmsOrderDetail pmsOrderDetail);
 }

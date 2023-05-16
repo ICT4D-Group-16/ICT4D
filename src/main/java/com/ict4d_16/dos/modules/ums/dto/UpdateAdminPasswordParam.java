@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 
 /**
  * Modify username and password parameters
- * Created by macro on 2019/10/9.
+ * Created by par.
  */
 @Getter
 @Setter

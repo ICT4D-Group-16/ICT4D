@@ -6,8 +6,8 @@
     <resultMap id="BaseResultMap" type="com.ict4d_16.dos.modules.pms.model.PmsProduct">
         <id column="product_id" property="productId" />
         <result column="product_name" property="productName" />
-        <result column="category_id" property="categoryId" />
         <result column="supplier_user_id" property="supplierUserId" />
+        <result column="recording_id" property="recordingId" />
         <result column="price" property="price" />
         <result column="quantity" property="quantity" />
         <result column="publish_status" property="publishStatus" />
