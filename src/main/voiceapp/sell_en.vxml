@@ -27,16 +27,16 @@
             </prompt>
             <grammar src="builtin:dtmf/number"/>
         </field>
-        <record name="unit" beep="true" dtmfterm="true">
-            <prompt>
-                Enter the unit of price. Press any key to finish.
-            </prompt>
-            <filled>
-                <prompt>
-                    Record ended.
-                </prompt>
-            </filled>
-        </record>
+<!--        <record name="unit" beep="true" dtmfterm="true">-->
+<!--            <prompt>-->
+<!--                Enter the unit of price. Press any key to finish.-->
+<!--            </prompt>-->
+<!--            <filled>-->
+<!--                <prompt>-->
+<!--                    Record ended.-->
+<!--                </prompt>-->
+<!--            </filled>-->
+<!--        </record>-->
         <field name="confirm">
             <prompt>
                 Check the product information.
@@ -48,7 +48,7 @@
                 <break/>
                 Price of each:
                 <value expr="price"/>
-                <value expr="unit"/>
+<!--                <value expr="unit"/>-->
                 <break/>
                 Press 1 to confirm this order.
                 Press 0 to cancel.
@@ -68,7 +68,7 @@
 <!--                      namelist="quantity price"/>-->
                 <data name="response" src="https://ict4d-group16.herokuapp.com/pms/product/create"
                       method="post" enctype="application/json" accept="application/json"
-                      namelist="quantity price"/>
+                      namelist="productName quantity price"/>
                 <prompt>You confirmed to sell.</prompt>
             </if>
             <if cond="confirm == '0'">
