@@ -59,13 +59,25 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     @Override
     public List<PmsProduct> list() {
         List<PmsProduct> productList = baseMapper.selectList(null);
+        return getTranslationAndAudio(productList);
+    }
+
+    @Override
+    public List<PmsProduct> getByRecordingId(Long recordingId) {
+        QueryWrapper<PmsProduct> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("recording_id", recordingId);
+        List<PmsProduct> productList = baseMapper.selectList(queryWrapper);
+        return getTranslationAndAudio(productList);
+    }
+
+    private List<PmsProduct> getTranslationAndAudio(List<PmsProduct> productList) {
         if (productList == null || productList.size() == 0) {
             return null;
         }
         for (PmsProduct product : productList) {
-            QueryWrapper<PmsTranslate> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("product_id", product.getProductId());
-            List<PmsTranslate> translateList = pmsTranslateService.list(queryWrapper);
+            QueryWrapper<PmsTranslate> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("product_id", product.getProductId());
+            List<PmsTranslate> translateList = pmsTranslateService.list(queryWrapper1);
             product.setTranslates(translateList);
             QueryWrapper<PmsAudio> audioQueryWrapper = new QueryWrapper<>();
             audioQueryWrapper.eq("product_id", product.getProductId());
