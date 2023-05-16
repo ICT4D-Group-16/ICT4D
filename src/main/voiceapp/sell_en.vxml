@@ -72,7 +72,11 @@
                 <if cond="response.code == 200">
                     <prompt>You confirmed this order.</prompt>
                     <else/>
-                    <prompt>Order confirmation failed.</prompt>
+                    <prompt>
+                        Order confirmation failed.
+                        Status Code: <value expr="response.code"/>.
+                        Message: <value expr="response.message"/>.
+                    </prompt>
                 </if>
             </if>
             <if cond="confirm == '0'">
