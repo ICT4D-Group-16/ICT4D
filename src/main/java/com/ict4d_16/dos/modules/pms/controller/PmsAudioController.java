@@ -2,6 +2,7 @@ package com.ict4d_16.dos.modules.pms.controller;
 
 
 import com.ict4d_16.dos.common.api.CommonResult;
+import com.ict4d_16.dos.common.service.AmazonS3Service;
 import com.ict4d_16.dos.modules.pms.model.PmsAudio;
 import com.ict4d_16.dos.modules.pms.service.PmsAudioService;
 import io.swagger.annotations.ApiOperation;
@@ -32,9 +33,8 @@ import java.util.UUID;
 public class PmsAudioController {
     @Autowired
     private PmsAudioService pmsAudioService;
-    @Value("${recording.path}")
-    private String recordingPath;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    @Autowired
+    private AmazonS3Service amazonS3Service;
 
     @ApiOperation("Form API. Add one translate audio for a product.")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -48,26 +48,10 @@ public class PmsAudioController {
         }
         String filePath;
         try {
-            String format = sdf.format(System.currentTimeMillis());
-            String os = System.getProperty("os.name");
-            String path = recordingPath;
-            if (os.toLowerCase().startsWith("win")) {
-                path = "D:" + path;
-            }
-            path = path + "/" + format + "/";
-            Path p = Paths.get(path);
-            if (!Files.isWritable(p)) {
-                Files.createDirectories(p);
-            }
-            String oldName = file.getOriginalFilename();
-            String newName = productId + "-" + language + "-" + UUID.randomUUID().toString()
-                    + oldName.substring(oldName.lastIndexOf("."));
-            file.transferTo(new File(path, newName));
-            filePath = request.getScheme() + "://" + request.getServerName() + ":"
-                    + request.getServerPort() + "/static/" + format + "/" + newName;
+            filePath = amazonS3Service.putObject(file);
             PmsAudio audio = pmsAudioService.create(productId, language, filePath);
             if (audio != null) {
-                return CommonResult.success(audio);
+                return CommonResult.success(audio, "Audio upload successfully!");
             } else {
                 return CommonResult.failed("Audio upload failed!");
             }

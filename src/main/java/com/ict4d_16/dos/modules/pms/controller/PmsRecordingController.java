@@ -1,6 +1,8 @@
 package com.ict4d_16.dos.modules.pms.controller;
 
 import com.ict4d_16.dos.common.api.CommonResult;
+import com.ict4d_16.dos.common.service.AmazonS3Service;
+import com.ict4d_16.dos.modules.pms.model.PmsAudio;
 import com.ict4d_16.dos.modules.pms.model.PmsRecording;
 import com.ict4d_16.dos.modules.pms.service.PmsRecordingService;
 import com.ict4d_16.dos.modules.ums.model.UmsAdmin;
@@ -34,10 +36,8 @@ public class PmsRecordingController {
 
     @Autowired
     private PmsRecordingService recordingService;
-    @Value("${recording.path}")
-    private String recordingPath;
-
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    @Autowired
+    private AmazonS3Service amazonS3Service;
 
     @ApiOperation("Form API. User leave a recording.")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -50,22 +50,7 @@ public class PmsRecordingController {
         }
         String filePath;
         try {
-            String format = sdf.format(System.currentTimeMillis());
-            String os = System.getProperty("os.name");
-            String path = recordingPath;
-            if (os.toLowerCase().startsWith("win")) {
-                path = "D:" + path;
-            }
-            path = path + "/" + format + "/";
-            Path p = Paths.get(path);
-            if (!Files.isWritable(p)) {
-                Files.createDirectories(p);
-            }
-            String oldName = file.getOriginalFilename();
-            String newName = phone + "-" + UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."));
-            file.transferTo(new File(path, newName));
-            filePath = request.getScheme() + "://" + request.getServerName() + ":"
-                    + request.getServerPort() + "/static/" + format + "/" + newName;
+            filePath = amazonS3Service.putObject(file);
             PmsRecording recording = new PmsRecording();
             recording.setPhone(phone);
             recording.setUrl(filePath);

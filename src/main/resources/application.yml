@@ -3,6 +3,13 @@ server:
   tomcat:
     max-http-form-post-size: 50MB
 
+aws:
+  access-key: ${BUCKETEER_AWS_ACCESS_KEY_ID:AKIARVGPJVYVDK4AKL5V}
+  secret-key: ${BUCKETEER_AWS_SECRET_ACCESS_KEY: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}
+  region: ${BUCKETEER_AWS_REGION:eu-west-1}
+  bucket-name: ${BUCKETEER_BUCKET_NAME:bucketeer-1a682029-f982-4755-8e3c-663c7658c9b8}
+  public-url: ${BUCKETEER_PUBLIC_URL:https://bucketeer-1a682029-f982-4755-8e3c-663c7658c9b8.s3.amazonaws.com/}
+
 spring:
   application:
     name: DoS
@@ -53,9 +60,6 @@ redis:
     resourceList: 'ums:resourceList'
   expire:
     common: 86400 # 24hour
-
-recording:
-  path: /home/ict4d-16/DoS/recordings
 
 secure:
   ignored:

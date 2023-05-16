@@ -20,6 +20,7 @@
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <springfox-swagger.version>3.0.0</springfox-swagger.version>
         <velocity.version>2.3</velocity.version>
+        <amazons3.version>1.12.468</amazons3.version>
     </properties>
 
     <parent>
@@ -121,6 +122,11 @@
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
             <version>${velocity.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>${amazons3.version}</version>
         </dependency>
     </dependencies>
 
