@@ -40,12 +40,12 @@ public class UmsUserController {
     @ApiOperation("Check user whether registered by phone number. If registered, return true; otherwise, return false.")
     @RequestMapping(value = "/check_user/{phone}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult check(@PathVariable String phone) {
+    public CommonResult<Boolean> check(@PathVariable String phone) {
         UmsAdmin user = adminService.getAdminByPhone(phone);
         if (user != null) {
-            return CommonResult.success(true);
+            return CommonResult.success(true, "User already registered.");
         } else {
-            return CommonResult.success(false);
+            return CommonResult.success(false, "User not registered.");
         }
     }
 
@@ -114,6 +114,18 @@ public class UmsUserController {
             data.put("roles", roles);
         }
         return CommonResult.success(data);
+    }
+
+    @ApiOperation(value = "Get user information based on phone number")
+    @RequestMapping(value = "/info/{phone}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<UmsAdmin> getUserInfo(@PathVariable String phone) {
+        UmsAdmin umsAdmin = adminService.getAdminByPhone(phone);
+        if (umsAdmin != null) {
+            return CommonResult.success(umsAdmin);
+        } else {
+            return CommonResult.failed("User not registered.");
+        }
     }
 
     @ApiOperation(value = "Logout")
