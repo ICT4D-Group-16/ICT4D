@@ -1,17 +1,18 @@
 ### Request: GET All
-GET http://localhost:8077/pms/pmsProduct/list
+GET http://localhost:8077/pms/product/list
 
 ### Request: GET EACH
-GET http://localhost:8077/pms/pmsProduct/get/1
+GET http://localhost:8077/pms/product/get/1
 
 ### Request: POST Request
-POST http://localhost:8077/pms/pmsProduct/add
+POST http://localhost:8077/pms/product/create
 Content-Type: application/json
 
 {
   "productId": 2,
   "productName": "toy_2",
   "categoryId": 1,
+  "phone": 0,
   "supplierUserId": 1,
   "price": 1.00,
   "quantity": 1,
@@ -24,7 +25,7 @@ Content-Type: application/json
 }
 
 #### Request: POST Request
-#POST http://localhost:8077/pms/pmsProduct/add
+#POST http://localhost:8077/pms/product/create
 #Content-Type: application/json
 #
 #{
@@ -33,7 +34,7 @@ Content-Type: application/json
 #}
 
 ### Request: PUT Request
-PUT http://localhost:8077/pms/pmsProduct/update
+PUT http://localhost:8077/pms/product/update
 Content-Type: application/json
 
 {
@@ -52,5 +53,5 @@ Content-Type: application/json
 }
 
 ### Request: DELETE Request
-DELETE http://localhost:8077/pms/pmsProduct/delete/2
+DELETE http://localhost:8077/pms/product/delete/2
 
