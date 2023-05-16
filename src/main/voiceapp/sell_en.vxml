@@ -65,10 +65,11 @@
         </field>
         <filled namelist="confirm">
             <if cond="confirm == '1'">
-                <var name="fake_product_name" expr="&quot;demo&quot;"/>
+                <var name="productName" expr="&quot;demo&quot;"/>
+                <var name="phone" expr="114514"/>
                 <data name="response" src="https://ict4d-group16.herokuapp.com/pms/product/create"
                       method="post" enctype="application/json" accept="application/json"
-                      namelist="fake_product_name phone quantity price"/>
+                      namelist="productName phone quantity price"/>
                 <if cond="response.code == 200">
                     <prompt>You confirmed this order.</prompt>
                     <else/>
