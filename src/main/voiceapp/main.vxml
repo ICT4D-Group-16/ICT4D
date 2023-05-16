@@ -5,6 +5,29 @@
     <var name="phone" expr="session.callerid"/>
     <var name="lang"/>
 
+    <form id="registration_check">
+        <block>
+            <var name="language" expr="'n/a'"/>
+            <var name="nickName" expr="'n/a'"/>
+            <data name="ret" src="https://ict4d-group16.herokuapp.com/user/register_vxml"
+                  method="post" enctype="application/json" accept="application/json"
+                  namelist="phone nickName language"/>
+            <if cond="ret.code == 200">
+                <prompt>Registration complete.</prompt>
+                <goto next="#main"/>
+                <elseif cond="ret.code == 500 &amp;&amp; ret.message === &quot;Operation failed&quot; &amp;&amp; ret.data === null"/>
+                <prompt>You have already registered.</prompt>
+                <goto next="#main"/>
+                <else/>
+                <prompt>
+                    Registration failed.
+                    Code: <value expr="ret.code"/>.
+                    Message: <value expr="ret.message"/>.
+                </prompt>
+            </if>
+        </block>
+    </form>
+
     <form id="main">
         <field name="language">
             <prompt>
