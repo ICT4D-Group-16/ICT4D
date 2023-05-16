@@ -21,7 +21,10 @@
                 <data name="login_ret" src="https://ict4d-group16.herokuapp.com/user/login"
                       method="post" enctype="application/json" accept="application/json"
                       namelist="username password"/>
-                <goto next="#main"/>
+                <if cond="login_ret.code == 200">
+                    <prompt>Login complete.</prompt>
+                    <goto next="#main"/>
+                </if>
                 <else/>
                 <prompt>
                     Failed to register.
