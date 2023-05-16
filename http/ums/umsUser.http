@@ -1,9 +1,45 @@
-### Request: POST Request
-POST http://localhost:8077/user/login
-#POST http://ict4d-group16.herokuapp.com/user/login
+### Check User Whether Exists
+GET https://ict4d-group16.herokuapp.com/user/check_user/114514
+
+### Register User with Username and Password
+POST https://ict4d-group16.herokuapp.com/user/register
 Content-Type: application/json
 
 {
-  "password": "114514",
-  "username": "114514"
+  "username": "1919810",
+  "password": "1919810",
+  "phone": "1919810",
+  "nickName": "Jerry",
+  "language": "English"
 }
+
+### Register User with Phone Number. Should be called with VXML
+POST https://ict4d-group16.herokuapp.com/user/register_vxml
+Content-Type: application/json
+
+{
+  "phone": "1919810",
+  "nickName": "Jerry",
+  "language": "English"
+}
+
+### Send Login Request With Username and Password
+POST https://ict4d-group16.herokuapp.com/user/login
+Content-Type: application/json
+
+{
+  "username": "114514",
+  "password": "114514"
+}
+
+> {% client.global.set("auth_token", response.body.data.token); %}
+
+### Get User Info
+GET https://ict4d-group16.herokuapp.com/user/info
+Authorization: Bearer {{auth_token}}
+
+### Logout
+POST https://ict4d-group16.herokuapp.com/user/logout
+Authorization: Bearer {{auth_token}}
+
+> {% client.global.clear("auth_token"); %}

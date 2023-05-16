@@ -58,6 +58,7 @@ public class UmsUserController {
             return CommonResult.failed();
         }
         adminService.updateRole(umsAdmin.getId(), Collections.singletonList(9L));
+        umsAdmin.setPassword(null);
         return CommonResult.success(umsAdmin);
     }
 
@@ -69,10 +70,10 @@ public class UmsUserController {
         UmsAdminParam umsAdmin = new UmsAdminParam();
         umsAdmin.setPhone(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setNickName(umsUserVxmlRegisterParam.getNickName());
-        umsAdmin.setPassword(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setUsername(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setLanguage(umsUserVxmlRegisterParam.getLanguage());
         UmsAdmin user = adminService.register(umsAdmin);
+        umsAdmin.setPassword(null);
         if (user == null) {
             return CommonResult.failed();
         }
@@ -83,15 +84,21 @@ public class UmsUserController {
     @ApiOperation(value = "Login and return token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult login(@Validated @RequestBody UmsAdminLoginParam umsAdminLoginParam) {
+    public CommonResult<Map<String, String>> login(@Validated @RequestBody UmsAdminLoginParam umsAdminLoginParam) {
         String token = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
         if (token == null) {
-            return CommonResult.validateFailed("用户名或密码错误");
+            return CommonResult.validateFailed("Username or password incorrect.");
         }
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
-        return CommonResult.success(tokenMap);
+        UmsAdmin umsAdmin = adminService.getAdminByUsername(umsAdminLoginParam.getUsername());
+        Map<String, String> resultMap = new HashMap<>();
+        resultMap.put("token", token);
+        resultMap.put("tokenHead", tokenHead);
+        resultMap.put("id", umsAdmin.getId().toString());
+        resultMap.put("username", umsAdmin.getUsername());
+        resultMap.put("nickname", umsAdmin.getNickName());
+        resultMap.put("phone", umsAdmin.getPhone());
+        resultMap.put("language", umsAdmin.getLanguage());
+        return CommonResult.success(resultMap);
     }
 
 

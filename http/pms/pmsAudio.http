@@ -1,0 +1,18 @@
+### Create a translate audio for a product
+POST https://ict4d-group16.herokuapp.com/pms/audio/create
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="productId"
+
+1
+--WebAppBoundary
+Content-Disposition: form-data; name="language"
+
+English
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="sample.wav"
+Content-Type: audio/wav
+
+< ./file_example_WAV_1MG.wav
+--WebAppBoundary--
