@@ -16,12 +16,17 @@
                 <prompt>Registration complete.</prompt>
                 <goto next="#main"/>
                 <elseif cond="ret.code == 500 &amp;&amp; ret.message === &quot;Operation failed&quot; &amp;&amp; ret.data === null"/>
+                <var name="username" expr="phone"/>
+                <var name="password" expr="phone"/>
+                <data name="login_ret" src="https://ict4d-group16.herokuapp.com/user/login"
+                      method="post" enctype="application/json" accept="application/json"
+                      namelist="username password"/>
                 <goto next="#main"/>
                 <else/>
                 <prompt>
                     Failed to register.
-                    Code: <value expr="ret.code"/>.
-                    Message: <value expr="ret.message"/>.
+                    Code:<value expr="ret.code"/>.
+                    Message:<value expr="ret.message"/>.
                 </prompt>
             </if>
         </block>
