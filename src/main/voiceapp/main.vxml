@@ -20,7 +20,7 @@
                 <goto next="#main"/>
                 <else/>
                 <prompt>
-                    Registration failed.
+                    Failed to register.
                     Code: <value expr="ret.code"/>.
                     Message: <value expr="ret.message"/>.
                 </prompt>
