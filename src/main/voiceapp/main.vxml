@@ -2,6 +2,7 @@
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
     <script src="https://raw.githubusercontent.com/douglascrockford/JSON-js/master/json2.js"/>
 
+    <var name="phone" expr="session.callerid"/>
     <var name="lang"/>
 
     <form id="main">

@@ -4,34 +4,36 @@ GET http://localhost:8077/pms/product/list
 ### Request: GET EACH
 GET http://localhost:8077/pms/product/get/1
 
-### Request: POST Request
-POST http://localhost:8077/pms/product/create
-Content-Type: application/json
-
-{
-  "productId": 2,
-  "productName": "toy_2",
-  "categoryId": 1,
-  "phone": 114514,
-  "supplierUserId": 1,
-  "price": 1.00,
-  "quantity": 1,
-  "publishStatus": 1,
-  "auditStatus": 1,
-  "productionDate": "2023-05-02 20:09:50",
-  "description": "For fun",
-  "indate": "2023-05-02 20:10:01",
-  "modifiedTime": "2023-05-02 20:10:03"
-}
-
 #### Request: POST Request
 #POST http://localhost:8077/pms/product/create
 #Content-Type: application/json
 #
 #{
+#  "productId": 2,
+#  "productName": "toy_2",
+#  "categoryId": 1,
+#  "phone": 114514,
+#  "supplierUserId": 1,
 #  "price": 1.00,
-#  "quantity": 1
+#  "quantity": 1,
+#  "publishStatus": 1,
+#  "auditStatus": 1,
+#  "productionDate": "2023-05-02 20:09:50",
+#  "description": "For fun",
+#  "indate": "2023-05-02 20:10:01",
+#  "modifiedTime": "2023-05-02 20:10:03"
 #}
+
+### Request: POST Request
+POST http://localhost:8077/pms/product/create
+Content-Type: application/json
+
+{
+  "productName": "toy_2",
+  "phone": 114514,
+  "price": 1.00,
+  "quantity": 1
+}
 
 ### Request: PUT Request
 PUT http://localhost:8077/pms/product/update

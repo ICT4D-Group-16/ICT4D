@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <var name="phone" expr="session.callerid"/>
+    
     <form id="sell_en">
         <script src="submit-recording.js"/>
         <record name="productName" beep="true" dtmfterm="true">
@@ -68,8 +70,13 @@
 <!--                      namelist="quantity price"/>-->
                 <data name="response" src="https://ict4d-group16.herokuapp.com/pms/product/create"
                       method="post" enctype="application/json" accept="application/json"
-                      namelist="productName quantity price"/>
-
+                      namelist="productName phone quantity price"/>
+                <if cond="response.code == 200">
+                    <prompt>You confirmed this order.</prompt>
+                    <else>
+                        <prompt>Order confirmation failed.</prompt>
+                    </else>
+                </if>
             </if>
             <if cond="confirm == '0'">
                 <prompt>Cancelled.</prompt>
