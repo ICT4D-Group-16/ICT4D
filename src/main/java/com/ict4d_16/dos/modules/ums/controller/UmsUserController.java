@@ -58,6 +58,7 @@ public class UmsUserController {
             return CommonResult.failed();
         }
         adminService.updateRole(umsAdmin.getId(), Collections.singletonList(9L));
+        umsAdmin.setPassword(null);
         return CommonResult.success(umsAdmin);
     }
 
@@ -69,10 +70,10 @@ public class UmsUserController {
         UmsAdminParam umsAdmin = new UmsAdminParam();
         umsAdmin.setPhone(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setNickName(umsUserVxmlRegisterParam.getNickName());
-        umsAdmin.setPassword(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setUsername(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setLanguage(umsUserVxmlRegisterParam.getLanguage());
         UmsAdmin user = adminService.register(umsAdmin);
+        umsAdmin.setPassword(null);
         if (user == null) {
             return CommonResult.failed();
         }

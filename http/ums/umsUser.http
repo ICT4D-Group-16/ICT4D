@@ -9,7 +9,7 @@ Content-Type: application/json
   "username": "1919810",
   "password": "1919810",
   "phone": "1919810",
-  "nickname": "Jerry",
+  "nickName": "Jerry",
   "language": "English"
 }
 
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
   "phone": "1919810",
-  "nickname": "Jerry",
+  "nickName": "Jerry",
   "language": "English"
 }
 
