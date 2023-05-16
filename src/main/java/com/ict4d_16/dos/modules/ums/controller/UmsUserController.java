@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.ict4d_16.dos.common.api.CommonResult;
 import com.ict4d_16.dos.modules.ums.dto.UmsAdminLoginParam;
 import com.ict4d_16.dos.modules.ums.dto.UmsAdminParam;
+import com.ict4d_16.dos.modules.ums.dto.UmsUserVxmlRegisterParam;
 import com.ict4d_16.dos.modules.ums.model.UmsAdmin;
 import com.ict4d_16.dos.modules.ums.model.UmsRole;
 import com.ict4d_16.dos.modules.ums.service.UmsAdminService;
@@ -15,16 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -41,7 +37,19 @@ public class UmsUserController {
     @Autowired
     private UmsRoleService roleService;
 
-    @ApiOperation(value = "用户注册")
+    @ApiOperation("Check user whether registered by phone number. If registered, return true; otherwise, return false.")
+    @RequestMapping(value = "/check_user/{phone}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Boolean> check(@PathVariable String phone) {
+        UmsAdmin user = adminService.getAdminByPhone(phone);
+        if (user != null) {
+            return CommonResult.success(true, "User already registered.");
+        } else {
+            return CommonResult.success(false, "User not registered.");
+        }
+    }
+
+    @ApiOperation(value = "User registration with password")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<UmsAdmin> register(@Validated @RequestBody UmsAdminParam umsAdminParam) {
@@ -49,10 +57,30 @@ public class UmsUserController {
         if (umsAdmin == null) {
             return CommonResult.failed();
         }
+        adminService.updateRole(umsAdmin.getId(), Collections.singletonList(9L));
         return CommonResult.success(umsAdmin);
     }
 
-    @ApiOperation(value = "登录以后返回token")
+    @ApiOperation(value = "User registration with phone number and without password." +
+            " Username and password will be set as phone number.")
+    @RequestMapping(value = "/register_vxml", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<UmsAdmin> register(@Validated @RequestBody UmsUserVxmlRegisterParam umsUserVxmlRegisterParam) {
+        UmsAdminParam umsAdmin = new UmsAdminParam();
+        umsAdmin.setPhone(umsUserVxmlRegisterParam.getPhone());
+        umsAdmin.setNickName(umsUserVxmlRegisterParam.getNickName());
+        umsAdmin.setPassword(umsUserVxmlRegisterParam.getPhone());
+        umsAdmin.setUsername(umsUserVxmlRegisterParam.getPhone());
+        umsAdmin.setLanguage(umsUserVxmlRegisterParam.getLanguage());
+        UmsAdmin user = adminService.register(umsAdmin);
+        if (user == null) {
+            return CommonResult.failed();
+        }
+        adminService.updateRole(user.getId(), Collections.singletonList(10L));
+        return CommonResult.success(user);
+    }
+
+    @ApiOperation(value = "Login and return token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult login(@Validated @RequestBody UmsAdminLoginParam umsAdminLoginParam) {
@@ -67,7 +95,7 @@ public class UmsUserController {
     }
 
 
-    @ApiOperation(value = "获取当前登录用户信息")
+    @ApiOperation(value = "Get user information based on token")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult getAdminInfo(Principal principal) {
@@ -88,7 +116,19 @@ public class UmsUserController {
         return CommonResult.success(data);
     }
 
-    @ApiOperation(value = "登出功能")
+    @ApiOperation(value = "Get user information based on phone number")
+    @RequestMapping(value = "/info/{phone}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<UmsAdmin> getUserInfo(@PathVariable String phone) {
+        UmsAdmin umsAdmin = adminService.getAdminByPhone(phone);
+        if (umsAdmin != null) {
+            return CommonResult.success(umsAdmin);
+        } else {
+            return CommonResult.failed("User not registered.");
+        }
+    }
+
+    @ApiOperation(value = "Logout")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult logout() {

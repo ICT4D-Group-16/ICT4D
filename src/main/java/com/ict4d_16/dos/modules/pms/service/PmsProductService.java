@@ -1,16 +1,28 @@
 package com.ict4d_16.dos.modules.pms.service;
 
+import com.ict4d_16.dos.modules.pms.dto.PmsProductParam;
 import com.ict4d_16.dos.modules.pms.model.PmsProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ict4d_16.dos.modules.ums.model.UmsResource;
+
+import java.util.List;
 
 /**
  * <p>
- * Product Info Table 服务类
+ * Product Info Table Service
  * </p>
  *
  * @since 2023-05-01
  * @version 1.0
  */
 public interface PmsProductService extends IService<PmsProduct> {
+    /**
+     * add product
+     */
+    PmsProduct create(PmsProductParam pmsProductParam);
 
+    /**
+     * list all products
+     */
+    List<PmsProduct> list();
 }

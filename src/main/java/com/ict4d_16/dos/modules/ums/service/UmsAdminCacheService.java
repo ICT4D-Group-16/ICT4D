@@ -39,12 +39,16 @@ public interface UmsAdminCacheService {
     /**
      * 获取缓存后台用户信息
      */
-    UmsAdmin getAdmin(String username);
+    UmsAdmin getAdminByUsername(String username);
+
+    UmsAdmin getAdminByPhone(String phone);
 
     /**
      * 设置缓存后台用户信息
      */
-    void setAdmin(UmsAdmin admin);
+    void setAdminByUsername(UmsAdmin admin);
+
+    void setAdminByPhone(UmsAdmin admin);
 
     /**
      * 获取缓存后台用户资源列表

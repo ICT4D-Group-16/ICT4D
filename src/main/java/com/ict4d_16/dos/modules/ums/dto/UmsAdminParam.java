@@ -35,4 +35,6 @@ public class UmsAdminParam {
     private String nickName;
     @ApiModelProperty(value = "note")
     private String note;
+    @ApiModelProperty(value = "user language")
+    private String language;
 }

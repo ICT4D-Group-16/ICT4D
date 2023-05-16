@@ -25,7 +25,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("ums_admin")
-@ApiModel(value = "UmsAdmin对象", description = "后台用户表")
+@ApiModel(value = "UmsAdmin Object", description = "background user table")
 public class UmsAdmin implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,32 +37,33 @@ public class UmsAdmin implements Serializable {
 
     private String password;
 
-    @ApiModelProperty(value = "头像")
+    @ApiModelProperty(value = "avatar")
     private String icon;
 
     @ApiModelProperty(value = "Phone Number")
     private String phone;
 
-    @ApiModelProperty(value = "邮箱")
+    @ApiModelProperty(value = "email")
     private String email;
 
     @ApiModelProperty(value = "Address")
     private String address;
 
-    @ApiModelProperty(value = "昵称")
+    @ApiModelProperty(value = "nickname")
     private String nickName;
 
-    @ApiModelProperty(value = "备注信息")
+    @ApiModelProperty(value = "note")
     private String note;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "create time")
     private Date createTime;
 
-    @ApiModelProperty(value = "最后登录时间")
+    @ApiModelProperty(value = "last login time")
     private Date loginTime;
 
-    @ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
+    @ApiModelProperty(value = "status: 0->disable, 1->enable")
     private Integer status;
 
-
+    @ApiModelProperty(value = "user preferred language")
+    private String language;
 }
