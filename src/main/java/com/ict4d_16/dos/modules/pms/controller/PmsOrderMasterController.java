@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/pms/pmsOrderMaster")
+@RequestMapping("/pms/orderMaster")
 public class PmsOrderMasterController {
     @Autowired
     private PmsOrderMasterService pmsOrderMasterService;
@@ -54,12 +54,6 @@ public class PmsOrderMasterController {
         } else {
             return CommonResult.failed("Failed to query");
         }
-    }
-
-    @PutMapping("/update")
-    public String update(@RequestBody PmsOrderMaster pmsOrderMaster) {
-        boolean success = pmsOrderMasterService.updateById(pmsOrderMaster);
-        return success ? "success" : "failure";
     }
 
     @ApiOperation("Delete one order by id.")

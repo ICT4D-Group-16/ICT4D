@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ### Request: POST Request
 POST http://localhost:8077/user/login
 #POST http://ict4d-group16.herokuapp.com/user/login
@@ -7,3 +8,29 @@ Content-Type: application/json
   "password": "114514",
   "username": "114514"
 }
+=======
+### Check User Whether Exists
+GET https://ict4d-group16.herokuapp.com/user/check_user/114514
+
+### Send Login Request With Username and Password
+POST https://ict4d-group16.herokuapp.com/user/login
+Content-Type: application/json
+
+{
+  "username": "114514",
+  "password": "114514"
+}
+
+> {% client.global.set("auth_token", response.body.data.token); %}
+
+### Get User Info
+GET https://ict4d-group16.herokuapp.com/user/info
+Authorization: Bearer {{auth_token}}
+
+### Logout
+POST https://ict4d-group16.herokuapp.com/user/logout
+Authorization: Bearer {{auth_token}}
+
+> {% client.global.clear("auth_token"); %}
+
+>>>>>>> Stashed changes

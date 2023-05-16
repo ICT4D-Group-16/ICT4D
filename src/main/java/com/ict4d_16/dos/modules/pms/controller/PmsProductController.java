@@ -67,12 +67,6 @@ public class PmsProductController {
         }
     }
 
-    @PutMapping("/update")
-    public String update(@RequestBody PmsProduct pmsProduct) {
-        boolean success = pmsProductService.updateById(pmsProduct);
-        return success ? "success" : "failure";
-    }
-
     @ApiOperation("Delete a product by id")
     @DeleteMapping("/delete/{id}")
     public CommonResult deleteById(@PathVariable Long id) {
