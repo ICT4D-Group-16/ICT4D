@@ -16,7 +16,6 @@
                 <prompt>Registration complete.</prompt>
                 <goto next="#main"/>
                 <elseif cond="ret.code == 500 &amp;&amp; ret.message === &quot;Operation failed&quot; &amp;&amp; ret.data === null"/>
-                <prompt>You have already registered.</prompt>
                 <goto next="#main"/>
                 <else/>
                 <prompt>
