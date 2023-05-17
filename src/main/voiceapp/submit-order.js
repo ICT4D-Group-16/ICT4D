@@ -1,6 +1,6 @@
 function submit_order_master() {
-
+    return ("called submit_order_master()")
 }
-function submit_order_detail() {
-
+function add_order_detail() {
+    return ("called add_order_detail()")
 }
