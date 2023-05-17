@@ -53,4 +53,17 @@ public class PmsOrderMasterServiceImpl extends ServiceImpl<PmsOrderMasterMapper,
         }
         return orderMasters;
     }
+
+    @Override
+    public PmsOrderMaster getByOrderId(Long orderId) {
+        PmsOrderMaster orderMaster = baseMapper.selectById(orderId);
+        if (orderMaster == null) {
+            throw new RuntimeException("Order not found");
+        }
+        QueryWrapper<PmsOrderDetail> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_id", orderId);
+        List<PmsOrderDetail> orderDetails = pmsOrderDetailService.list(queryWrapper);
+        orderMaster.setOrderDetails(orderDetails);
+        return orderMaster;
+    }
 }
