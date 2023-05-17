@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Get One Product By Product Id
-POST https://ict4d-group16.herokuapp.com/pms/product/get
+POST https://ict4d-group16.herokuapp.com/pms/product/search
 content-type: application/json
 
 {
@@ -23,7 +23,7 @@ content-type: application/json
 }
 
 ### Get Products By Recording Id
-POST https://ict4d-group16.herokuapp.com/pms/product/get
+POST https://ict4d-group16.herokuapp.com/pms/product/search
 Content-Type: application/json
 
 {

@@ -55,12 +55,12 @@ public class PmsProductController {
     }
 
     @ApiOperation("Get a product. Support query by product id or recording id")
-    @PostMapping("/get")
-    public CommonResult<List<PmsProduct>> getByProductId(@RequestBody Map<String, Long> requestMap) {
-        List<PmsProduct> pmsProducts = new ArrayList<>();
+    @PostMapping("/search")
+    public CommonResult<List<PmsProduct>> search(@RequestBody Map<String, String> requestMap) {
         if (requestMap.containsKey("productId")) {
-            PmsProduct product = pmsProductService.getById(requestMap.get("productId"));
+            PmsProduct product = pmsProductService.getById(Long.parseLong(requestMap.get("productId")));
             if (product != null) {
+                List<PmsProduct> pmsProducts = new ArrayList<>();
                 pmsProducts.add(product);
                 return CommonResult.success(pmsProducts, "Get product successfully");
             } else {
@@ -68,7 +68,7 @@ public class PmsProductController {
             }
         }
         if (requestMap.containsKey("recordingId")) {
-            List<PmsProduct> products = pmsProductService.getByRecordingId(requestMap.get("recordingId"));
+            List<PmsProduct> products = pmsProductService.getByRecordingId(Long.parseLong(requestMap.get("recordingId")));
             if (products != null) {
                 return CommonResult.success(products, "Get product successfully");
             } else {
