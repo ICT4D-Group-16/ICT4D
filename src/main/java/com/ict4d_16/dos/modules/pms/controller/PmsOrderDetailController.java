@@ -27,11 +27,11 @@ public class PmsOrderDetailController {
     @ApiOperation(value = "add a new order detail for a specific order.")
     @PostMapping("/create")
     public CommonResult<PmsOrderDetail> add(@RequestBody PmsOrderDetail pmsOrderDetail) {
-        PmsOrderDetail orderDetail = pmsOrderDetailService.create(pmsOrderDetail);
-        if (orderDetail != null) {
+        try {
+            PmsOrderDetail orderDetail = pmsOrderDetailService.create(pmsOrderDetail);
             return CommonResult.success(orderDetail, "Create successfully.");
-        } else {
-            return CommonResult.failed("Create failed.");
+        } catch (Exception e) {
+            return CommonResult.failed("Create failed." + e.getMessage());
         }
     }
 }
