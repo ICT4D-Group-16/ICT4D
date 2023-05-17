@@ -41,8 +41,7 @@ public class PmsAudioController {
     @ResponseBody
     public CommonResult<PmsAudio> create(@RequestParam("productId") Long productId,
                                          @RequestParam("file") MultipartFile file,
-                                         @RequestParam("language") String language,
-                                         HttpServletRequest request) {
+                                         @RequestParam("language") String language) {
         if (Objects.isNull(file) || file.isEmpty()) {
             return CommonResult.failed("Recording file is empty!");
         }
