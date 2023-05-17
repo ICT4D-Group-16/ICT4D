@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ### Get One Order By Id
-GET https://ict4d-group16.herokuapp.com/pms/orderMaster/get/1
+GET https://ict4d-group16.herokuapp.com/pms/orderMaster/get/2
 
 ### Delete One Order By Id
 DELETE https://ict4d-group16.herokuapp.com/pms/orderMaster/delete/1
