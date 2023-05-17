@@ -1,11 +1,11 @@
 ### Create one orderDetail for an Order
-POST http://localhost:8077/pms/orderDetail/create
+POST https://ict4d-group16.herokuapp.com/pms/orderDetail/create
 Content-Type: application/json
 
 {
-  "orderId": 1231,
-  "productId": 1231,
-  "productPrice": 1231.00,
-  "productQuantity": 1231,
-  "productTotalPrice": 1231.00
+  "orderId": 2,
+  "productId": 12,
+  "productPrice": 810.00,
+  "productQuantity": 2,
+  "productTotalPrice": 1620.00
 }
