@@ -94,12 +94,14 @@
                 <prompt>Did not add.</prompt>
                 <goto next="#buy_en"/>
                 <elseif cond="confirm == '3'"/>
-                <prompt>Added</prompt>
+                <prompt>Added.</prompt>
                 <goto next="#buy_en"/>
                 <elseif cond="confirm == '7'"/>
                 <prompt>You aborted to order all the products added.</prompt>
+                <goto next="mode_en.vxml"/>
                 <elseif cond="confirm == '9'"/>
-                <prompt>You submitted all the products added</prompt>
+                <prompt>You submitted all the products added.</prompt>
+                <goto next="mode_en.vxml"/>
             </if>
         </filled>
     </form>
