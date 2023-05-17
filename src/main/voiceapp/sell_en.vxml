@@ -65,7 +65,15 @@
         </field>
         <filled namelist="confirm">
             <if cond="confirm == '1'">
-                <var name="productName" expr="&quot;demo&quot;"/>
+                <!--                <var name="productName" expr="&quot;demo&quot;"/>-->
+                <var name="file" expr="productName"/>
+                <data name="recording_response" src="https://ict4d-group16.herokuapp.com/pms/recording/create"
+                      method="post" enctype="multipart/form-data" accept="application/json"
+                      namelist="phone file"/>
+                <var name="recordingId" expr="recording_response.data.recordingId"/>
+                <prompt>Product name recording uploaded. ID:
+                    <value expr="recordingId"/>
+                </prompt>
                 <data name="response" src="https://ict4d-group16.herokuapp.com/pms/product/create"
                       method="post" enctype="application/json" accept="application/json"
                       namelist="productName phone quantity price"/>
@@ -74,8 +82,8 @@
                     <else/>
                     <prompt>
                         Failed to confirm.
-                        Status Code: <value expr="response.code"/>.
-                        Message: <value expr="response.message"/>.
+                        Status Code:<value expr="response.code"/>.
+                        Message:<value expr="response.message"/>.
                     </prompt>
                 </if>
             </if>
