@@ -37,6 +37,9 @@ public class PmsTranslate implements Serializable {
     @ApiModelProperty(value = "Product Id", required = true)
     private Long productId;
 
+    @ApiModelProperty("Category for translation text. 0: name, 1: description")
+    private Integer category;
+
     @NotEmpty
     @ApiModelProperty(value = "Translated text", required = true)
     private String text;

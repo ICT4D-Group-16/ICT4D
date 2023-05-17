@@ -1,8 +1,8 @@
 ### Get All Products
-GET https://ict4d-group16.herokuapp.com/pms/product/list
+GET {{host}}/pms/product/list
 
 ### Create one New Product
-POST https://ict4d-group16.herokuapp.com/pms/product/create
+POST {{host}}/pms/product/create
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Get One Product By Product Id
-POST https://ict4d-group16.herokuapp.com/pms/product/search
+POST {{host}}/pms/product/search
 content-type: application/json
 
 {
@@ -23,7 +23,7 @@ content-type: application/json
 }
 
 ### Get Products By Recording Id
-POST https://ict4d-group16.herokuapp.com/pms/product/search
+POST {{host}}/pms/product/search
 Content-Type: application/json
 
 {
@@ -31,5 +31,5 @@ Content-Type: application/json
 }
 
 ### Delete One Product By Id
-DELETE https://ict4d-group16.herokuapp.com/pms/product/delete/1
+DELETE {{host}}/pms/product/delete/1
 

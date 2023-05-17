@@ -1,8 +1,8 @@
 ### Get All Orders
-GET https://ict4d-group16.herokuapp.com/pms/orderMaster/list
+GET {{host}}/pms/orderMaster/list
 
 ### Create one New Order
-POST https://ict4d-group16.herokuapp.com/pms/orderMaster/create
+POST {{host}}/pms/orderMaster/create
 Content-Type: application/json
 
 {
@@ -11,9 +11,9 @@ Content-Type: application/json
 }
 
 ### Get One Order By Id
-GET https://ict4d-group16.herokuapp.com/pms/orderMaster/get/2
+GET {{host}}/pms/orderMaster/get/2
 
 ### Delete One Order By Id
-DELETE https://ict4d-group16.herokuapp.com/pms/orderMaster/delete/1
+DELETE {{host}}/pms/orderMaster/delete/1
 
 

@@ -1,5 +1,5 @@
 ### Create one orderDetail for an Order
-POST https://ict4d-group16.herokuapp.com/pms/orderDetail/create
+POST {{host}}/pms/orderDetail/create
 Content-Type: application/json
 
 {
