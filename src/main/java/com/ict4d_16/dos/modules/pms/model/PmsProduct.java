@@ -67,11 +67,19 @@ public class PmsProduct implements Serializable {
     @ApiModelProperty("Product Info Last Modified Time")
     private Date modifiedTime;
 
-    @ApiModelProperty("Translation text for product")
+    @ApiModelProperty("Name translation text for product")
     @TableField(exist = false)
-    private List<PmsTranslate> translates;
+    private List<PmsTranslate> nameTranslates;
 
-    @ApiModelProperty("Translation audio for product")
+    @ApiModelProperty("Description translation text for product")
     @TableField(exist = false)
-    private List<PmsAudio> audios;
+    private List<PmsTranslate> descriptionTranslates;
+
+    @ApiModelProperty("Name translation audio for product")
+    @TableField(exist = false)
+    private List<PmsAudio> nameAudios;
+
+    @ApiModelProperty("Description translation audio for product")
+    @TableField(exist = false)
+    private List<PmsAudio> descriptionAudios;
 }

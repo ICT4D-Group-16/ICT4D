@@ -9,6 +9,7 @@
         <result column="text" property="text" />
         <result column="create_time" property="createTime" />
         <result column="language" property="language" />
+        <result column="category" property="category" />
     </resultMap>
 
 </mapper>

@@ -36,44 +36,53 @@ public class PmsProductController {
     @ApiOperation("Create a new product")
     @PostMapping("/create")
     public CommonResult<PmsProduct> create(@Validated @RequestBody PmsProductParam pmsProductParam) {
-        PmsProduct product = pmsProductService.create(pmsProductParam);
-        if (product != null) {
+        try {
+            PmsProduct product = pmsProductService.create(pmsProductParam);
+            if (product == null) {
+                return CommonResult.failed("Failed to create");
+            }
             return CommonResult.success(product, "Create successfully");
-        } else {
-            return CommonResult.failed("Failed to create");
+        } catch (Exception e) {
+            return CommonResult.failed("Failed to create product. " + e.getMessage());
         }
     }
 
     @ApiOperation("List all products")
     @GetMapping("/list")
     public CommonResult<List<PmsProduct>> list() {
-        List<PmsProduct> productList = pmsProductService.list();
-        if (productList == null || productList.size() == 0) {
-            return CommonResult.failed("No product found");
+        try {
+            List<PmsProduct> productList = pmsProductService.list();
+            if (productList == null || productList.size() == 0) {
+                return CommonResult.failed("No product found");
+            }
+            return CommonResult.success(productList, "Get product list successfully");
+        } catch (Exception e) {
+            return CommonResult.failed("Failed to get product list. " + e.getMessage());
         }
-        return CommonResult.success(productList, "Get product list successfully");
     }
 
     @ApiOperation("Get a product. Support query by product id or recording id")
     @PostMapping("/search")
     public CommonResult<List<PmsProduct>> search(@RequestBody Map<String, String> requestMap) {
-        if (requestMap.containsKey("productId")) {
-            PmsProduct product = pmsProductService.getById(Long.parseLong(requestMap.get("productId")));
-            if (product != null) {
+        try {
+            if (requestMap.containsKey("productId")) {
+                PmsProduct product = pmsProductService.getById(Long.parseLong(requestMap.get("productId")));
+                if (product == null) {
+                    return CommonResult.failed("No product found");
+                }
                 List<PmsProduct> pmsProducts = new ArrayList<>();
                 pmsProducts.add(product);
                 return CommonResult.success(pmsProducts, "Get product successfully");
-            } else {
-                return CommonResult.failed("No product found");
             }
-        }
-        if (requestMap.containsKey("recordingId")) {
-            List<PmsProduct> products = pmsProductService.getByRecordingId(Long.parseLong(requestMap.get("recordingId")));
-            if (products != null) {
+            if (requestMap.containsKey("recordingId")) {
+                List<PmsProduct> products = pmsProductService.getByRecordingId(Long.parseLong(requestMap.get("recordingId")));
+                if (products == null) {
+                    return CommonResult.failed("No product found");
+                }
                 return CommonResult.success(products, "Get product successfully");
-            } else {
-                return CommonResult.failed("No product found");
             }
+        } catch (Exception e) {
+            return CommonResult.failed("Failed to get product. " + e.getMessage());
         }
         return CommonResult.failed("No product found");
     }

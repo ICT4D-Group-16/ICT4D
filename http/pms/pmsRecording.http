@@ -1,9 +1,9 @@
 ### Get a list of all recordings
-GET https://ict4d-group16.herokuapp.com/pms/recording/list
+GET {{host}}/pms/recording/list
 Accept: application/json
 
 ### Send a form with the phone number and recording
-POST https://ict4d-group16.herokuapp.com/pms/recording/create
+POST {{host}}/pms/recording/create
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
