@@ -6,7 +6,9 @@
 
     <form id="buy_en">
         <var name="product_inf"/>
-        <assign name="product_inf" expr="null"/>
+        <block>
+            <assign name="product_inf" expr="null"/>
+        </block>
 
         <field name="productId" type="digits">
             <prompt>
@@ -83,10 +85,11 @@
         <filled namelist="confirm">
             <script src="submit-order.js"/>
             <if cond="confirm == '1'">
-                
+                <prompt>You have confirmed to order this product.</prompt>
                 <elseif cond="confirm == '0'"/>
-
+                <prompt>Cancelled.</prompt>
             </if>
+            <goto next="#continue"/>
         </filled>
     </form>
     <form id="continue">
