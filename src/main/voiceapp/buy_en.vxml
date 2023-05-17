@@ -69,21 +69,10 @@
                 <value expr="product_inf.price * count"/>
                 <value expr=""/>
                 <break/>
-                Press 1 to abort this product.
-                Press 3 to confirm to add this product to the current order.
-                Press 7 to abort all the products added.
-                Press 9 to submit all the products added.
+                Press 1 to confirm to order this product.
+                Press 0 to cancel.
             </prompt>
-            <grammar root="r" mode="dtmf">
-                <rule id="r">
-                    <one-of>
-                        <item>1</item>
-                        <item>3</item>
-                        <item>7</item>
-                        <item>9</item>
-                    </one-of>
-                </rule>
-            </grammar>
+            <grammar src="ok_cancel.xml"/>
             <noinput>
                 <reprompt/>
             </noinput>
@@ -94,18 +83,20 @@
         <filled namelist="confirm">
             <script src="submit-order.js"/>
             <if cond="confirm == '1'">
-                <prompt>Did not add.</prompt>
-                <goto next="#buy_en"/>
-                <elseif cond="confirm == '3'"/>
-                <value expr="add_order_detail()"/>
-                <goto next="#buy_en"/>
-                <elseif cond="confirm == '7'"/>
-                <prompt>You aborted to order all the products added.</prompt>
-                <goto next="mode_en.vxml"/>
-                <elseif cond="confirm == '9'"/>
-                <value expr="submit_order_master()"/>
-                <goto next="mode_en.vxml"/>
+                
+                <elseif cond="confirm == '0'"/>
+
             </if>
         </filled>
+    </form>
+    <form id="continue">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To add another product for this order, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#buy_en"/>
+            <param name="target_if_cancel" value="mode_en.vxml"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
     </form>
 </vxml>
