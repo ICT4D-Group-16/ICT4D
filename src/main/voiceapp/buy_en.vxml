@@ -4,16 +4,23 @@
     <var name="orderId"/>
     <form id="buy_en">
         <var name="product_inf"/>
-        <field name="product_ID" type="digits">
+        <assign name="product_inf" expr="null"/>
+
+        <field name="productId" type="digits">
             <prompt>
                 Enter the ID of the product you want to purchase.
             </prompt>
             <grammar src="builtin:dtmf/digits"/>
         </field>
-        <filled namelist="product_ID">
-            <data name="product_inf"
-                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/product/get/&quot; + product_ID"
-                  method="get"/>
+        <filled namelist="productId">
+            <data name="product_search_result" src="https://ict4d-group16.herokuapp.com/pms/product/search"
+                  method="post" enctype="application/json" accept="application/json"
+                  namelist="productId"/>
+            <if cond="product_search_result.data === null">
+                <prompt>The product with this ID does not exist.</prompt>
+                <goto next="#buy_en"/>
+            </if>
+            <assign name="product_inf" expr="product_search_result.data[0]"/>
             <prompt>
                 Product information.
                 ID:
@@ -38,7 +45,7 @@
             <prompt>
                 Check the purchase information.
                 Product ID:
-                <value expr="product_ID"/>
+                <value expr="productId"/>
                 <break/>
                 Product name:
                 <value expr="product_inf.productName"/>
@@ -60,14 +67,16 @@
                 <value expr="product_inf.price * count"/>
                 <value expr=""/>
                 <break/>
-                Press 1 to confirm to add this product to the current order.
-                Press 0 to cancel.
+                Press 1 to abort this product.
+                Press 3 to confirm to add this product to the current order.
+                Press 7 to abort all the products added.
+                Press 9 to submit all the products added.
             </prompt>
             <grammar root="r" mode="dtmf">
                 <rule id="r">
                     <one-of>
                         <item>1</item>
-                        <item>2</item>
+                        <item>3</item>
                         <item>7</item>
                         <item>9</item>
                     </one-of>
@@ -82,9 +91,11 @@
         </field>
         <filled namelist="confirm">
             <if cond="confirm == '1'">
-                <prompt>Added.</prompt>
-                <elseif cond="confirm == '2'"/>
                 <prompt>Did not add.</prompt>
+                <goto next="#buy_en"/>
+                <elseif cond="confirm == '3'"/>
+                <prompt>Added</prompt>
+                <goto next="#buy_en"/>
                 <elseif cond="confirm == '7'"/>
                 <prompt>You aborted to order all the products added.</prompt>
                 <elseif cond="confirm == '9'"/>
