@@ -18,6 +18,28 @@ Content-Type: application/json
   "userId": 2
 }
 
+### Create one New Order
+POST https://ict4d-group16.herokuapp.com/pms/orderMaster/create
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "orderDetails": [
+    {
+      "productId": 12,
+      "productPrice": 810.00,
+      "productQuantity": 2,
+      "productTotalPrice": 1620.00
+    },
+    {
+      "productId": 12,
+      "productPrice": 810.00,
+      "productQuantity": 2,
+      "productTotalPrice": 1620.00
+    }
+  ]
+}
+
 ### Get One Order By Id
 GET https://ict4d-group16.herokuapp.com/pms/orderMaster/get/1
 

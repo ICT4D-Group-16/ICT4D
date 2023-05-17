@@ -2,6 +2,8 @@
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
     <var name="orderMasterSubmitted" expr="false"/>
     <var name="orderId"/>
+    <var name="orderDetails"/>
+
     <form id="buy_en">
         <var name="product_inf"/>
         <assign name="product_inf" expr="null"/>
