@@ -47,6 +47,7 @@ public class PmsOrderDetailServiceImpl extends ServiceImpl<PmsOrderDetailMapper,
         if (product == null) {
             throw new RuntimeException("Product not found. Please check the product id.");
         }
+        orderDetail.setProductPrice(product.getPrice());
         PmsOrderMaster order = orderMasterService.getById(orderDetail.getOrderId());
         if (order == null) {
             throw new RuntimeException("Order not found. Please check the order id.");
@@ -66,7 +67,8 @@ public class PmsOrderDetailServiceImpl extends ServiceImpl<PmsOrderDetailMapper,
             throw new RuntimeException("Product quantity update failed.");
         }
         // update order money
-        order.setOrderMoney(order.getOrderMoney().add(orderDetail.getProductPrice().multiply(BigDecimal.valueOf(orderDetail.getProductQuantity()))));
+        orderDetail.setProductTotalPrice(product.getPrice().multiply(BigDecimal.valueOf(orderDetail.getProductQuantity())));
+        order.setOrderMoney(order.getOrderMoney().add(orderDetail.getProductTotalPrice()));
         boolean successUpdate = orderMasterService.updateById(order);
         if (!successUpdate) {
             throw new RuntimeException("Order money update failed.");
