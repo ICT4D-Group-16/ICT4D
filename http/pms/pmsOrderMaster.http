@@ -27,15 +27,11 @@ Content-Type: application/json
   "orderDetails": [
     {
       "productId": 12,
-      "productPrice": 810.00,
       "productQuantity": 2,
-      "productTotalPrice": 1620.00
     },
     {
       "productId": 12,
-      "productPrice": 810.00,
       "productQuantity": 2,
-      "productTotalPrice": 1620.00
     }
   ]
 }
