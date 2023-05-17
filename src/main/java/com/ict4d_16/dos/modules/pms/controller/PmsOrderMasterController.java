@@ -48,7 +48,7 @@ public class PmsOrderMasterController {
 
     @GetMapping("/get/{id}")
     public CommonResult<PmsOrderMaster> getById(@PathVariable Long id) {
-        PmsOrderMaster pmsOrderMaster = pmsOrderMasterService.getById(id);
+        PmsOrderMaster pmsOrderMaster = pmsOrderMasterService.getByOrderId(id);
         if (pmsOrderMasterService != null) {
             return CommonResult.success(pmsOrderMaster, "Query successfully");
         } else {
