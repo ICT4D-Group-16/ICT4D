@@ -70,10 +70,10 @@
                       method="post" enctype="application/json" accept="application/json"
                       namelist="productName phone quantity price"/>
                 <if cond="response.code == 200">
-                    <prompt>You confirmed this order.</prompt>
+                    <prompt>Confirmed.</prompt>
                     <else/>
                     <prompt>
-                        Order confirmation failed.
+                        Failed to confirm.
                         Status Code: <value expr="response.code"/>.
                         Message: <value expr="response.message"/>.
                     </prompt>
