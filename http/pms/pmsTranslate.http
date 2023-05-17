@@ -1,9 +1,19 @@
-### Create a translate text for a product
-POST https://ict4d-group16.herokuapp.com/pms/translate/create
+### Create a name translate text for a product
+POST {{host}}/pms/translate/createName
 content-type: application/json
 
 {
-    "product_id": 1,
+    "productId": 8,
     "text": "This is a translated text",
     "language": "English"
+}
+
+### Create a description translate text for a product
+POST {{host}}/pms/translate/createDescription
+content-type: application/json
+
+{
+  "productId": 8,
+  "text": "This is a translated text",
+  "language": "English"
 }

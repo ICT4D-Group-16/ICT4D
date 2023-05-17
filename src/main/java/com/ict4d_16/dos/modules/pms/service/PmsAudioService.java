@@ -16,5 +16,5 @@ public interface PmsAudioService extends IService<PmsAudio> {
     /**
      * add Translation audio
      */
-    PmsAudio create(Long productId, String language, String url);
+    PmsAudio create(PmsAudio pmsAudio);
 }

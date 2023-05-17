@@ -26,16 +26,35 @@ public class PmsTranslateController {
     @Autowired
     private PmsTranslateService pmsTranslateService;
 
-    @ApiOperation("Add one translate text for a product.")
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ApiOperation("Add one name translate text for a product.")
+    @RequestMapping(value = "/createName", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<PmsTranslate> create(@Validated @RequestBody PmsTranslate pmsTranslate) {
-        PmsTranslate translate = pmsTranslateService.create(pmsTranslate.getProductId(),
-                pmsTranslate.getLanguage(), pmsTranslate.getText());
-        if (translate != null) {
+        pmsTranslate.setCategory(0);
+        try {
+            PmsTranslate translate = pmsTranslateService.create(pmsTranslate);
+            if (translate == null) {
+                return CommonResult.failed("Failed to create");
+            }
             return CommonResult.success(translate, "Create successfully");
-        } else {
-            return CommonResult.failed("Failed to create");
+        } catch (Exception e) {
+            return CommonResult.failed("Failed to create translation text for product name. " + e.getMessage());
+        }
+    }
+
+    @ApiOperation("Add one description translate text for a product.")
+    @RequestMapping(value = "/createDescription", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<PmsTranslate> createDescription(@Validated @RequestBody PmsTranslate pmsTranslate) {
+        pmsTranslate.setCategory(1);
+        try {
+            PmsTranslate translate = pmsTranslateService.create(pmsTranslate);
+            if (translate == null) {
+                return CommonResult.failed("Failed to create");
+            }
+            return CommonResult.success(translate, "Create successfully");
+        } catch (Exception e) {
+            return CommonResult.failed("Failed to create translation text for product description. " + e.getMessage());
         }
     }
 }

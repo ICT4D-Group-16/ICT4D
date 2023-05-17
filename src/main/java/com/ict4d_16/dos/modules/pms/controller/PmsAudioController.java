@@ -36,29 +36,58 @@ public class PmsAudioController {
     @Autowired
     private AmazonS3Service amazonS3Service;
 
-    @ApiOperation("Form API. Add one translate audio for a product.")
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ApiOperation("Form API. Add one name translate audio for a product.")
+    @RequestMapping(value = "/createName", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<PmsAudio> create(@RequestParam("productId") Long productId,
-                                         @RequestParam("file") MultipartFile file,
-                                         @RequestParam("language") String language) {
+    public CommonResult<PmsAudio> createName(@RequestParam("productId") Long productId,
+                                             @RequestParam("file") MultipartFile file,
+                                             @RequestParam("language") String language) {
         if (Objects.isNull(file) || file.isEmpty()) {
             return CommonResult.failed("Recording file is empty!");
         }
         String filePath;
         try {
             filePath = amazonS3Service.putObject(file);
-            PmsAudio audio = pmsAudioService.create(productId, language, filePath);
-            if (audio != null) {
-                return CommonResult.success(audio, "Audio upload successfully!");
-            } else {
-                return CommonResult.failed("Audio upload failed!");
+            PmsAudio audio = new PmsAudio();
+            audio.setProductId(productId);
+            audio.setLanguage(language);
+            audio.setCategory(0);
+            audio.setUrl(filePath);
+            audio = pmsAudioService.create(audio);
+            if (audio == null) {
+                return CommonResult.failed("Name translation audio create failed!");
             }
+            return CommonResult.success(audio, "Name translation audio create successfully!");
         } catch (Exception e) {
-            e.printStackTrace();
-            return CommonResult.failed("Audio upload failed!");
+            return CommonResult.failed("Name translation audio create failed! " + e.getMessage());
         }
     }
 
+    @ApiOperation("Form API. Add one description translate audio for a product.")
+    @RequestMapping(value = "/createDescription", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<PmsAudio> createDescription(@RequestParam("productId") Long productId,
+                                                    @RequestParam("file") MultipartFile file,
+                                                    @RequestParam("language") String language) {
+        if (Objects.isNull(file) || file.isEmpty()) {
+            return CommonResult.failed("Recording file is empty!");
+        }
+        String filePath;
+        try {
+            filePath = amazonS3Service.putObject(file);
+            PmsAudio audio = new PmsAudio();
+            audio.setProductId(productId);
+            audio.setLanguage(language);
+            audio.setCategory(1);
+            audio.setUrl(filePath);
+            audio = pmsAudioService.create(audio);
+            if (audio == null) {
+                return CommonResult.failed("Description translation audio create failed!");
+            }
+            return CommonResult.success(audio, "Description translation audio create successfully!");
+        } catch (Exception e) {
+            return CommonResult.failed("Description translation audio create failed! " + e.getMessage());
+        }
+    }
 }
 
