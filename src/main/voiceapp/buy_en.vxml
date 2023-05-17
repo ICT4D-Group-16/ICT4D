@@ -12,7 +12,7 @@
         </field>
         <filled namelist="product_ID">
             <data name="product_inf"
-                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/pmsProduct/get/&quot; + product_ID"
+                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/product/get/&quot; + product_ID"
                   method="get"/>
             <prompt>
                 Product information.
@@ -60,10 +60,19 @@
                 <value expr="product_inf.price * count"/>
                 <value expr=""/>
                 <break/>
-                Press 1 to confirm this order.
+                Press 1 to confirm to add this product to the current order.
                 Press 0 to cancel.
             </prompt>
-            <grammar src="ok_cancel.xml"/>
+            <grammar root="r" mode="dtmf">
+                <rule id="r">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>7</item>
+                        <item>9</item>
+                    </one-of>
+                </rule>
+            </grammar>
             <noinput>
                 <reprompt/>
             </noinput>
@@ -73,26 +82,14 @@
         </field>
         <filled namelist="confirm">
             <if cond="confirm == '1'">
-                <!--                TODO: submit to server-->
-                <data name="response" src="https://ict4d-group16.herokuapp.com/pms/pmsOrderMaster/add"
-                      method="post" enctype="application/json" accept="application/json"
-                      namelist=""/>
-                <prompt>You have confirmed this order.</prompt>
+                <prompt>Added.</prompt>
+                <elseif cond="confirm == '2'"/>
+                <prompt>Did not add.</prompt>
+                <elseif cond="confirm == '7'"/>
+                <prompt>You aborted to order all the products added.</prompt>
+                <elseif cond="confirm == '9'"/>
+                <prompt>You submitted all the products added</prompt>
             </if>
-            <if cond="confirm == '0'">
-                <prompt>Order cancelled.</prompt>
-            </if>
-            <goto next="#continue"/>
         </filled>
-    </form>
-    <form id="continue">
-        <subdialog src="continue.vxml" name="ret">
-            <param name="prompt" value="To add another product to buy, press 1. To finish, press 0."/>
-            <param name="target_if_ok" value="#buy_en"/>
-            <param name="target_if_cancel" value="mode_en.vxml"/>
-            <filled>
-                <goto expr="ret.target"/>
-            </filled>
-        </subdialog>
     </form>
 </vxml>
