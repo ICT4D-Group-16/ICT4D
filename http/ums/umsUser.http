@@ -43,6 +43,9 @@ Content-Type: application/json
 GET {{host}}/user/info
 Authorization: Bearer {{auth_token}}
 
+### Get User Info
+GET {{host}}/user/info/114514
+Authorization: Bearer {{auth_token}}
 
 ### Logout
 POST {{host}}/user/logout
