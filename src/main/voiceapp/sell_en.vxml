@@ -3,7 +3,6 @@
     <var name="phone" expr="session.callerid"/>
 
     <form id="sell_en">
-        <script src="submit-recording.js"/>
         <record name="productName" beep="true" dtmfterm="true">
             <prompt>
                 Enter product name. Press any key to finish.
@@ -72,9 +71,6 @@
                           method="post" enctype="multipart/form-data" accept="application/json"
                           namelist="productId language file"/>
                     <if cond="name_audio_ret.code == 200">
-                        <prompt>
-                            Product name recording uploaded. ID:<value expr="name_audio_ret.data.audioId"/>.
-                        </prompt>
                         <else/>
                         <prompt>
                             Failed to upload product name recording.
@@ -102,9 +98,6 @@
                           method="post" enctype="multipart/form-data" accept="application/json"
                           namelist="productId language file"/>
                     <if cond="description_audio_ret.code == 200">
-                        <prompt>
-                            Product description recording uploaded. ID:<value expr="description_audio_ret.data.audioId"/>.
-                        </prompt>
                         <else/>
                         <prompt>
                             Failed to upload product description recording.
