@@ -15,6 +15,6 @@ Content-Type: application/json
 GET {{host}}/pms/orderMaster/get/2
 
 ### Delete One Order By Id
-DELETE {{host}}/pms/orderMaster/delete/1
+DELETE {{host}}/pms/orderMaster/delete/2
 
 
