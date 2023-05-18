@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ict4d_16.dos.modules.pms.service.PmsOrderMasterService;
 import com.ict4d_16.dos.modules.pms.service.PmsProductService;
 import com.ict4d_16.dos.modules.ums.model.UmsAdmin;
+import com.ict4d_16.dos.modules.ums.service.UmsAdminService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,8 @@ public class PmsOrderDetailServiceImpl extends ServiceImpl<PmsOrderDetailMapper,
     private PmsOrderMasterService orderMasterService;
     @Autowired
     private PmsProductService productService;
+    @Autowired
+    private UmsAdminService adminService;
 
     @Override
     @Transactional
@@ -78,6 +81,14 @@ public class PmsOrderDetailServiceImpl extends ServiceImpl<PmsOrderDetailMapper,
         if (!success) {
             throw new RuntimeException("Order detail create failed.");
         }
+        // check product supplier whether valid
+        UmsAdmin supplier = adminService.getById(product.getSupplierUserId());
+        if (supplier == null) {
+            throw new RuntimeException("Product supplier not found.");
+        }
+        // set supplier info
+        orderDetail.setSellerNickname(supplier.getNickName());
+        orderDetail.setSellerPhone(supplier.getPhone());
         return orderDetail;
     }
 }

@@ -7,6 +7,7 @@ Content-Type: application/json
 
 {
   "userId": 2,
+
   "orderStatus": 0
 }
 
