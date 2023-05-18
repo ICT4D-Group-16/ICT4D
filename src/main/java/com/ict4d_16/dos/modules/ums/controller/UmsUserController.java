@@ -72,13 +72,17 @@ public class UmsUserController {
         umsAdmin.setNickName(umsUserVxmlRegisterParam.getNickName());
         umsAdmin.setUsername(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setLanguage(umsUserVxmlRegisterParam.getLanguage());
-        UmsAdmin user = adminService.register(umsAdmin);
-        umsAdmin.setPassword(null);
-        if (user == null) {
-            return CommonResult.failed();
+        try {
+            UmsAdmin user = adminService.register(umsAdmin);
+            if (user == null) {
+                return CommonResult.failed("User registration failed.");
+            }
+            umsAdmin.setPassword(null);
+            adminService.updateRole(user.getId(), Collections.singletonList(10L));
+            return CommonResult.success(user, "User registration successful.");
+        } catch (Exception e) {
+            return CommonResult.failed("User registration failed. " + e.getMessage());
         }
-        adminService.updateRole(user.getId(), Collections.singletonList(10L));
-        return CommonResult.success(user);
     }
 
     @ApiOperation(value = "Login and return token")
