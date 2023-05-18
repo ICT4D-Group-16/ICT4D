@@ -48,11 +48,14 @@ public class PmsOrderMasterController {
 
     @GetMapping("/get/{id}")
     public CommonResult<PmsOrderMaster> getById(@PathVariable Long id) {
-        PmsOrderMaster pmsOrderMaster = pmsOrderMasterService.getById(id);
-        if (pmsOrderMasterService != null) {
-            return CommonResult.success(pmsOrderMaster, "Query successfully");
-        } else {
-            return CommonResult.failed("Failed to query");
+        try {
+            PmsOrderMaster pmsOrderMaster = pmsOrderMasterService.getByOrderId(id);
+            if (pmsOrderMaster == null) {
+                return CommonResult.failed("Order does not exist");
+            }
+            return CommonResult.success(pmsOrderMaster);
+        } catch (Exception e) {
+            return CommonResult.failed("Failed to query. " + e.getMessage());
         }
     }
 

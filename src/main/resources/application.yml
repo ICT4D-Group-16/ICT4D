@@ -79,6 +79,7 @@ secure:
       - /user/register
       - /user/register_vxml
       - /user/logout
+      - /user/info/**
       - /pms/**
       - /hello
       - /static/**

@@ -101,7 +101,7 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         wrapper.lambda().eq(UmsAdmin::getUsername, umsAdmin.getUsername());
         List<UmsAdmin> umsAdminList = list(wrapper);
         if (umsAdminList.size() > 0) {
-            return null;
+            throw new RuntimeException("User already exists");
         }
         //将密码进行加密操作
         String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());

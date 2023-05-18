@@ -44,8 +44,7 @@ public class PmsRecordingController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<PmsRecording> create(@RequestParam("phone") String phone,
-                            @RequestParam("file") MultipartFile file,
-                            HttpServletRequest request) {
+                                             @RequestParam("file") MultipartFile file) {
         if (Objects.isNull(file) || file.isEmpty()) {
             return CommonResult.failed("Recording file is empty!");
         }

@@ -16,5 +16,5 @@ public interface PmsTranslateService extends IService<PmsTranslate> {
     /**
      * add Translation
      */
-    PmsTranslate create(Long productId, String language, String text);
+    PmsTranslate create(PmsTranslate pmsTranslate);
 }

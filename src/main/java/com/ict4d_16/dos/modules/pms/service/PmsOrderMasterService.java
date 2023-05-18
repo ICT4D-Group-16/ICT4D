@@ -23,4 +23,9 @@ public interface PmsOrderMasterService extends IService<PmsOrderMaster> {
      * list all orders
      */
     List<PmsOrderMaster> list();
+
+    /**
+     * Get order by order id
+     */
+    PmsOrderMaster getByOrderId(Long orderId);
 }

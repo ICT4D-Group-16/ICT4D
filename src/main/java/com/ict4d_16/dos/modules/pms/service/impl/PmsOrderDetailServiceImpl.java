@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ict4d_16.dos.modules.pms.service.PmsOrderMasterService;
 import com.ict4d_16.dos.modules.pms.service.PmsProductService;
 import com.ict4d_16.dos.modules.ums.model.UmsAdmin;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,18 +38,22 @@ public class PmsOrderDetailServiceImpl extends ServiceImpl<PmsOrderDetailMapper,
     @Override
     @Transactional
     public PmsOrderDetail create(PmsOrderDetail pmsOrderDetail) {
-        pmsOrderDetail.setModifiedTime(new Date());
+        PmsOrderDetail orderDetail = new PmsOrderDetail();
+        BeanUtils.copyProperties(pmsOrderDetail, orderDetail);
+        orderDetail.setOrderDetailId(null);
+        orderDetail.setModifiedTime(new Date());
         // check product and order valid
-        PmsProduct product = productService.getById(pmsOrderDetail.getProductId());
+        PmsProduct product = productService.getById(orderDetail.getProductId());
         if (product == null) {
             throw new RuntimeException("Product not found. Please check the product id.");
         }
-        PmsOrderMaster order = orderMasterService.getById(pmsOrderDetail.getOrderId());
+        orderDetail.setProductPrice(product.getPrice());
+        PmsOrderMaster order = orderMasterService.getById(orderDetail.getOrderId());
         if (order == null) {
             throw new RuntimeException("Order not found. Please check the order id.");
         }
         // subtract product quantity
-        product.setQuantity(product.getQuantity() - pmsOrderDetail.getProductQuantity());
+        product.setQuantity(product.getQuantity() - orderDetail.getProductQuantity());
         if (product.getQuantity() < 0) {
             throw new RuntimeException("Product quantity is not enough. Order can not be created.");
         } else if (product.getQuantity() == 0) {
@@ -62,16 +67,17 @@ public class PmsOrderDetailServiceImpl extends ServiceImpl<PmsOrderDetailMapper,
             throw new RuntimeException("Product quantity update failed.");
         }
         // update order money
-        order.setOrderMoney(order.getOrderMoney().add(pmsOrderDetail.getProductPrice().multiply(BigDecimal.valueOf(pmsOrderDetail.getProductQuantity()))));
+        orderDetail.setProductTotalPrice(product.getPrice().multiply(BigDecimal.valueOf(orderDetail.getProductQuantity())));
+        order.setOrderMoney(order.getOrderMoney().add(orderDetail.getProductTotalPrice()));
         boolean successUpdate = orderMasterService.updateById(order);
         if (!successUpdate) {
             throw new RuntimeException("Order money update failed.");
         }
         // create order detail
-        boolean success = save(pmsOrderDetail);
+        boolean success = save(orderDetail);
         if (!success) {
             throw new RuntimeException("Order detail create failed.");
         }
-        return pmsOrderDetail;
+        return orderDetail;
     }
 }

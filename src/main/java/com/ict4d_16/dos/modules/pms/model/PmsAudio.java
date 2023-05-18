@@ -37,6 +37,9 @@ public class PmsAudio implements Serializable {
     @ApiModelProperty(value = "Product ID", required = true)
     private Long productId;
 
+    @ApiModelProperty("Category for audio. 0: name, 1: description")
+    private Integer category;
+
     @ApiModelProperty("URL of audio file")
     private String url;
 

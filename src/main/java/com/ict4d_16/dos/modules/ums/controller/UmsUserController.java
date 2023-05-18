@@ -71,14 +71,19 @@ public class UmsUserController {
         umsAdmin.setPhone(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setNickName(umsUserVxmlRegisterParam.getNickName());
         umsAdmin.setUsername(umsUserVxmlRegisterParam.getPhone());
+        umsAdmin.setPassword(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setLanguage(umsUserVxmlRegisterParam.getLanguage());
-        UmsAdmin user = adminService.register(umsAdmin);
-        umsAdmin.setPassword(null);
-        if (user == null) {
-            return CommonResult.failed();
+        try {
+            UmsAdmin user = adminService.register(umsAdmin);
+            if (user == null) {
+                return CommonResult.failed("User registration failed.");
+            }
+            umsAdmin.setPassword(null);
+            adminService.updateRole(user.getId(), Collections.singletonList(10L));
+            return CommonResult.success(user, "User registration successful.");
+        } catch (Exception e) {
+            return CommonResult.failed("User registration failed. " + e.getMessage());
         }
-        adminService.updateRole(user.getId(), Collections.singletonList(10L));
-        return CommonResult.success(user);
     }
 
     @ApiOperation(value = "Login and return token")
@@ -112,7 +117,11 @@ public class UmsUserController {
         String username = principal.getName();
         UmsAdmin umsAdmin = adminService.getAdminByUsername(username);
         Map<String, Object> data = new HashMap<>();
+        data.put("id", umsAdmin.getId());
         data.put("username", umsAdmin.getUsername());
+        data.put("nickname", umsAdmin.getNickName());
+        data.put("phone", umsAdmin.getPhone());
+        data.put("language", umsAdmin.getLanguage());
         data.put("menus", roleService.getMenuList(umsAdmin.getId()));
         data.put("icon", umsAdmin.getIcon());
         List<UmsRole> roleList = adminService.getRoleList(umsAdmin.getId());

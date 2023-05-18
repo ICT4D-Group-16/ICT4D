@@ -1,8 +1,8 @@
-### Get All Products
-GET https://ict4d-group16.herokuapp.com/pms/orderMaster/list
+### Get All Orders
+GET {{host}}/pms/orderMaster/list
 
-### Create one New Product
-POST https://ict4d-group16.herokuapp.com/pms/orderMaster/create
+### Create one New Order
+POST {{host}}/pms/orderMaster/create
 Content-Type: application/json
 
 {
@@ -10,10 +10,10 @@ Content-Type: application/json
   "orderStatus": 0
 }
 
-### Get One Product By Id
-GET https://ict4d-group16.herokuapp.com/pms/orderMaster/get/1
+### Get One Order By Id
+GET {{host}}/pms/orderMaster/get/2
 
-### Delete One Product By Id
-DELETE https://ict4d-group16.herokuapp.com/pms/orderMaster/delete/1
+### Delete One Order By Id
+DELETE {{host}}/pms/orderMaster/delete/1
 
 

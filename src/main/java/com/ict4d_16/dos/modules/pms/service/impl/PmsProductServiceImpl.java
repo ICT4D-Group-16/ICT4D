@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -47,18 +48,23 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         pmsProduct.setModifiedTime(new Date());
         pmsProduct.setPublishStatus(0);
         UmsAdmin seller = adminService.getAdminByPhone(pmsProductParam.getPhone());
+        if (seller == null) {
+            throw new IllegalArgumentException("Seller does not exist");
+        }
         pmsProduct.setSupplierUserId(seller.getId());
         boolean success = save(pmsProduct);
-        if (success) {
-            return pmsProduct;
-        } else {
-            return null;
+        if (!success) {
+            throw new RuntimeException("Failed to create product");
         }
+        return pmsProduct;
     }
 
     @Override
     public List<PmsProduct> list() {
         List<PmsProduct> productList = baseMapper.selectList(null);
+        if (productList == null || productList.size() == 0) {
+            throw new RuntimeException("No product found");
+        }
         return getTranslationAndAudio(productList);
     }
 
@@ -67,7 +73,19 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         QueryWrapper<PmsProduct> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("recording_id", recordingId);
         List<PmsProduct> productList = baseMapper.selectList(queryWrapper);
+        if (productList == null || productList.size() == 0) {
+            throw new RuntimeException("No product found");
+        }
         return getTranslationAndAudio(productList);
+    }
+
+    @Override
+    public PmsProduct getById(Long id) {
+        PmsProduct product = baseMapper.selectById(id);
+        if (product == null) {
+            throw new RuntimeException("No product found");
+        }
+        return getTranslationAndAudio(Collections.singletonList(product)).get(0);
     }
 
     private List<PmsProduct> getTranslationAndAudio(List<PmsProduct> productList) {
@@ -75,14 +93,27 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             return null;
         }
         for (PmsProduct product : productList) {
-            QueryWrapper<PmsTranslate> queryWrapper1 = new QueryWrapper<>();
-            queryWrapper1.eq("product_id", product.getProductId());
-            List<PmsTranslate> translateList = pmsTranslateService.list(queryWrapper1);
-            product.setTranslates(translateList);
-            QueryWrapper<PmsAudio> audioQueryWrapper = new QueryWrapper<>();
-            audioQueryWrapper.eq("product_id", product.getProductId());
-            List<PmsAudio> audioList = pmsAudioService.list(audioQueryWrapper);
-            product.setAudios(audioList);
+            QueryWrapper<PmsTranslate> nameTranslateQueryWrapper = new QueryWrapper<>();
+            nameTranslateQueryWrapper.eq("product_id", product.getProductId())
+                    .eq("category", 0);
+            List<PmsTranslate> nameTranslateList = pmsTranslateService.list(nameTranslateQueryWrapper);
+            product.setNameTranslates(nameTranslateList);
+            QueryWrapper<PmsTranslate> descriptionTranslateQueryWrapper = new QueryWrapper<>();
+            descriptionTranslateQueryWrapper.eq("product_id", product.getProductId())
+                    .eq("category", 1);
+            List<PmsTranslate> descriptionTranslateList = pmsTranslateService.list(descriptionTranslateQueryWrapper);
+            product.setDescriptionTranslates(descriptionTranslateList);
+
+            QueryWrapper<PmsAudio> nameAudioQueryWrapper = new QueryWrapper<>();
+            nameAudioQueryWrapper.eq("product_id", product.getProductId())
+                    .eq("category", 0);
+            List<PmsAudio> nameAudioList = pmsAudioService.list(nameAudioQueryWrapper);
+            product.setNameAudios(nameAudioList);
+            QueryWrapper<PmsAudio> descriptionAudioQueryWrapper = new QueryWrapper<>();
+            descriptionAudioQueryWrapper.eq("product_id", product.getProductId())
+                    .eq("category", 1);
+            List<PmsAudio> descriptionAudioList = pmsAudioService.list(descriptionAudioQueryWrapper);
+            product.setDescriptionAudios(descriptionAudioList);
         }
         return productList;
     }
