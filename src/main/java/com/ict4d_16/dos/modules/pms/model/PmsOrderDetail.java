@@ -1,6 +1,7 @@
 package com.ict4d_16.dos.modules.pms.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -49,5 +50,11 @@ public class PmsOrderDetail implements Serializable {
     @ApiModelProperty("Order Detail Last Modified Time")
     private Date modifiedTime;
 
+    @ApiModelProperty("Seller Nickname")
+    @TableField(exist = false)
+    private String sellerNickname;
 
+    @ApiModelProperty("Seller Phone")
+    @TableField(exist = false)
+    private String sellerPhone;
 }

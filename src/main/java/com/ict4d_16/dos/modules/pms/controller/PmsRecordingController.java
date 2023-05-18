@@ -3,6 +3,7 @@ package com.ict4d_16.dos.modules.pms.controller;
 import com.ict4d_16.dos.common.api.CommonResult;
 import com.ict4d_16.dos.common.service.AmazonS3Service;
 import com.ict4d_16.dos.modules.pms.model.PmsAudio;
+import com.ict4d_16.dos.modules.pms.model.PmsProduct;
 import com.ict4d_16.dos.modules.pms.model.PmsRecording;
 import com.ict4d_16.dos.modules.pms.service.PmsRecordingService;
 import com.ict4d_16.dos.modules.ums.model.UmsAdmin;
@@ -73,5 +74,16 @@ public class PmsRecordingController {
     public CommonResult<List<PmsRecording>> list() {
         List<PmsRecording> recordingList = recordingService.list();
         return CommonResult.success(recordingList);
+    }
+
+    @ApiOperation("Get a record by id")
+    @GetMapping("/get/{id}")
+    public CommonResult<PmsRecording> getById(@PathVariable Long id) {
+        PmsRecording recording = recordingService.getById(id);
+        if (recording == null) {
+            return CommonResult.failed("No record found");
+        } else {
+            return CommonResult.success(recording, "Get product successfully");
+        }
     }
 }
