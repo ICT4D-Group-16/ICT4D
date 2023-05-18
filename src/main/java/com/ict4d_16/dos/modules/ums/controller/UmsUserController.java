@@ -71,6 +71,7 @@ public class UmsUserController {
         umsAdmin.setPhone(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setNickName(umsUserVxmlRegisterParam.getNickName());
         umsAdmin.setUsername(umsUserVxmlRegisterParam.getPhone());
+        umsAdmin.setPassword(umsUserVxmlRegisterParam.getPhone());
         umsAdmin.setLanguage(umsUserVxmlRegisterParam.getLanguage());
         try {
             UmsAdmin user = adminService.register(umsAdmin);

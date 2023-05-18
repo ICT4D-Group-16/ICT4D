@@ -18,7 +18,7 @@ POST {{host}}/user/register_vxml
 Content-Type: application/json
 
 {
-  "phone": "1919810",
+  "phone": "19198101",
   "nickName": "Jerry",
   "language": "English"
 }
