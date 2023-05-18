@@ -3,11 +3,21 @@
     <script src="query_product.js"/>
     <form id="query_product_en">
         <block>
-            <data name="product_list" src="https://ict4d-group16.herokuapp.com/pms/product/list"
+            <data name="product_list_ret" src="https://ict4d-group16.herokuapp.com/pms/product/list"
                   method="get"/>
             <prompt>
-                <value expr="query_product(product_list)"/>
+                <value expr="query_product(product_list.data)"/>
             </prompt>
         </block>
+    </form>
+    <form id="continue">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To query another order, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#query_product_en"/>
+            <param name="target_if_cancel" value="mode_en.vxml"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
     </form>
 </vxml>
