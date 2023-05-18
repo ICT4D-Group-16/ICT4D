@@ -8,7 +8,7 @@
             <grammar src="builtin:dtmf/digits"/>
         </field>
         <filled>
-            <data name="order_inf" srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/pmsOrderDetail/get/&quot; + order_ID" method="get"/>
+            <data name="order_inf" srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/get/&quot; + order_ID" method="get"/>
             <prompt>
                 Order Information.
                 Order ID:

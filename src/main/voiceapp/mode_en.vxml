@@ -34,7 +34,7 @@
                 <goto next="sell_en.vxml"/>
             </if>
             <if cond="mode == '3'">
-                <goto next="query_en.vxml"/>
+                <goto next="query_order_en.vxml"/>
             </if>
             <if cond="mode == '*'">
                 <goto next="main.vxml"/>
