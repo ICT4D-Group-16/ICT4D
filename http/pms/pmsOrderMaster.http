@@ -27,11 +27,11 @@ Content-Type: application/json
   "orderDetails": [
     {
       "productId": 12,
-      "productQuantity": 2,
+      "productQuantity": 2
     },
     {
       "productId": 12,
-      "productQuantity": 2,
+      "productQuantity": 2
     }
   ]
 }

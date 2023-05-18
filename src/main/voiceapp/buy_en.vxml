@@ -39,7 +39,7 @@
                 <break/>
             </prompt>
         </filled>
-        <field name="count" type="digits">
+        <field name="productQuantity" type="digits">
             <prompt>
                 Enter the count of this purchase.
             </prompt>
@@ -61,14 +61,14 @@
                 <value expr="product_inf.productionDate"/>
                 <break/>
                 Purchase count:
-                <value expr="count"/>
+                <value expr="productQuantity"/>
                 <break/>
                 Price of each:
                 <value expr="product_inf.price"/>
                 <value expr=""/>
                 <break/>
                 Total price:
-                <value expr="product_inf.price * count"/>
+                <value expr="product_inf.price * productQuantity"/>
                 <value expr=""/>
                 <break/>
                 Press 1 to confirm to order this product.
@@ -83,25 +83,43 @@
             </nomatch>
         </field>
         <filled namelist="confirm">
-            <script src="submit-order.js"/>
             <if cond="confirm == '1'">
                 <if cond="orderMasterSubmitted === false">
                     <data name="orderMasterRet" src="https://ict4d-group16.herokuapp.com/pms/orderMaster/create"
-                            method="post" enctype="application/json" accept="application/json"
-                            namelist="application.userId"/>
+                          method="post" enctype="application/json" accept="application/json"
+                          namelist="application.userId"/>
                     <if cond="orderMasterRet.code == 200">
                         <assign name="orderMasterSubmitted" expr="true"/>
                         <assign name="orderId" expr="orderMasterRet.data.orderId"/>
+                        <prompt>Order ID:
+                        <value expr="orderId"/>.
+                        </prompt>
                         <else/>
                         <prompt>
                             Failed to submit order master.
-                            Status code:<value expr="orderMasterRet.code"/>
-                            Message:<value expr="orderMasterRet.message"/>
+                            Status code:
+                            <value expr="orderMasterRet.code"/>
+                            Message:
+                            <value expr="orderMasterRet.message"/>
                         </prompt>
                     </if>
                 </if>
-
-                <prompt>You have confirmed to order this product.</prompt>
+                <data name="orderDetailRet" src="https://ict4d-group16.herokuapp.com/pms/orderDetail/create"
+                      method="post" enctype="application/json" accept="application/json"
+                      namelist="orderId productId productQuantity"/>
+                <if cond="orderDetailRet.code == 200">
+                    <prompt>You have confirmed to order this product. Order Detail ID:
+                        <value expr="orderDetailRet.data.orderDetailId"/>.
+                    </prompt>
+                    <else/>
+                    <prompt>
+                        Failed to submit order detail.
+                        Status code:
+                        <value expr="orderDetailRet.code"/>.
+                        Message:
+                        <value expr="orderDetailRet.message"/>.
+                    </prompt>
+                </if>
                 <elseif cond="confirm == '0'"/>
                 <prompt>Cancelled.</prompt>
             </if>
