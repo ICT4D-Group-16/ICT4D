@@ -77,20 +77,14 @@
             <if cond="language == &quot;1&quot;">
                 <assign name="lang" expr="&quot;en&quot;"/>
                 <goto next="mode_en.vxml"/>
-            </if>
-            <if cond="language == &quot;2&quot;">
+                <elseif cond="language == &quot;2&quot;"/>
                 <assign name="lang" expr="&quot;fr&quot;"/>
                 <!--                TODO: Add French support-->
-                <prompt>
-                    You select Français.
-                </prompt>
-            </if>
-            <if cond="language == &quot;0&quot;">
+                <prompt>You select Français.</prompt>
+                <elseif cond="language == &quot;0&quot;"/>
                 <assign name="lang" expr="&quot;other&quot;"/>
                 <!--                TODO-->
-                <prompt>
-                    Waiting for a radio operator.
-                </prompt>
+                <prompt>Waiting for a radio operator.</prompt>
             </if>
         </filled>
     </form>

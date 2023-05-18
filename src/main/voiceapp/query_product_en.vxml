@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
-    <script src="query_product_en.js"/>
+    <script src="query_product.js"/>
     <form id="query_product_en">
         <block>
             <data name="product_list" src="https://ict4d-group16.herokuapp.com/pms/product/list"
