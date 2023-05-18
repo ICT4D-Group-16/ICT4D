@@ -78,6 +78,30 @@ public class PmsProductController {
         return CommonResult.failed("No product found");
     }
 
+    @ApiOperation("Get a product by id")
+    @GetMapping("/get/{id}")
+    public CommonResult<PmsProduct> getById(@PathVariable Long id) {
+        PmsProduct product = pmsProductService.getById(id);
+        if (product == null) {
+            return CommonResult.failed("No product found");
+        } else {
+            return CommonResult.success(product, "Get product successfully");
+        }
+    }
+
+    @ApiOperation("Get a product by record id")
+    @GetMapping("/getByRecord/{id}")
+    public CommonResult<PmsProduct> getByRecordId(@PathVariable Long id) {
+
+        List<PmsProduct> products = pmsProductService.getByRecordingId(id);
+
+        if (products != null) {
+            return CommonResult.success(products.get(0), "Get product successfully");
+        } else {
+            return CommonResult.failed("No product found");
+        }
+    }
+
     @ApiOperation("Delete a product by id")
     @DeleteMapping("/delete/{id}")
     public CommonResult deleteById(@PathVariable Long id) {
