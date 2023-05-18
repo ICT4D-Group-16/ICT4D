@@ -9,6 +9,11 @@
                 Enter product name. Press any key to finish.
             </prompt>
         </record>
+        <record name="description" beep="true" dtmfterm="true">
+            <prompt>
+                Enter product description. Press any key to finish.
+            </prompt>
+        </record>
         <field name="quantity" type="digits">
             <prompt>
                 Enter product count. Press star for decimal point. Press # to finish.
@@ -75,6 +80,36 @@
                             Failed to upload product name recording.
                             Status Code:<value expr="name_audio_ret.code"/>.
                             Message:<value expr="name_audio_ret.message"/>.
+                            <data name="delete_product_ret"
+                                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/product/delete/&quot; + productId"
+                                  method="delete" accept="application/json"/>
+                            <if cond="delete_product_ret.code == 200">
+                                <prompt>
+                                    Product deleted.
+                                </prompt>
+                                <else/>
+                                <prompt>
+                                    Failed to delete product.
+                                    Status Code:<value expr="delete_product_ret.code"/>.
+                                    Message:<value expr="delete_product_ret.message"/>.
+                                </prompt>
+                            </if>
+                        </prompt>
+                    </if>
+                    <assign name="file" expr="description"/>
+                    <data name="description_audio_ret"
+                          src="https://ict4d-group16.herokuapp.com/pms/audio/createDescription"
+                          method="post" enctype="multipart/form-data" accept="application/json"
+                          namelist="productId language file"/>
+                    <if cond="description_audio_ret.code == 200">
+                        <prompt>
+                            Product description recording uploaded. ID:<value expr="description_audio_ret.data.audioId"/>.
+                        </prompt>
+                        <else/>
+                        <prompt>
+                            Failed to upload product description recording.
+                            Status Code:<value expr="description_audio_ret.code"/>.
+                            Message:<value expr="description_audio_ret.message"/>.
                             <data name="delete_product_ret"
                                   srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/product/delete/&quot; + productId"
                                   method="delete" accept="application/json"/>
