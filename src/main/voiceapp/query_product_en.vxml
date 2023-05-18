@@ -5,9 +5,34 @@
         <block>
             <data name="product_list_ret" src="https://ict4d-group16.herokuapp.com/pms/product/list"
                   method="get"/>
-            <prompt>
-                <value expr="query_product(product_list.data)"/>
-            </prompt>
+            <var name="product_list" expr="product_list_ret.data"/>
+            <foreach item="product" array="product_list">
+                <prompt>
+                    Product ID:
+                    <value expr="product.id"/>
+                    <break/>
+                    Product name:
+                    <value expr="product.productName"/>
+                    <break/>
+                    Product description:
+                    <value expr="product.productDescription"/>
+                    <break/>
+                    Product count:
+                    <value expr="product.quantity"/>
+                    <break/>
+                    Product price:
+                    <value expr="product.price"/>
+                    <break/>
+                    Supplier User ID:
+                    <value expr="product.supplierUserId"/>
+                    Date recorded:
+                    <value expr="product.indate"/>
+                    <break/>
+                    Modified Time:
+                    <value expr="product.modifiedTime"/>
+                    <break/>
+                </prompt>
+            </foreach>
         </block>
     </form>
     <form id="continue">
