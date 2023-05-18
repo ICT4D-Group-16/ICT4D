@@ -27,12 +27,21 @@
                     <assign name="token" expr="&quot;Bearer &quot; + login_ret.data.token"/>
                     <prompt>Phone number:<value expr="phone"/>.
                     </prompt>
-                    <data name="userId" srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
+                    <data name="user_info_ret"
+                          srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
                           method="get"
                           headersexpr="{&quot;Authorization&quot;: token}"/>
-                    <prompt>User ID:
-                        <value expr="userId"/>
-                    </prompt>
+                    <if cond="user_info_ret.code == 200">
+                        <prompt>User ID:
+                            <value expr="user_info_ret.data.id"/>
+                        </prompt>
+                        <else/>
+                        <prompt>
+                            Failed to get user info.
+                            Code:<value expr="user_info_ret.code"/>.
+                            Message:<value expr="user_info_ret.message"/>.
+                        </prompt>
+                    </if>
                     <goto next="#main"/>
                 </if>
                 <else/>
