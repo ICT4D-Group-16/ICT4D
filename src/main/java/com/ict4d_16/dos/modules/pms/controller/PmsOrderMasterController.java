@@ -46,6 +46,7 @@ public class PmsOrderMasterController {
         }
     }
 
+    @ApiOperation("Get one order by id.")
     @GetMapping("/get/{id}")
     public CommonResult<PmsOrderMaster> getById(@PathVariable Long id) {
         try {
@@ -54,6 +55,20 @@ public class PmsOrderMasterController {
                 return CommonResult.failed("Order does not exist");
             }
             return CommonResult.success(pmsOrderMaster);
+        } catch (Exception e) {
+            return CommonResult.failed("Failed to query. " + e.getMessage());
+        }
+    }
+
+    @ApiOperation("Get orders by user id.")
+    @GetMapping("/getByUserId/{userId}")
+    public CommonResult<List<PmsOrderMaster>> getByUserId(@PathVariable Long userId) {
+        try {
+            List<PmsOrderMaster> pmsOrderMasterList = pmsOrderMasterService.getByUserId(userId);
+            if (pmsOrderMasterList == null) {
+                return CommonResult.failed("Order does not exist");
+            }
+            return CommonResult.success(pmsOrderMasterList);
         } catch (Exception e) {
             return CommonResult.failed("Failed to query. " + e.getMessage());
         }

@@ -40,6 +40,9 @@ Content-Type: application/json
 ### Get One Order By Id
 GET {{host}}/pms/orderMaster/get/2
 
+### Get Orders By User Id
+GET {{host}}/pms/orderMaster/getByUserId/2
+
 ### Delete One Order By Id
 DELETE {{host}}/pms/orderMaster/delete/2
 
