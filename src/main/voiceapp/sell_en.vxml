@@ -9,9 +9,6 @@
                 Enter product name. Press any key to finish.
             </prompt>
             <filled>
-                <!--                <var name="product_name" expr="name"/>-->
-                <!--                <value expr="submit_recording(&quot;product_name&quot;,name)"/>-->
-                <!--                <submit next="tst0.herokuapp.com/upload" method="post" namelist="name" enctype="multipart/form-data"/>-->
                 <prompt>
                     Record ended.
                 </prompt>
@@ -67,20 +64,43 @@
             <if cond="confirm == '1'">
                 <var name="file" expr="productName"/>
                 <var name="productName" expr="&quot;n/a&quot;"/>
-                <data name="recording_response" src="https://ict4d-group16.herokuapp.com/pms/recording/create"
-                      method="post" enctype="multipart/form-data" accept="application/json"
-                      namelist="phone file"/>
-                <var name="recordingId" expr="recording_response.data.recordingId"/>
-                <prompt>
-                    Product name recording uploaded. ID:<value expr="recordingId"/>.
-                </prompt>
                 <data name="response" src="https://ict4d-group16.herokuapp.com/pms/product/create"
                       method="post" enctype="application/json" accept="application/json"
-                      namelist="productName recordingId phone quantity price"/>
+                      namelist="productName phone quantity price"/>
                 <if cond="response.code == 200">
                     <prompt>
                         Confirmed. Product ID:<value expr="response.data.productId"/>.
                     </prompt>
+                    <var name="productId" expr="response.data.productId"/>
+                    <var name="language" expr="&quot;n/a&quot;"/>
+                    <data name="name_audio_ret" src="https://ict4d-group16.herokuapp.com/pms/audio/createName"
+                          method="post" enctype="multipart/form-data" accept="application/json"
+                          namelist="productId language file"/>
+                    <if cond="name_audio_ret.code == 200">
+                        <prompt>
+                            Product name recording uploaded. ID:<value expr="name_audio_ret.data.audioId"/>.
+                        </prompt>
+                        <else/>
+                        <prompt>
+                            Failed to upload product name recording.
+                            Status Code:<value expr="name_audio_ret.code"/>.
+                            Message:<value expr="name_audio_ret.message"/>.
+                            <data name="delete_product_ret"
+                                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/product/delete/&quot; + productId"
+                                  method="delete" accept="application/json"/>
+                            <if cond="delete_product_ret.code == 200">
+                                <prompt>
+                                    Product deleted.
+                                </prompt>
+                                <else/>
+                                <prompt>
+                                    Failed to delete product.
+                                    Status Code:<value expr="delete_product_ret.code"/>.
+                                    Message:<value expr="delete_product_ret.message"/>.
+                                </prompt>
+                            </if>
+                        </prompt>
+                    </if>
                     <else/>
                     <prompt>
                         Failed to confirm.
