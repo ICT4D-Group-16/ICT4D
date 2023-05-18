@@ -8,11 +8,6 @@
             <prompt>
                 Enter product name. Press any key to finish.
             </prompt>
-            <filled>
-                <prompt>
-                    Record ended.
-                </prompt>
-            </filled>
         </record>
         <field name="quantity" type="digits">
             <prompt>
@@ -30,11 +25,6 @@
         <!--            <prompt>-->
         <!--                Enter the unit of price. Press any key to finish.-->
         <!--            </prompt>-->
-        <!--            <filled>-->
-        <!--                <prompt>-->
-        <!--                    Record ended.-->
-        <!--                </prompt>-->
-        <!--            </filled>-->
         <!--        </record>-->
         <field name="confirm">
             <prompt>
