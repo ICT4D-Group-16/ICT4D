@@ -68,6 +68,20 @@ public class PmsOrderMasterServiceImpl extends ServiceImpl<PmsOrderMasterMapper,
         return orderMaster;
     }
 
+    @Override
+    public List<PmsOrderMaster> getByUserId(Long userId) {
+        QueryWrapper<PmsOrderMaster> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        List<PmsOrderMaster> orderMasters = baseMapper.selectList(queryWrapper);
+        if (orderMasters == null || orderMasters.size() == 0) {
+            throw new RuntimeException("Order not found");
+        }
+        for (PmsOrderMaster orderMaster : orderMasters) {
+            getOrderDetails(orderMaster);
+        }
+        return orderMasters;
+    }
+
     private void getOrderDetails(PmsOrderMaster pmsOrderMaster) {
         QueryWrapper<PmsOrderDetail> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("order_id", pmsOrderMaster.getOrderId());
