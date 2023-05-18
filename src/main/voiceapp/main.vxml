@@ -4,7 +4,6 @@
 
     <var name="phone" expr="session.callerid.replace('+', '00')"/>
     <var name="userId"/>
-    <var name="token"/>
     <var name="lang"/>
 
     <form id="registration_check">
@@ -24,16 +23,11 @@
                       namelist="username password"/>
                 <if cond="login_ret.code == 200">
                     <prompt>Login complete.</prompt>
-                    <assign name="token" expr="&quot;Bearer &quot; + login_ret.data.token"/>
                     <data name="user_info_ret"
                           srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
-                          method="get"
-                          headersexpr="{&quot;Authorization&quot;: token}"/>
+                          method="get"/>
                     <if cond="user_info_ret.code == 200">
                         <assign name="userId" expr="user_info_ret.data.id"/>
-                        <prompt>User ID:
-                            <value expr="userId"/>
-                        </prompt>
                         <else/>
                         <prompt>
                             Failed to get user info.
