@@ -36,6 +36,7 @@ public class PmsAudioController {
     @Autowired
     private AmazonS3Service amazonS3Service;
 
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @ApiOperation("Form API. Add one name translate audio for a product.")
     @RequestMapping(value = "/createName", method = RequestMethod.POST)
     @ResponseBody
@@ -63,6 +64,7 @@ public class PmsAudioController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @ApiOperation("Form API. Add one description translate audio for a product.")
     @RequestMapping(value = "/createDescription", method = RequestMethod.POST)
     @ResponseBody

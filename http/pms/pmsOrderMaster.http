@@ -18,6 +18,6 @@ GET {{host}}/pms/orderMaster/get/2
 GET {{host}}/pms/orderMaster/getByUserId/2
 
 ### Delete One Order By Id
-DELETE {{host}}/pms/orderMaster/delete/1
+DELETE {{host}}/pms/orderMaster/delete/2
 
 
