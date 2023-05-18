@@ -25,15 +25,14 @@
                 <if cond="login_ret.code == 200">
                     <prompt>Login complete.</prompt>
                     <assign name="token" expr="&quot;Bearer &quot; + login_ret.data.token"/>
-                    <prompt>Phone number:<value expr="phone"/>.
-                    </prompt>
                     <data name="user_info_ret"
                           srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
                           method="get"
                           headersexpr="{&quot;Authorization&quot;: token}"/>
                     <if cond="user_info_ret.code == 200">
+                        <assign name="userId" expr="user_info_ret.data.id"/>
                         <prompt>User ID:
-                            <value expr="user_info_ret.data.id"/>
+                            <value expr="userId"/>
                         </prompt>
                         <else/>
                         <prompt>
