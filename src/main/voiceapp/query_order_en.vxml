@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
-    <form id="query_en">
+    <form id="query_order_en">
         <field name="order_ID" type="digits">
             <prompt>
                 Enter the ID of the order you want to query.
@@ -44,7 +44,7 @@
     <form id="continue">
         <subdialog src="continue.vxml" name="ret">
             <param name="prompt" value="To query another order, press 1. To finish, press 0."/>
-            <param name="target_if_ok" value="#query_en"/>
+            <param name="target_if_ok" value="#query_order_en"/>
             <param name="target_if_cancel" value="mode_en.vxml"/>
             <filled>
                 <goto expr="ret.target"/>
