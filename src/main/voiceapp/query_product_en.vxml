@@ -9,13 +9,13 @@
             <foreach item="product" array="product_list">
                 <prompt>
                     Product ID:
-                    <value expr="product.id"/>
+                    <value expr="product.productId"/>
                     <break/>
                     Product name:
                     <value expr="product.productName"/>
                     <break/>
                     Product description:
-                    <value expr="product.productDescription"/>
+                    <value expr="product.description"/>
                     <break/>
                     Product count:
                     <value expr="product.quantity"/>
