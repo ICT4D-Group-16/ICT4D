@@ -85,6 +85,22 @@
         <filled namelist="confirm">
             <script src="submit-order.js"/>
             <if cond="confirm == '1'">
+                <if cond="orderMasterSubmitted === false">
+                    <data name="orderMasterRet" src="https://ict4d-group16.herokuapp.com/pms/orderMaster/create"
+                            method="post" enctype="application/json" accept="application/json"
+                            namelist="application.userId"/>
+                    <if cond="orderMasterRet.code == 200">
+                        <assign name="orderMasterSubmitted" expr="true"/>
+                        <assign name="orderId" expr="orderMasterRet.data.orderId"/>
+                        <else/>
+                        <prompt>
+                            Failed to submit order master.
+                            Status code:<value expr="orderMasterRet.code"/>
+                            Message:<value expr="orderMasterRet.message"/>
+                        </prompt>
+                    </if>
+                </if>
+
                 <prompt>You have confirmed to order this product.</prompt>
                 <elseif cond="confirm == '0'"/>
                 <prompt>Cancelled.</prompt>
