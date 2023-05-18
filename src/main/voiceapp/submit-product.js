@@ -1,3 +1,0 @@
-function submit_product() {
-
-}
