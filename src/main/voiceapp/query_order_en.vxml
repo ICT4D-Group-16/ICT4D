@@ -112,9 +112,9 @@
         <subdialog src="read_order.vxml" name="ret">
             <param name="order_list" expr="[ query_ret.data ]"/>
         </subdialog>
-        <filled>
+        <block>
             <goto expr="#continue2"/>
-        </filled>
+        </block>
     </form>
     <form id="continue2">
         <subdialog src="continue.vxml" name="ret">
