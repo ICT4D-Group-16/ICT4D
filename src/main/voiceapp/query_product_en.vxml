@@ -137,78 +137,86 @@
     </form>
 
     <form id="query_product_by_user_ID_en">
-<!--        <block>-->
-<!--            <field name="supplierUserId" type="digits">-->
-<!--                <prompt>-->
-<!--                    Enter the supplier user ID of the products you want to query.-->
-<!--                </prompt>-->
-<!--                <grammar src="builtin:dtmf/digits"/>-->
-<!--            </field>-->
-<!--            <filled namelist="supplierUserId">-->
-<!--                <data name="query_ret"-->
-<!--                      src="https://ict4d-group16.herokuapp.com/pms/product/search"-->
-<!--                      method="post" enctype="application/json" namelist="supplierUserId"/>-->
-<!--                <if cond="query_ret.code == 200">-->
-<!--                    <subdialog src="read_products.vxml">-->
-<!--                        <param name="product_list" expr="query_ret.data"/>-->
-<!--                    </subdialog>-->
-<!--                    <else/>-->
-<!--                    <prompt>-->
-<!--                        Failed to get query result.-->
-<!--                        Code:<value expr="query_ret.code"/>.-->
-<!--                        Message:<value expr="query_ret.message"/>.-->
-<!--                    </prompt>-->
-<!--                </if>-->
-<!--            </filled>-->
-<!--            <goto next="#continue3"/>-->
-<!--        </block>-->
+        <field name="supplierUserId" type="digits">
+            <prompt>
+                Enter the supplier user ID of the products you want to query.
+            </prompt>
+            <grammar src="builtin:dtmf/digits"/>
+        </field>
+        <filled namelist="supplierUserId">
+            <data name="query_ret"
+                  src="https://ict4d-group16.herokuapp.com/pms/product/search"
+                  method="post" enctype="application/json" namelist="supplierUserId"/>
+            <if cond="query_ret.code == 200">
+                <goto next="#sub3"/>
+                <else/>
+                <prompt>
+                    Failed to get query result.
+                    Code:<value expr="query_ret.code"/>.
+                    Message:<value expr="query_ret.message"/>.
+                </prompt>
+                <goto next="#continue3"/>
+            </if>
+        </filled>
     </form>
-    <form id="#continue3">
-<!--        <subdialog src="continue.vxml" name="ret">-->
-<!--            <param name="prompt" value="To query another product by user ID, press 1. To finish, press 0."/>-->
-<!--            <param name="target_if_ok" value="#query_product_by_user_ID_en"/>-->
-<!--            <param name="target_if_cancel" value="#query_product_en"/>-->
-<!--            <filled>-->
-<!--                <goto expr="ret.target"/>-->
-<!--            </filled>-->
-<!--        </subdialog>-->
+    <form id="sub3">
+        <subdialog src="read_products.vxml">
+            <param name="product_list" expr="query_ret.data"/>
+        </subdialog>
+        <block>
+            <goto next="#continue3"/>
+        </block>
+    </form>
+    <form id="continue3">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To query another product by user ID, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#query_product_by_user_ID_en"/>
+            <param name="target_if_cancel" value="#query_product_en"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
     </form>
 
     <form id="query_product_by_ID_en">
-<!--        <block>-->
-<!--            <field name="productId" type="digits">-->
-<!--                <prompt>-->
-<!--                    Enter the product ID of the product you want to query.-->
-<!--                </prompt>-->
-<!--                <grammar src="builtin:dtmf/digits"/>-->
-<!--            </field>-->
-<!--            <filled namelist="productId">-->
-<!--                <data name="query_ret"-->
-<!--                      src="https://ict4d-group16.herokuapp.com/pms/product/search"-->
-<!--                      method="post" enctype="application/json" namelist="productId"/>-->
-<!--                <if cond="query_ret.code == 200">-->
-<!--                    <subdialog src="read_products.vxml">-->
-<!--                        <param name="product_list" expr="query_ret.data"/>-->
-<!--                    </subdialog>-->
-<!--                    <else/>-->
-<!--                    <prompt>-->
-<!--                        Failed to get query result.-->
-<!--                        Code:<value expr="query_ret.code"/>.-->
-<!--                        Message:<value expr="query_ret.message"/>.-->
-<!--                    </prompt>-->
-<!--                </if>-->
-<!--            </filled>-->
-<!--            <goto next="#continue4"/>-->
-<!--        </block>-->
+        <field name="productId" type="digits">
+            <prompt>
+                Enter the product ID of the product you want to query.
+            </prompt>
+            <grammar src="builtin:dtmf/digits"/>
+        </field>
+        <filled namelist="productId">
+            <data name="query_ret"
+                  src="https://ict4d-group16.herokuapp.com/pms/product/search"
+                  method="post" enctype="application/json" namelist="productId"/>
+            <if cond="query_ret.code == 200">
+                <goto next="#sub4"/>
+                <else/>
+                <prompt>
+                    Failed to get query result.
+                    Code:<value expr="query_ret.code"/>.
+                    Message:<value expr="query_ret.message"/>.
+                </prompt>
+                <goto next="#continue4"/>
+            </if>
+        </filled>
     </form>
-    <form id="#continue4">
-<!--        <subdialog src="continue.vxml" name="ret">-->
-<!--            <param name="prompt" value="To query another product by product ID, press 1. To finish, press 0."/>-->
-<!--            <param name="target_if_ok" value="#query_product_by_ID_en"/>-->
-<!--            <param name="target_if_cancel" value="#query_product_en"/>-->
-<!--            <filled>-->
-<!--                <goto expr="ret.target"/>-->
-<!--            </filled>-->
-<!--        </subdialog>-->
+    <form id="sub4">
+        <subdialog src="read_products.vxml">
+            <param name="product_list" expr="query_ret.data"/>
+        </subdialog>
+        <block>
+            <goto next="#continue4"/>
+        </block>
+    </form>
+    <form id="continue4">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To query another product by product ID, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#query_product_by_ID_en"/>
+            <param name="target_if_cancel" value="#query_product_en"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
     </form>
 </vxml>
