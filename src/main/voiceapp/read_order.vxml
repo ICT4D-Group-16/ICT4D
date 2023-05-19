@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <form id="read_order_en">
+        <var name="order_list"/>
+        <block>
+            <foreach item="order" array="order_list">
+                <prompt>
+                    Order ID:
+                    <value expr="order_ID"/>
+                    <break/>
+                    Product ID:
+                    <value expr="order_inf.productId"/>
+                    <break/>
+                    Seller:
+                    <value expr=""/>
+                    <break/>
+                    Product name:
+                    <value expr=""/>
+                    <break/>
+                    Count:
+                    <value expr="order_inf.productQuantity"/>
+                    <break/>
+                    Price of each:
+                    <value expr="order_inf.productPrice"/>
+                    <value expr=""/>
+                    <break/>
+                    Total price:
+                    <value expr="order_inf.productTotalPrice"/>
+                    <value expr=""/>
+                    <break/>
+                    Time:
+                    <value expr="order_inf.modifiedTime"/>
+                    <break/>
+                </prompt>
+            </foreach>
+        </block>
+    </form>
+</vxml>

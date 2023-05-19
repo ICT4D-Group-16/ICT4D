@@ -2,6 +2,7 @@
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
     <var name="phone" expr="session.callerid.replace('+', '00')"/>
     <var name="userId"/>
+    <var name="query_ret"/>
 
     <form id="initial">
         <block>
@@ -58,46 +59,24 @@
 
     <form id="list_order_en">
         <block>
-            <data name="order_list_ret"
+            <data name="query_ret"
                   srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/getByUserId/&quot; + userId"
                   method="get"/>
-            <if cond="order_list_ret.code == 500 &amp;&amp; order_list_ret.message === 'Failed to query. Order not found'">
+            <if cond="query_ret.code == 200">
+                <goto next="#sub1"/>
+                <elseif cond="query_ret.code == 500 &amp;&amp; query_ret.message === 'Failed to query. Order not found'"/>
                 <prompt>You have no orders.</prompt>
-                <elseif cond="order_list_ret.code == 200"/>
-                <var name="order_list" expr="order_list_ret.data"/>
-                <foreach item="order" array="order_list">
-                    <prompt>
-                        Order ID:
-                        <value expr="order.orderId"/>
-                        <break/>
-                        Product ID:
-                        <value expr="order.productId"/>
-                        <break/>
-                        Seller:
-                        <value expr=""/>
-                        <break/>
-                        Product name:
-                        <value expr=""/>
-                        <break/>
-                        Count:
-                        <value expr="order.productQuantity"/>
-                        <break/>
-                        Price of each:
-                        <value expr="order.productPrice"/>
-                        <value expr=""/>
-                        <break/>
-                        Total price:
-                        <value expr="order.productTotalPrice"/>
-                        <value expr=""/>
-                        <break/>
-                        Time:
-                        <value expr="order.modifiedTime"/>
-                        <break/>
-                    </prompt>
-                </foreach>
+                <goto next="#continue1"/>
             </if>
-            <goto next="#continue1"/>
         </block>
+    </form>
+    <form id="sub1">
+        <subdialog src="read_order.vxml" name="ret">
+            <param name="order_list" expr="query_ret.data"/>
+        </subdialog>
+        <filled>
+            <goto expr="#continue1"/>
+        </filled>
     </form>
     <form id="continue1">
         <subdialog src="continue.vxml" name="ret">
@@ -117,39 +96,24 @@
             </prompt>
             <grammar src="builtin:dtmf/digits"/>
         </field>
-        <filled>
-            <data name="order_inf"
+        <filled namelist="order_ID">
+            <data name="query_ret"
                   srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/get/&quot; + order_ID"
                   method="get"/>
-            <prompt>
-                Order ID:
-                <value expr="order_ID"/>
-                <break/>
-                Product ID:
-                <value expr="order_inf.productId"/>
-                <break/>
-                Seller:
-                <value expr=""/>
-                <break/>
-                Product name:
-                <value expr=""/>
-                <break/>
-                Count:
-                <value expr="order_inf.productQuantity"/>
-                <break/>
-                Price of each:
-                <value expr="order_inf.productPrice"/>
-                <value expr=""/>
-                <break/>
-                Total price:
-                <value expr="order_inf.productTotalPrice"/>
-                <value expr=""/>
-                <break/>
-                Time:
-                <value expr="order_inf.modifiedTime"/>
-                <break/>
-            </prompt>
-            <goto next="#continue2"/>
+            <if cond="query_ret.code == 200">
+                <goto next="#sub2"/>
+                <elseif cond="query_ret.code == 500 &amp;&amp; query_ret.message === 'Failed to query. Order not found'"/>
+                <prompt>Order not found.</prompt>
+                <goto next="#continue2"/>
+            </if>
+        </filled>
+    </form>
+    <form id="sub2">
+        <subdialog src="read_order.vxml" name="ret">
+            <param name="order_list" expr="[ query_ret.data ]"/>
+        </subdialog>
+        <filled>
+            <goto expr="#continue2"/>
         </filled>
     </form>
     <form id="continue2">

@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 ### Get One Order By Id
-GET {{host}}/pms/orderMaster/get/2
+GET {{host}}/pms/orderMaster/get/39
 
 ### Get Orders By User Id
 GET {{host}}/pms/orderMaster/getByUserId/2
