@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <var name="phone" expr="session.callerid.replace('+', '00')"/>
+    <var name="userId"/>
+    <var name="query_ret"/>
+
+    <form id="initial">
+        <block>
+            <data name="user_info_ret"
+                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
+                  method="get"/>
+            <if cond="user_info_ret.code == 200">
+                <assign name="userId" expr="user_info_ret.data.id"/>
+                <else/>
+                <prompt>
+                    Failed to get user ID.
+                    Code:<value expr="user_info_ret.code"/>.
+                    Message:<value expr="user_info_ret.message"/>.
+                </prompt>
+            </if>
+            <goto next="#query_order_en"/>
+        </block>
+    </form>
+
+    <form id="query_order_en">
+        <field name="mode" type="digits">
+            <prompt>
+                Select mode.
+                Press 1 to list all your orders.
+                Press 2 to query orders by ID.
+                Press star to go back to the previous menu.
+            </prompt>
+            <grammar root="r" mode="dtmf">
+                <rule id="r">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>*</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <noinput>
+                <reprompt/>
+            </noinput>
+            <nomatch>
+                <reprompt/>
+            </nomatch>
+        </field>
+        <filled namelist="mode">
+            <if cond="mode == '1'">
+                <goto next="#list_order_en"/>
+                <elseif cond="mode == '2'"/>
+                <goto next="#query_order_by_ID_en"/>
+                <else/>
+                <goto next="main.vxml"/>
+            </if>
+        </filled>
+    </form>
+
+    <form id="list_order_en">
+        <block>
+            <data name="query_ret"
+                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/getByUserId/&quot; + userId"
+                  method="get"/>
+            <if cond="query_ret.code == 200">
+                <goto next="#sub1"/>
+                <elseif cond="query_ret.code == 500 &amp;&amp; query_ret.message === 'Failed to query. Order not found'"/>
+                <prompt>You have no orders.</prompt>
+                <goto next="#continue1"/>
+            </if>
+        </block>
+    </form>
+    <form id="sub1">
+        <subdialog src="read_order.vxml">
+            <param name="order_list" expr="query_ret.data"/>
+        </subdialog>
+        <block>
+            <goto next="#continue1"/>
+        </block>
+    </form>
+    <form id="continue1">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To re-listen, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#list_order_en"/>
+            <param name="target_if_cancel" value="#query_order_en"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
+    </form>
+
+    <form id="query_order_by_ID_en">
+        <field name="order_ID" type="digits">
+            <prompt>
+                Enter the ID of the order you want to query.
+            </prompt>
+            <grammar src="builtin:dtmf/digits"/>
+        </field>
+        <filled namelist="order_ID">
+            <data name="query_ret"
+                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/get/&quot; + order_ID"
+                  method="get"/>
+            <if cond="query_ret.code == 200">
+                <goto next="#sub2"/>
+                <elseif cond="query_ret.code == 500 &amp;&amp; query_ret.message === 'Failed to query. Order not found'"/>
+                <prompt>Order not found.</prompt>
+                <goto next="#continue2"/>
+            </if>
+        </filled>
+    </form>
+    <form id="sub2">
+        <subdialog src="read_order.vxml">
+            <param name="order_list" expr="[ query_ret.data ]"/>
+        </subdialog>
+        <block>
+            <goto next="#del"/>
+        </block>
+    </form>
+    <form id="del">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To delete this order, press 1. Otherwise, press 0."/>
+            <param name="target_if_ok" value="1"/>
+            <param name="target_if_cancel" value="0"/>
+            <filled>
+                <if cond="ret.target !== '0'">
+                    <data name="del_ret"
+                          srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/delete/&quot; + query_ret.data.orderId"
+                          method="delete" accept="application/json"/>
+                    <if cond="del_ret.code == 200">
+                        <prompt>Order deleted.</prompt>
+                        <else/>
+                        <prompt>
+                            Failed to delete order.
+                            Code:<value expr="del_ret.code"/>.
+                            Message:<value expr="del_ret.message"/>.
+                        </prompt>
+                    </if>
+                    <else/>
+                </if>
+                <goto next="#continue2"/>
+            </filled>
+        </subdialog>
+    </form>
+    <form id="continue2">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To query another order, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#query_order_by_ID_en"/>
+            <param name="target_if_cancel" value="#query_order_en"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
+    </form>
+</vxml>

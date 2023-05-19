@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <script src="https://raw.githubusercontent.com/douglascrockford/JSON-js/master/json2.js"/>
+
+    <var name="phone" expr="session.callerid.replace('+', '00')"/>
+    <var name="userId"/>
     <var name="lang"/>
+
+    <form id="registration_check">
+        <block>
+            <var name="language" expr="'n/a'"/>
+            <var name="nickName" expr="'n/a'"/>
+            <data name="ret" src="https://ict4d-group16.herokuapp.com/user/register_vxml"
+                  method="post" enctype="application/json" accept="application/json"
+                  namelist="phone nickName language"/>
+            <if cond="ret.code == 200">
+                <prompt>Auto registration complete.</prompt>
+                <elseif cond="ret.code == 500 &amp;&amp; ret.message === &quot;User registration failed. User already exists&quot; &amp;&amp; ret.data === null"/>
+                <var name="username" expr="phone"/>
+                <var name="password" expr="phone"/>
+                <data name="login_ret" src="https://ict4d-group16.herokuapp.com/user/login"
+                      method="post" enctype="application/json" accept="application/json"
+                      namelist="username password"/>
+                <if cond="login_ret.code == 200">
+                    <goto next="#main"/>
+                </if>
+                <else/>
+                <prompt>
+                    Failed to register.
+                    Code:<value expr="ret.code"/>.
+                    Message:<value expr="ret.message"/>.
+                </prompt>
+            </if>
+        </block>
+    </form>
+
     <form id="main">
         <field name="language">
             <prompt>
@@ -32,20 +65,14 @@
             <if cond="language == &quot;1&quot;">
                 <assign name="lang" expr="&quot;en&quot;"/>
                 <goto next="mode_en.vxml"/>
-            </if>
-            <if cond="language == &quot;2&quot;">
+                <elseif cond="language == &quot;2&quot;"/>
                 <assign name="lang" expr="&quot;fr&quot;"/>
-                <!--                TODO-->
-                <prompt>
-                    You select Français.
-                </prompt>
-            </if>
-            <if cond="language == &quot;0&quot;">
+                <!--                TODO: Add French support-->
+                <prompt>You select Français.</prompt>
+                <elseif cond="language == &quot;0&quot;"/>
                 <assign name="lang" expr="&quot;other&quot;"/>
                 <!--                TODO-->
-                <prompt>
-                    Waiting for a radio operator.
-                </prompt>
+                <prompt>Waiting for a radio operator.</prompt>
             </if>
         </filled>
     </form>

@@ -3,7 +3,7 @@ POST {{host}}/pms/orderDetail/create
 Content-Type: application/json
 
 {
-  "orderId": 2,
+  "orderId": 21,
   "productId": 12,
   "productQuantity": 2
 }

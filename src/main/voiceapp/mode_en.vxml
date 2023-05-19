@@ -7,6 +7,7 @@
                 Press 1 to buy.
                 Press 2 to sell.
                 Press 3 to query orders.
+                Press 4 to query products.
                 Press star to go back to the previous menu.
             </prompt>
             <grammar root="r" mode="dtmf">
@@ -15,6 +16,7 @@
                         <item>1</item>
                         <item>2</item>
                         <item>3</item>
+                        <item>4</item>
                         <item>*</item>
                     </one-of>
                 </rule>
@@ -29,14 +31,13 @@
         <filled namelist="mode">
             <if cond="mode == '1'">
                 <goto next="buy_en.vxml"/>
-            </if>
-            <if cond="mode == '2'">
+                <elseif cond="mode == '2'"/>
                 <goto next="sell_en.vxml"/>
-            </if>
-            <if cond="mode == '3'">
-                <goto next="query_en.vxml"/>
-            </if>
-            <if cond="mode == '*'">
+                <elseif cond="mode == '3'"/>
+                <goto next="query_order_en.vxml"/>
+                <elseif cond="mode == '4'"/>
+                <goto next="query_product_en.vxml"/>
+                <else/>
                 <goto next="main.vxml"/>
             </if>
         </filled>

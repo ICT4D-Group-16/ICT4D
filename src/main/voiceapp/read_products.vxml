@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <form id="read_products_en">
+        <var name="product_list"/>
+        <block>
+            <prompt>
+                <value expr="product_list.length"/>
+                products in total.
+            </prompt>
+            <foreach item="product" array="product_list">
+                <if cond="product.recordingId !== null">
+                    <!--                        All the information of this product is from a recording.-->
+                    <data name="rec_ret"
+                          srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/recording/get/&quot; + product.recordingId"
+                          method="get" accept="application/json"/>
+                    <if cond="rec_ret.code == 200">
+                        <audio expr="rec_ret.data.url">Failed to play the recording.</audio>
+                        <else/>
+                        <prompt>
+                            The supplier user of this product selected to upload the information of this product via an entire segment of recording.
+                            But getting this recording failed.
+                            Code:<value expr="rec_ret.code"/>.
+                            Message:<value expr="rec_ret.message"/>.
+                        </prompt>
+                    </if>
+                    <else/>
+                    <!--                        At least some information of this product is not from a recording.-->
+                    <prompt>
+                        Product ID:
+                        <value expr="product.productId"/>
+                        <break/>
+                        Name:
+                    </prompt>
+                    <if cond="product.nameAudios.length !== 0">
+                        <foreach item="audio" array="product.nameAudios">
+                            <audio expr="audio.url">Failed to play the recording.</audio>
+                        </foreach>
+                        <else/>
+                        <prompt>
+                            <value expr="product.productName"/>
+                        </prompt>
+                    </if>
+                    <prompt>
+                        <break/>
+                        Description:
+                    </prompt>
+                    <if cond="product.descriptionAudios.length !== 0">
+                        <foreach item="audio" array="product.descriptionAudios">
+                            <audio expr="audio.url">Failed to play the recording.</audio>
+                        </foreach>
+                        <else/>
+                        <prompt>
+                            <value expr="product.productDescription"/>
+                        </prompt>
+                    </if>
+                    <prompt>
+                        <break/>
+                        Price:
+                        <value expr="product.price"/>
+                        <break/>
+                        Count:
+                        <value expr="product.quantity"/>
+                        <break/>
+                        Supplier User ID:
+                        <value expr="product.supplierUserId"/>
+                        <break/>
+                        Date registered:
+                        <value expr="product.indate"/>
+                        <break/>
+                        Modification time:
+                        <value expr="product.modifiedTime"/>
+                        <break/>
+                    </prompt>
+                </if>
+            </foreach>
+            <return/>
+        </block>
+    </form>
+</vxml>

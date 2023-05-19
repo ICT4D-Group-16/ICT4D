@@ -17,6 +17,21 @@ Content-Type: audio/wav
 < ./file_example_WAV_1MG.wav
 --WebAppBoundary--
 
+#### Create a name translate audio for a product
+#POST {{host}}/pms/audio/createName
+#Content-Type: multipart/form-data; boundary=WebAppBoundary
+#
+#--WebAppBoundary
+#Content-Disposition: form-data; name="language"
+#
+#English
+#--WebAppBoundary
+#Content-Disposition: form-data; name="file"; filename="sample.wav"
+#Content-Type: audio/wav
+#
+#< ./file_example_WAV_1MG.wav
+#--WebAppBoundary--
+
 ### Create a description translate audio for a product
 POST {{host}}/pms/audio/createDescription
 Content-Type: multipart/form-data; boundary=WebAppBoundary

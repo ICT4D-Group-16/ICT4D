@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <form id="read_order_en">
+        <var name="order_list"/>
+        <block>
+            <prompt>
+                <value expr="order_list.length"/> orders in total.
+            </prompt>
+            <foreach item="order" array="order_list">
+                <prompt>
+                    Order ID:
+                    <value expr="order.orderId"/>
+                    <break/>
+                    Total amount of money:
+                    <value expr="order.orderMoney"/>
+                    <break/>
+                    Creation time:
+                    <value expr="order.createTime"/>
+                    <break/>
+                    Modification time:
+                    <value expr="order.modifiedTime"/>
+                    <break/>
+                    <value expr="order.orderDetails.length"/>
+                    products ordered.
+                    <foreach item="product" array="order.orderDetails">
+                        Product ID:
+                        <value expr="product.productId"/>
+                        <break/>
+                        Price:
+                        <value expr="product.productPrice"/>
+                        <break/>
+                        Count:
+                        <value expr="product.productQuantity"/>
+                        <break/>
+                        Total Price:
+                        <value expr="product.productTotalPrice"/>
+                        <break/>
+                        Modification time:
+                        <value expr="product.modifiedTime"/>
+                        <break/>
+                        Seller nickname:
+                        <value expr="product.sellerNickname"/>
+                        <break/>
+                        Phone:
+                        <value expr="product.sellerPhone"/>
+                        <break/>
+                    </foreach>
+                </prompt>
+            </foreach>
+            <return/>
+        </block>
+    </form>
+</vxml>

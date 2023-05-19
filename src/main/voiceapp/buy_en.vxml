@@ -1,28 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <var name="orderMasterSubmitted" expr="false"/>
+    <var name="orderId"/>
+    <var name="orderDetails"/>
+    <var name="phone" expr="session.callerid.replace('+', '00')"/>
+    <var name="userId"/>
+
     <form id="buy_en">
-        <field name="product_ID" type="digits">
+        <block>
+            <data name="user_info_ret"
+                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
+                  method="get"/>
+            <if cond="user_info_ret.code == 200">
+                <assign name="userId" expr="user_info_ret.data.id"/>
+                <else/>
+                <prompt>
+                    Failed to get user ID.
+                    Code:<value expr="user_info_ret.code"/>.
+                    Message:<value expr="user_info_ret.message"/>.
+                </prompt>
+            </if>
+        </block>
+        <var name="product_inf"/>
+        <block>
+            <assign name="product_inf" expr="null"/>
+        </block>
+
+        <field name="productId" type="digits">
             <prompt>
                 Enter the ID of the product you want to purchase.
             </prompt>
             <grammar src="builtin:dtmf/digits"/>
         </field>
-        <block>
+        <filled namelist="productId">
+            <data name="product_search_result" src="https://ict4d-group16.herokuapp.com/pms/product/search"
+                  method="post" enctype="application/json" accept="application/json"
+                  namelist="productId"/>
+            <if cond="product_search_result.data === null">
+                <prompt>The product with this ID does not exist.</prompt>
+                <goto next="#buy_en"/>
+            </if>
+            <assign name="product_inf" expr="product_search_result.data[0]"/>
             <prompt>
                 Product information.
                 ID:
-                <value expr="product_ID"/>
+                <value expr="product_inf.productId"/>
                 <break/>
                 Name:
-                <value expr=""/>
+                <value expr="product_inf.productName"/>
                 <break/>
                 Price of each:
-                <value expr=""/>
+                <value expr="product_inf.price"/>
                 <value expr=""/>
                 <break/>
             </prompt>
-        </block>
-        <field name="count" type="digits">
+        </filled>
+        <field name="productQuantity" type="digits">
             <prompt>
                 Enter the count of this purchase.
             </prompt>
@@ -32,20 +65,29 @@
             <prompt>
                 Check the purchase information.
                 Product ID:
-                <value expr="product_ID"/>
+                <value expr="productId"/>
                 <break/>
-                Count:
-                <value expr="count"/>
+                Product name:
+                <value expr="product_inf.productName"/>
+                <break/>
+                Product description:
+                <value expr="product_inf.description"/>
+                <break/>
+                Production date:
+                <value expr="product_inf.productionDate"/>
+                <break/>
+                Purchase count:
+                <value expr="productQuantity"/>
                 <break/>
                 Price of each:
-                <value expr=""/>
+                <value expr="product_inf.price"/>
                 <value expr=""/>
                 <break/>
                 Total price:
-                <value expr=""/>
+                <value expr="product_inf.price * productQuantity"/>
                 <value expr=""/>
                 <break/>
-                Press 1 to confirm this order.
+                Press 1 to confirm to order this product.
                 Press 0 to cancel.
             </prompt>
             <grammar src="ok_cancel.xml"/>
@@ -58,20 +100,50 @@
         </field>
         <filled namelist="confirm">
             <if cond="confirm == '1'">
-                <!--                TODO: submit to server-->
-                <data name="thedata" src="https://ict4d-group16.herokuapp.com/hello" method="post"
-                      enctype="application/json" accept="application/json"/>
-                <prompt>You have confirmed this order.</prompt>
-            </if>
-            <if cond="confirm == '0'">
-                <prompt>Order cancelled.</prompt>
+                <if cond="orderMasterSubmitted === false">
+                    <data name="orderMasterRet" src="https://ict4d-group16.herokuapp.com/pms/orderMaster/create"
+                          method="post" enctype="application/json" accept="application/json"
+                          namelist="userId"/>
+                    <if cond="orderMasterRet.code == 200">
+                        <assign name="orderMasterSubmitted" expr="true"/>
+                        <assign name="orderId" expr="orderMasterRet.data.orderId"/>
+                        <prompt>Order ID:<value expr="orderId"/>.
+                        </prompt>
+                        <else/>
+                        <prompt>
+                            Failed to submit order master.
+                            Status code:
+                            <value expr="orderMasterRet.code"/>
+                            Message:
+                            <value expr="orderMasterRet.message"/>
+                        </prompt>
+                    </if>
+                </if>
+                <data name="orderDetailRet" src="https://ict4d-group16.herokuapp.com/pms/orderDetail/create"
+                      method="post" enctype="application/json" accept="application/json"
+                      namelist="orderId productId productQuantity"/>
+                <if cond="orderDetailRet.code == 200">
+                    <prompt>You have confirmed to order this product. Order Detail ID:
+                        <value expr="orderDetailRet.data.orderDetailId"/>.
+                    </prompt>
+                    <else/>
+                    <prompt>
+                        Failed to submit order detail.
+                        Status code:
+                        <value expr="orderDetailRet.code"/>.
+                        Message:
+                        <value expr="orderDetailRet.message"/>.
+                    </prompt>
+                </if>
+                <elseif cond="confirm == '0'"/>
+                <prompt>Cancelled.</prompt>
             </if>
             <goto next="#continue"/>
         </filled>
     </form>
     <form id="continue">
         <subdialog src="continue.vxml" name="ret">
-            <param name="prompt" value="To add another product to buy, press 1. To finish, press 0."/>
+            <param name="prompt" value="To add another product for this order, press 1. To finish, press 0."/>
             <param name="target_if_ok" value="#buy_en"/>
             <param name="target_if_cancel" value="mode_en.vxml"/>
             <filled>

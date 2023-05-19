@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <var name="phone" expr="session.callerid.replace('+', '00')"/>
+    <var name="supplierUserId"/>
+    <var name="query_ret"/>
+
+    <form id="initial">
+        <block>
+            <data name="user_info_ret"
+                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
+                  method="get"/>
+            <if cond="user_info_ret.code == 200">
+                <assign name="supplierUserId" expr="user_info_ret.data.id"/>
+                <else/>
+                <prompt>
+                    Failed to get user ID.
+                    Code:<value expr="user_info_ret.code"/>.
+                    Message:<value expr="user_info_ret.message"/>.
+                </prompt>
+            </if>
+            <goto next="#query_product_en"/>
+        </block>
+    </form>
+
+    <form id="query_product_en">
+        <field name="mode">
+            <prompt>
+                Select mode.
+                Press 1 to list all the products.
+                Press 2 to list all your products.
+                Press 3 to query products by user ID.
+                Press 4 to query products by ID.
+                Press star to go back to the previous menu.
+            </prompt>
+            <grammar root="r" mode="dtmf">
+                <rule id="r">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>3</item>
+                        <item>4</item>
+                        <item>*</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <noinput>
+                <reprompt/>
+            </noinput>
+            <nomatch>
+                <reprompt/>
+            </nomatch>
+        </field>
+        <filled namelist="mode">
+            <if cond="mode == '1'">
+                <goto next="#list_products_en"/>
+                <elseif cond="mode == '2'"/>
+                <goto next="#list_own_products_en"/>
+                <elseif cond="mode == '3'"/>
+                <goto next="#query_product_by_user_ID_en"/>
+                <elseif cond="mode == '4'"/>
+                <goto next="#query_product_by_ID_en"/>
+                <else/>
+                <goto next="main.vxml"/>
+            </if>
+        </filled>
+    </form>
+
+    <form id="list_products_en">
+        <block>
+            <data name="query_ret" src="https://ict4d-group16.herokuapp.com/pms/product/list"
+                  method="get"/>
+            <if cond="query_ret.code == 200">
+                <goto next="#sub1"/>
+                <else/>
+                <prompt>
+                    Failed to get product list.
+                    Code:<value expr="query_ret.code"/>.
+                    Message:<value expr="query_ret.message"/>.
+                </prompt>
+                <goto next="#continue1"/>
+            </if>
+        </block>
+    </form>
+    <form id="sub1">
+        <subdialog src="read_products.vxml">
+            <param name="product_list" expr="query_ret.data"/>
+        </subdialog>
+        <block>
+            <goto next="#continue1"/>
+        </block>
+    </form>
+    <form id="continue1">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To re-list all the products, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#list_products_en"/>
+            <param name="target_if_cancel" value="#query_product_en"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
+    </form>
+
+    <form id="list_own_products_en">
+        <block>
+            <data name="query_ret"
+                  src="https://ict4d-group16.herokuapp.com/pms/product/search"
+                  method="post" enctype="application/json" namelist="supplierUserId"/>
+            <if cond="query_ret.code == 200">
+                <goto next="#sub2"/>
+                <else/>
+                <prompt>
+                    Failed to get product list.
+                    Code:<value expr="query_ret.code"/>.
+                    Message:<value expr="query_ret.message"/>.
+                </prompt>
+            </if>
+            <goto next="#continue2"/>
+        </block>
+    </form>
+    <form id="sub2">
+        <subdialog src="read_products.vxml">
+            <param name="product_list" expr="query_ret.data"/>
+        </subdialog>
+        <block>
+            <goto next="#continue2"/>
+        </block>
+    </form>
+    <form id="continue2">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To re-list all your products, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#list_own_products_en"/>
+            <param name="target_if_cancel" value="#query_product_en"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
+    </form>
+
+    <form id="query_product_by_user_ID_en">
+        <field name="supplierUserId" type="digits">
+            <prompt>
+                Enter the supplier user ID of the products you want to query.
+            </prompt>
+            <grammar src="builtin:dtmf/digits"/>
+        </field>
+        <filled namelist="supplierUserId">
+            <data name="query_ret"
+                  src="https://ict4d-group16.herokuapp.com/pms/product/search"
+                  method="post" enctype="application/json" namelist="supplierUserId"/>
+            <if cond="query_ret.code == 200">
+                <goto next="#sub3"/>
+                <else/>
+                <prompt>
+                    Failed to get query result.
+                    Code:<value expr="query_ret.code"/>.
+                    Message:<value expr="query_ret.message"/>.
+                </prompt>
+                <goto next="#continue3"/>
+            </if>
+        </filled>
+    </form>
+    <form id="sub3">
+        <subdialog src="read_products.vxml">
+            <param name="product_list" expr="query_ret.data"/>
+        </subdialog>
+        <block>
+            <goto next="#continue3"/>
+        </block>
+    </form>
+    <form id="continue3">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To query another product by user ID, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#query_product_by_user_ID_en"/>
+            <param name="target_if_cancel" value="#query_product_en"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
+    </form>
+
+    <form id="query_product_by_ID_en">
+        <field name="productId" type="digits">
+            <prompt>
+                Enter the product ID of the product you want to query.
+            </prompt>
+            <grammar src="builtin:dtmf/digits"/>
+        </field>
+        <filled namelist="productId">
+            <data name="query_ret"
+                  src="https://ict4d-group16.herokuapp.com/pms/product/search"
+                  method="post" enctype="application/json" namelist="productId"/>
+            <if cond="query_ret.code == 200">
+                <goto next="#sub4"/>
+                <else/>
+                <prompt>
+                    Failed to get query result.
+                    Code:<value expr="query_ret.code"/>.
+                    Message:<value expr="query_ret.message"/>.
+                </prompt>
+                <goto next="#continue4"/>
+            </if>
+        </filled>
+    </form>
+    <form id="sub4">
+        <subdialog src="read_products.vxml">
+            <param name="product_list" expr="query_ret.data"/>
+        </subdialog>
+        <block>
+            <goto next="#del"/>
+        </block>
+    </form>
+    <form id="del">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To delete this product, press 1. Otherwise, press 0."/>
+            <param name="target_if_ok" value="1"/>
+            <param name="target_if_cancel" value="0"/>
+            <filled>
+                <if cond="ret.target !== '0'">
+                    <data name="del_ret"
+                          srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/product/delete/&quot; + query_ret.data[0].productId"
+                          method="delete" accept="application/json"/>
+                    <if cond="del_ret.code == 200">
+                        <prompt>Product deleted.</prompt>
+                        <else/>
+                        <prompt>
+                            Failed to delete product.
+                            Code:<value expr="del_ret.code"/>.
+                            Message:<value expr="del_ret.message"/>.
+                        </prompt>
+                    </if>
+                    <else/>
+                </if>
+                <goto next="#continue4"/>
+            </filled>
+        </subdialog>
+    </form>
+    <form id="continue4">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To query another product by product ID, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#query_product_by_ID_en"/>
+            <param name="target_if_cancel" value="#query_product_en"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
+    </form>
+</vxml>
