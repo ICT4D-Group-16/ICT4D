@@ -30,6 +30,14 @@ Content-Type: application/json
   "recordingId": 13
 }
 
+### Get Products By Supplier Id
+POST {{host}}/pms/product/search
+Content-Type: application/json
+
+{
+  "supplierUserId": 19
+}
+
 ### Delete One Product By Id
 DELETE {{host}}/pms/product/delete/1
 

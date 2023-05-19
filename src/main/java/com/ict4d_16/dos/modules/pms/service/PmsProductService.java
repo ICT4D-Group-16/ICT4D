@@ -32,6 +32,11 @@ public interface PmsProductService extends IService<PmsProduct> {
     List<PmsProduct> getByRecordingId(Long recordingId);
 
     /**
+     * get product by supplier user id
+     */
+    List<PmsProduct> getBySupplierUserId(Long supplierUserId);
+
+    /**
      * get product by id
      */
     PmsProduct getById(Long id);

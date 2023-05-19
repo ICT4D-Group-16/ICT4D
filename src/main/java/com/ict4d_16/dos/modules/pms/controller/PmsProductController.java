@@ -81,6 +81,13 @@ public class PmsProductController {
                 }
                 return CommonResult.success(products, "Get product successfully");
             }
+            if (requestMap.containsKey("supplierUserId")) {
+                List<PmsProduct> products = pmsProductService.getBySupplierUserId(Long.parseLong(requestMap.get("supplierUserId")));
+                if (products == null) {
+                    return CommonResult.failed("No product found");
+                }
+                return CommonResult.success(products, "Get product successfully");
+            }
         } catch (Exception e) {
             return CommonResult.failed("Failed to get product. " + e.getMessage());
         }
