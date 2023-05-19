@@ -6,10 +6,12 @@ import com.ict4d_16.dos.modules.pms.dto.PmsProductParam;
 import com.ict4d_16.dos.modules.pms.model.PmsAudio;
 import com.ict4d_16.dos.modules.pms.model.PmsProduct;
 import com.ict4d_16.dos.modules.pms.mapper.PmsProductMapper;
+import com.ict4d_16.dos.modules.pms.model.PmsRecording;
 import com.ict4d_16.dos.modules.pms.model.PmsTranslate;
 import com.ict4d_16.dos.modules.pms.service.PmsAudioService;
 import com.ict4d_16.dos.modules.pms.service.PmsProductService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ict4d_16.dos.modules.pms.service.PmsRecordingService;
 import com.ict4d_16.dos.modules.pms.service.PmsTranslateService;
 import com.ict4d_16.dos.modules.ums.model.UmsAdmin;
 import com.ict4d_16.dos.modules.ums.service.UmsAdminService;
@@ -38,6 +40,8 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     private PmsTranslateService pmsTranslateService;
     @Autowired
     private PmsAudioService pmsAudioService;
+    @Autowired
+    private PmsRecordingService pmsRecordingService;
 
     @Override
     public PmsProduct create(PmsProductParam pmsProductParam) {
@@ -126,5 +130,27 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             product.setDescriptionAudios(descriptionAudioList);
         }
         return productList;
+    }
+
+    @Override
+    public PmsProduct updateByProductId(PmsProduct pmsProduct) {
+        PmsProduct product = new PmsProduct();
+        BeanUtils.copyProperties(pmsProduct, product);
+        product.setModifiedTime(new Date());
+        // Check if the seller exists
+        UmsAdmin seller = adminService.getById(pmsProduct.getSupplierUserId());
+        if (seller == null) {
+            throw new IllegalArgumentException("Seller does not exist");
+        }
+        // Check if the recording exists
+        PmsRecording recording = pmsRecordingService.getById(pmsProduct.getRecordingId());
+        if (recording == null) {
+            throw new IllegalArgumentException("Recording does not exist");
+        }
+        boolean success = updateById(product);
+        if (!success) {
+            throw new RuntimeException("Failed to update product");
+        }
+        return getTranslationAndAudio(Collections.singletonList(product)).get(0);
     }
 }

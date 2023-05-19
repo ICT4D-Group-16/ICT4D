@@ -38,6 +38,24 @@ Content-Type: application/json
   "supplierUserId": 19
 }
 
+### Update One Product By Id
+POST {{host}}/pms/product/update
+Content-Type: application/json
+
+{
+  "productId": 8,
+  "productName": "toy_23",
+  "supplierUserId": 17,
+  "recordingId": 13,
+  "price": 1.00,
+  "quantity": 1,
+  "description": "For fun",
+  "publishStatus": 1,
+  "auditStatus": 1,
+  "productionDate": "2020-01-01 00:00:00",
+  "indate": "2020-01-01 00:00:00"
+}
+
 ### Delete One Product By Id
 DELETE {{host}}/pms/product/delete/1
 

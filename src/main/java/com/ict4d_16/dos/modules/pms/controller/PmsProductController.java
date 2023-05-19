@@ -118,6 +118,20 @@ public class PmsProductController {
         }
     }
 
+    @ApiOperation("Update a product by id")
+    @PostMapping("/update")
+    public CommonResult<PmsProduct> update(@Validated @RequestBody PmsProduct pmsProduct) {
+        try {
+            PmsProduct product = pmsProductService.updateByProductId(pmsProduct);
+            if (product == null) {
+                return CommonResult.failed("Failed to update");
+            }
+            return CommonResult.success(product, "Update successfully");
+        } catch (Exception e) {
+            return CommonResult.failed("Failed to update product. " + e.getMessage());
+        }
+    }
+
     @ApiOperation("Delete a product by id")
     @DeleteMapping("/delete/{id}")
     public CommonResult deleteById(@PathVariable Long id) {
