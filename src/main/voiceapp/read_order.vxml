@@ -37,6 +37,7 @@
                         <break/>
                         Seller nickname:
                         <value expr="product.sellerNickname"/>
+                        <break/>
                         Phone:
                         <value expr="product.sellerPhone"/>
                         <break/>
