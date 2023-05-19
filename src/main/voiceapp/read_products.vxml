@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <form id="read_products">
+        <var name="product_list"/>
+        <block>
+            <foreach item="product" array="product_list">
+                <prompt>
+                    Product ID:
+                    <value expr="product.productId"/>
+                    <break/>
+                    Product name:
+                    <value expr="product.productName"/>
+                    <break/>
+                    Product description:
+                    <value expr="product.description"/>
+                    <break/>
+                    Product count:
+                    <value expr="product.quantity"/>
+                    <break/>
+                    Product price:
+                    <value expr="product.price"/>
+                    <break/>
+                    Supplier User ID:
+                    <value expr="product.supplierUserId"/>
+                    <break/>
+                    Date recorded:
+                    <value expr="product.indate"/>
+                    <break/>
+                    Modified Time:
+                    <value expr="product.modifiedTime"/>
+                    <break/>
+                </prompt>
+            </foreach>
+        </block>
+    </form>
+</vxml>
