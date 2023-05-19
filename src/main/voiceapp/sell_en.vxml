@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
-    <var name="phone" expr="session.callerid"/>
+    <var name="phone" expr="session.callerid.replace('+', '00')"/>
 
     <form id="sell_en">
         <record name="productName" beep="true" dtmfterm="true">

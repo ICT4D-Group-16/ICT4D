@@ -17,7 +17,8 @@
                         <audio expr="rec_ret.data.url">Failed to play the recording.</audio>
                         <else/>
                         <prompt>
-                            Failed to get recording information.
+                            The supplier user of this product selected to upload the information of this product via an entire segment of recording.
+                            But getting this recording failed.
                             Code:<value expr="rec_ret.code"/>.
                             Message:<value expr="rec_ret.message"/>.
                         </prompt>
