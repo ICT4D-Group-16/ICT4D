@@ -113,8 +113,33 @@
             <param name="order_list" expr="[ query_ret.data ]"/>
         </subdialog>
         <block>
-            <goto next="#continue2"/>
+            <goto next="#del"/>
         </block>
+    </form>
+    <form id="del">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To delete this order, press 1. Otherwise, press 0."/>
+            <param name="target_if_ok" value="1"/>
+            <param name="target_if_cancel" value="0"/>
+            <filled>
+                <if cond="ret.target !== 0">
+                    <data name="del_ret"
+                          srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/delete/&quot; + query_ret.data.orderId"
+                          method="delete" accept="application/json"/>
+                    <if cond="del_ret.code == 200">
+                        <prompt>Order deleted.</prompt>
+                        <else/>
+                        <prompt>
+                            Failed to delete order.
+                            Code:<value expr="del_ret.code"/>.
+                            Message:<value expr="del_ret.message"/>.
+                        </prompt>
+                    </if>
+                    <else/>
+                </if>
+                <goto next="#continue2"/>
+            </filled>
+        </subdialog>
     </form>
     <form id="continue2">
         <subdialog src="continue.vxml" name="ret">
