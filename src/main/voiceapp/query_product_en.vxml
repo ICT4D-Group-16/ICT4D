@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+    <var name="phone" expr="session.callerid.replace('+', '00')"/>
+    <var name="userId"/>
+
+    <form id="initial">
+        <block>
+            <data name="user_info_ret"
+                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
+                  method="get"/>
+            <if cond="user_info_ret.code == 200">
+                <assign name="userId" expr="user_info_ret.data.id"/>
+                <else/>
+                <prompt>
+                    Failed to get user ID.
+                    Code:<value expr="user_info_ret.code"/>.
+                    Message:<value expr="user_info_ret.message"/>.
+                </prompt>
+            </if>
+            <goto next="#query_product_en"/>
+        </block>
+    </form>
+
     <form id="query_product_en">
         <block>
             <data name="product_list_ret" src="https://ict4d-group16.herokuapp.com/pms/product/list"
@@ -24,6 +45,7 @@
                     <break/>
                     Supplier User ID:
                     <value expr="product.supplierUserId"/>
+                    <break/>
                     Date recorded:
                     <value expr="product.indate"/>
                     <break/>

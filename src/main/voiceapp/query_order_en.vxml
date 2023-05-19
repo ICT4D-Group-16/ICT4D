@@ -3,7 +3,7 @@
     <var name="phone" expr="session.callerid.replace('+', '00')"/>
     <var name="userId"/>
 
-    <form id="query_order_en">
+    <form id="initial">
         <block>
             <data name="user_info_ret"
                   srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
@@ -17,7 +17,11 @@
                     Message:<value expr="user_info_ret.message"/>.
                 </prompt>
             </if>
+            <goto next="#query_order_en"/>
         </block>
+    </form>
+
+    <form id="query_order_en">
         <field name="mode" type="digits">
             <prompt>
                 Select mode.
