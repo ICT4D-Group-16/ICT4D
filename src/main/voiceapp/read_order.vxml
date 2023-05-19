@@ -6,10 +6,10 @@
             <foreach item="order" array="order_list">
                 <prompt>
                     Order ID:
-                    <value expr="order_ID"/>
+                    <value expr="order.orderId"/>
                     <break/>
                     Product ID:
-                    <value expr="order_inf.productId"/>
+                    <value expr="order.productId"/>
                     <break/>
                     Seller:
                     <value expr=""/>
@@ -18,18 +18,18 @@
                     <value expr=""/>
                     <break/>
                     Count:
-                    <value expr="order_inf.productQuantity"/>
+                    <value expr="order.productQuantity"/>
                     <break/>
                     Price of each:
-                    <value expr="order_inf.productPrice"/>
+                    <value expr="order.productPrice"/>
                     <value expr=""/>
                     <break/>
                     Total price:
-                    <value expr="order_inf.productTotalPrice"/>
+                    <value expr="order.productTotalPrice"/>
                     <value expr=""/>
                     <break/>
                     Time:
-                    <value expr="order_inf.modifiedTime"/>
+                    <value expr="order.modifiedTime"/>
                     <break/>
                 </prompt>
             </foreach>
