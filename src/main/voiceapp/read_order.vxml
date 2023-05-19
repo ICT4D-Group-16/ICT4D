@@ -3,6 +3,9 @@
     <form id="read_order_en">
         <var name="order_list"/>
         <block>
+            <prompt>
+                <value expr="order_list.length"/> orders in total.
+            </prompt>
             <foreach item="order" array="order_list">
                 <prompt>
                     Order ID:
