@@ -77,7 +77,8 @@ public class PmsRecordingController {
     }
 
     @ApiOperation("Get a record by id")
-    @GetMapping("/get/{id}")
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @ResponseBody
     public CommonResult<PmsRecording> getById(@PathVariable Long id) {
         PmsRecording recording = recordingService.getById(id);
         if (recording == null) {

@@ -16,3 +16,6 @@ Content-Type: audio/wav
 
 < ./file_example_WAV_1MG.wav
 --WebAppBoundary--
+
+### Get a recording by id
+GET {{host}}/pms/recording/get/13
