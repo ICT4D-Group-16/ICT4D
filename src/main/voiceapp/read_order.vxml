@@ -8,29 +8,39 @@
                     Order ID:
                     <value expr="order.orderId"/>
                     <break/>
-                    Product ID:
-                    <value expr="order.productId"/>
+                    Total amount of money:
+                    <value expr="order.orderMoney"/>
                     <break/>
-                    Seller:
-                    <value expr=""/>
+                    Creation time:
+                    <value expr="order.createTime"/>
                     <break/>
-                    Product name:
-                    <value expr=""/>
-                    <break/>
-                    Count:
-                    <value expr="order.productQuantity"/>
-                    <break/>
-                    Price of each:
-                    <value expr="order.productPrice"/>
-                    <value expr=""/>
-                    <break/>
-                    Total price:
-                    <value expr="order.productTotalPrice"/>
-                    <value expr=""/>
-                    <break/>
-                    Time:
+                    Modification time:
                     <value expr="order.modifiedTime"/>
                     <break/>
+                    <value expr="order.orderDetails.length"/>
+                    products ordered.
+                    <foreach item="product" array="order.orderDetails">
+                        Product ID:
+                        <value expr="product.productId"/>
+                        <break/>
+                        Price:
+                        <value expr="product.productPrice"/>
+                        <break/>
+                        Count:
+                        <value expr="product.productQuantity"/>
+                        <break/>
+                        Total Price:
+                        <value expr="product.productTotalPrice"/>
+                        <break/>
+                        Modification time:
+                        <value expr="product.modifiedTime"/>
+                        <break/>
+                        Seller nickname:
+                        <value expr="product.sellerNickname"/>
+                        Phone:
+                        <value expr="product.sellerPhone"/>
+                        <break/>
+                    </foreach>
                 </prompt>
             </foreach>
             <return/>
