@@ -80,6 +80,16 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     }
 
     @Override
+    public List<PmsProduct> getBySupplierUserId(Long supplierUserId) {
+        QueryWrapper<PmsProduct> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("supplier_user_id", supplierUserId);
+        List<PmsProduct> productList = baseMapper.selectList(queryWrapper);
+        if (productList == null || productList.size() == 0) {
+            throw new RuntimeException("No product found");
+        }
+        return getTranslationAndAudio(productList); }
+
+    @Override
     public PmsProduct getById(Long id) {
         PmsProduct product = baseMapper.selectById(id);
         if (product == null) {
