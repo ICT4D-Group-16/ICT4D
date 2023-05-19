@@ -3,8 +3,24 @@
     <var name="orderMasterSubmitted" expr="false"/>
     <var name="orderId"/>
     <var name="orderDetails"/>
+    <var name="phone" expr="session.callerid.replace('+', '00')"/>
+    <var name="userId"/>
 
     <form id="buy_en">
+        <block>
+            <data name="user_info_ret"
+                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
+                  method="get"/>
+            <if cond="user_info_ret.code == 200">
+                <assign name="userId" expr="user_info_ret.data.id"/>
+                <else/>
+                <prompt>
+                    Failed to get user ID.
+                    Code:<value expr="user_info_ret.code"/>.
+                    Message:<value expr="user_info_ret.message"/>.
+                </prompt>
+            </if>
+        </block>
         <var name="product_inf"/>
         <block>
             <assign name="product_inf" expr="null"/>
@@ -87,12 +103,11 @@
                 <if cond="orderMasterSubmitted === false">
                     <data name="orderMasterRet" src="https://ict4d-group16.herokuapp.com/pms/orderMaster/create"
                           method="post" enctype="application/json" accept="application/json"
-                          namelist="application.userId"/>
+                          namelist="userId"/>
                     <if cond="orderMasterRet.code == 200">
                         <assign name="orderMasterSubmitted" expr="true"/>
                         <assign name="orderId" expr="orderMasterRet.data.orderId"/>
-                        <prompt>Order ID:
-                        <value expr="orderId"/>.
+                        <prompt>Order ID:<value expr="orderId"/>.
                         </prompt>
                         <else/>
                         <prompt>

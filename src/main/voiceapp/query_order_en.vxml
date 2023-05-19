@@ -1,6 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
     <form id="query_order_en">
+        <field name="mode">
+            <prompt>
+                Select mode.
+                Press 1 to list all your orders.
+                Press 2 to query orders by ID.
+                Press star to go back to the previous menu.
+            </prompt>
+            <grammar root="r" mode="dtmf">
+                <rule id="r">
+                    <one-of>
+                        <item>1</item>
+                        <item>2</item>
+                        <item>*</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <noinput>
+                <reprompt/>
+            </noinput>
+            <nomatch>
+                <reprompt/>
+            </nomatch>
+        </field>
+        <filled namelist="mode">
+            <if cond="mode == '1'">
+                <goto next="#list_order_en"/>
+                <elseif cond="mode == '2'"/>
+                <goto next="#query_order_by_ID_en"/>
+                <else/>
+                <goto next="main.vxml"/>
+            </if>
+        </filled>
+    </form>
+    <form id="list_order_en">
+        <data name="order_list_ret"
+              srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/getByUserId/&quot; + application.userId"
+              method="get"/>
+        <if cond="order_list_ret.code == 500 &amp;&amp; order_list_ret.message === 'Failed to query. Order not found'">
+            <prompt>You have no orders.</prompt>
+            <elseif cond="order_list_ret.code == 200"/>
+            <var name="order_list" expr="order_list_ret.data"/>
+            <foreach item="order" array="order_list">
+                <prompt>
+                    Order ID:
+                    <value expr="order.orderId"/>
+                    <break/>
+                    Product ID:
+                    <value expr="order.productId"/>
+                    <break/>
+                    Seller:
+                    <value expr=""/>
+                    <break/>
+                    Product name:
+                    <value expr=""/>
+                    <break/>
+                    Count:
+                    <value expr="order.productQuantity"/>
+                    <break/>
+                    Price of each:
+                    <value expr="order.productPrice"/>
+                    <value expr=""/>
+                    <break/>
+                    Total price:
+                    <value expr="order.productTotalPrice"/>
+                    <value expr=""/>
+                    <break/>
+                    Time:
+                    <value expr="order.modifiedTime"/>
+                    <break/>
+                </prompt>
+            </foreach>
+        </if>
+        <goto next="#continue1"/>
+    </form>
+    <form id="continue1">
+        <subdialog src="continue.vxml" name="ret">
+            <param name="prompt" value="To re-listen, press 1. To finish, press 0."/>
+            <param name="target_if_ok" value="#list_order_en"/>
+            <param name="target_if_cancel" value="#query_order_en"/>
+            <filled>
+                <goto expr="ret.target"/>
+            </filled>
+        </subdialog>
+    </form>
+    <form id="query_order_by_ID_en">
         <field name="order_ID" type="digits">
             <prompt>
                 Enter the ID of the order you want to query.
@@ -8,9 +93,10 @@
             <grammar src="builtin:dtmf/digits"/>
         </field>
         <filled>
-            <data name="order_inf" srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/get/&quot; + order_ID" method="get"/>
+            <data name="order_inf"
+                  srcexpr="&quot;https://ict4d-group16.herokuapp.com/pms/orderMaster/get/&quot; + order_ID"
+                  method="get"/>
             <prompt>
-                Order Information.
                 Order ID:
                 <value expr="order_ID"/>
                 <break/>
@@ -38,14 +124,14 @@
                 <value expr="order_inf.modifiedTime"/>
                 <break/>
             </prompt>
-            <goto next="#continue"/>
+            <goto next="#continue2"/>
         </filled>
     </form>
-    <form id="continue">
+    <form id="continue2">
         <subdialog src="continue.vxml" name="ret">
             <param name="prompt" value="To query another order, press 1. To finish, press 0."/>
-            <param name="target_if_ok" value="#query_order_en"/>
-            <param name="target_if_cancel" value="mode_en.vxml"/>
+            <param name="target_if_ok" value="#query_order_by_ID_en"/>
+            <param name="target_if_cancel" value="#query_order_en"/>
             <filled>
                 <goto expr="ret.target"/>
             </filled>
