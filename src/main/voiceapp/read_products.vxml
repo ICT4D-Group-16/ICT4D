@@ -31,6 +31,7 @@
                     <break/>
                 </prompt>
             </foreach>
+            <return/>
         </block>
     </form>
 </vxml>
