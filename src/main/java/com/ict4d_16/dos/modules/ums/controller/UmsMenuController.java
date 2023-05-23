@@ -40,7 +40,7 @@ public class UmsMenuController {
         }
     }
 
-    @ApiOperation("修改后台菜单")
+    @ApiOperation("Modify the backend menu")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Long id,

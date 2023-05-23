@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "UmsResourceController")
-@Tag(name = "UmsResourceController", description = "后台资源管理")
+@Tag(name = "UmsResourceController", description = "Backend resource management")
 @RequestMapping("/resource")
 public class UmsResourceController {
 
@@ -57,7 +57,7 @@ public class UmsResourceController {
         }
     }
 
-    @ApiOperation("根据ID获取资源详情")
+    @ApiOperation("Get resource details by ID")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<UmsResource> getItem(@PathVariable Long id) {
@@ -65,7 +65,7 @@ public class UmsResourceController {
         return CommonResult.success(umsResource);
     }
 
-    @ApiOperation("根据ID删除后台资源")
+    @ApiOperation("Delete backend resources based on ID")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult delete(@PathVariable Long id) {
@@ -78,7 +78,7 @@ public class UmsResourceController {
         }
     }
 
-    @ApiOperation("分页模糊查询后台资源")
+    @ApiOperation("Paged fuzzy query backend resources")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<CommonPage<UmsResource>> list(@RequestParam(required = false) Long categoryId,
@@ -90,7 +90,7 @@ public class UmsResourceController {
         return CommonResult.success(CommonPage.restPage(resourceList));
     }
 
-    @ApiOperation("查询所有后台资源")
+    @ApiOperation("Query all backend resources")
     @RequestMapping(value = "/listAll", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<List<UmsResource>> listAll() {
