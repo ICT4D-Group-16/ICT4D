@@ -8,7 +8,7 @@
     <var name="productId"/>
     <var name="productQuantity"/>
 
-    <form id="buy_en">
+    <form id="initial">
         <block>
             <data name="user_info_ret"
                   srcexpr="&quot;https://ict4d-group16.herokuapp.com/user/info/&quot; + phone"
@@ -22,8 +22,11 @@
                     Message:<value expr="user_info_ret.message"/>.
                 </prompt>
             </if>
+            <goto next="#buy_en"/>
         </block>
+    </form>
 
+    <form id="buy_en">
         <field name="productId" type="digits">
             <prompt>
                 Enter the ID of the product you want to purchase.
