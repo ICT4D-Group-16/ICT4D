@@ -44,7 +44,10 @@
             <prompt>
                 Product information.
             </prompt>
+            <goto next="#buy_en_2"/>
         </filled>
+    </form>
+    <form id="buy_en_2">
         <field name="productQuantity" type="digits">
             <prompt>
                 Enter the count of this purchase.
