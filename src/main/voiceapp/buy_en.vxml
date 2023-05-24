@@ -5,6 +5,8 @@
     <var name="orderDetails"/>
     <var name="phone" expr="session.callerid.replace('+', '00')"/>
     <var name="userId"/>
+    <var name="productId"/>
+    <var name="productQuantity"/>
 
     <form id="buy_en">
         <block>
@@ -21,10 +23,6 @@
                 </prompt>
             </if>
         </block>
-        <var name="product_inf"/>
-        <block>
-            <assign name="product_inf" expr="null"/>
-        </block>
 
         <field name="productId" type="digits">
             <prompt>
@@ -33,26 +31,15 @@
             <grammar src="builtin:dtmf/digits"/>
         </field>
         <filled namelist="productId">
-            <data name="product_search_result" src="https://ict4d-group16.herokuapp.com/pms/product/search"
+            <data name="query_ret" src="https://ict4d-group16.herokuapp.com/pms/product/search"
                   method="post" enctype="application/json" accept="application/json"
                   namelist="productId"/>
-            <if cond="product_search_result.data === null">
+            <if cond="query_ret.data === null">
                 <prompt>The product with this ID does not exist.</prompt>
                 <goto next="#buy_en"/>
             </if>
-            <assign name="product_inf" expr="product_search_result.data[0]"/>
             <prompt>
                 Product information.
-                ID:
-                <value expr="product_inf.productId"/>
-                <break/>
-                Name:
-                <value expr="product_inf.productName"/>
-                <break/>
-                Price of each:
-                <value expr="product_inf.price"/>
-                <value expr=""/>
-                <break/>
             </prompt>
         </filled>
         <field name="productQuantity" type="digits">
@@ -63,30 +50,6 @@
         </field>
         <field name="confirm">
             <prompt>
-                Check the purchase information.
-                Product ID:
-                <value expr="productId"/>
-                <break/>
-                Product name:
-                <value expr="product_inf.productName"/>
-                <break/>
-                Product description:
-                <value expr="product_inf.description"/>
-                <break/>
-                Production date:
-                <value expr="product_inf.productionDate"/>
-                <break/>
-                Purchase count:
-                <value expr="productQuantity"/>
-                <break/>
-                Price of each:
-                <value expr="product_inf.price"/>
-                <value expr=""/>
-                <break/>
-                Total price:
-                <value expr="product_inf.price * productQuantity"/>
-                <value expr=""/>
-                <break/>
                 Press 1 to confirm to order this product.
                 Press 0 to cancel.
             </prompt>
