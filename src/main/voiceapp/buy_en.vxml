@@ -7,6 +7,7 @@
     <var name="userId"/>
     <var name="productId"/>
     <var name="productQuantity"/>
+    <var name="query_ret"/>
 
     <form id="initial">
         <block>
@@ -27,13 +28,14 @@
     </form>
 
     <form id="buy_en">
-        <field name="productId" type="digits">
+        <field name="product_ID" type="digits">
             <prompt>
                 Enter the ID of the product you want to purchase.
             </prompt>
             <grammar src="builtin:dtmf/digits"/>
         </field>
-        <filled namelist="productId">
+        <filled namelist="product_ID">
+            <assign name="productId" expr="product_ID"/>
             <data name="query_ret" src="https://ict4d-group16.herokuapp.com/pms/product/search"
                   method="post" enctype="application/json" accept="application/json"
                   namelist="productId"/>
@@ -44,16 +46,28 @@
             <prompt>
                 Product information.
             </prompt>
-            <goto next="#buy_en_2"/>
+            <goto next="#sub1"/>
         </filled>
     </form>
+    <form id="sub1">
+        <subdialog src="read_products.vxml">
+            <param name="product_list" expr="query_ret.data"/>
+        </subdialog>
+        <block>
+            <goto next="#buy_en_2"/>
+        </block>
+    </form>
+
     <form id="buy_en_2">
-        <field name="productQuantity" type="digits">
+        <field name="product_quantity" type="digits">
             <prompt>
                 Enter the count of this purchase.
             </prompt>
             <grammar src="builtin:dtmf/number"/>
         </field>
+        <filled namelist="product_quantity">
+            <assign name="productQuantity" expr="product_quantity"/>
+        </filled>
         <field name="confirm">
             <prompt>
                 Press 1 to confirm to order this product.
