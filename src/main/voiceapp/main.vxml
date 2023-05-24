@@ -31,6 +31,7 @@
                     Message:<value expr="ret.message"/>.
                 </prompt>
             </if>
+            <goto next="#main"/>
         </block>
     </form>
 
